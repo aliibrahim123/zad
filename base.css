@@ -1,0 +1,177 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body { 
+	min-height: 100%;
+	--font-size: 25px;
+	direction: rtl
+}
+
+.hide {
+	display: none
+}
+
+*[cind='0'] {
+	--cind: 0
+}
+
+*[cind='1'] {
+	--cind: 1
+}
+
+*[cind='2'] {
+	--cind: 2
+}
+
+*[cind='3'] {
+	--cind: 3
+}
+
+*[cind='4'] {
+	--cind: 4
+}
+
+*[cind='5'] {
+	--cind: 5
+}
+
+*[cind='6'] {
+	--cind: 6
+}
+
+*[cind='7'] {
+	--cind: 7
+}
+
+*[cind='8'] {
+	--cind: 8
+}
+
+#main {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0;
+	margin: min(7%, 40px);
+	padding: 10px;
+	background-color: rgba(0,0,0,75%);
+	border: black 7px double;
+	border-radius: 42px;
+	box-shadow: 0px 0px 35px 7px black;
+	color: white
+}
+
+#content {
+	padding-top: 5px;
+	overflow-y: auto;
+	height: 100%;
+	font-size: var(--font-size)
+}
+
+@font-face {
+	font-family: 'f-1';
+	src: url('./assests/fonts/1.ttf')
+}
+
+@font-face {
+	font-family: 'f-2';
+	src: url('./assests/fonts/2.ttf')
+}
+
+@font-face {
+	font-family: 'f-3';
+	src: url('./assests/fonts/3.ttf')
+}
+
+@font-face {
+	font-family: 'f-4';
+	src: url('./assests/fonts/4.ttf')
+}
+
+@font-face {
+	font-family: 'f-5';
+	src: url('./assests/fonts/5.ttf')
+}
+
+@font-face {
+	font-family: 'f-6';
+	src: url('./assests/fonts/6.ttf')
+}
+
+@font-face {
+	font-family: 'f-7';
+	src: url('./assests/fonts/7.ttf')
+}
+
+@font-face {
+	font-family: 'f-8';
+	src: url('./assests/fonts/8.ttf')
+}
+
+@font-face {
+	font-family: 'f-9';
+	src: url('./assests/fonts/9.ttf')
+}
+
+@font-face {
+	font-family: 'f-10';
+	src: url('./assests/fonts/10.ttf')
+}
+
+@font-face {
+	font-family: 'f-11';
+	src: url('./assests/fonts/11.ttf')
+}
+
+@font-face {
+	font-family: 'f-12';
+	src: url('./assests/fonts/12.ttf')
+}
+
+@font-face {
+	font-family: 'f-13';
+	src: url('./assests/fonts/13.ttf')
+}
+
+@font-face {
+	font-family: 'f-14';
+	src: url('./assests/fonts/14.ttf')
+}
+
+@font-face {
+	font-family: 'f-15';
+	src: url('./assests/fonts/15.ttf')
+}
+
+@font-face {
+	font-family: 'f-16';
+	src: url('./assests/fonts/16.ttf')
+}
+
+@font-face {
+	font-family: 'f-17';
+	src: url('./assests/fonts/17.ttf')
+}
+
+@font-face {
+	font-family: 'f-18';
+	src: url('./assests/fonts/18.ttf')
+}
+
+@font-face {
+	font-family: 'f-19';
+	src: url('./assests/fonts/19.ttf')
+}
+
+@font-face {
+	font-family: 'f-20';
+	src: url('./assests/fonts/20.ttf')
+}
+
+@font-face {
+	font-family: quran;
+	src: url('./assests/fonts/quran.ttf')
+}

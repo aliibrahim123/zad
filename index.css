@@ -1,0 +1,102 @@
+#title {
+	text-align: center;
+    font-size: calc(var(--font-size) * 2.5);
+}
+
+.sub-menu {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0;
+}
+
+.sub-title {
+	text-align: center;
+    font-size: calc(var(--font-size) * 1.8);
+}
+
+.sub-item {
+	padding-bottom: 3px;
+	text-decoration: underline rgb(100, 26, 159)
+}
+
+.item {
+	padding-bottom: 5px;
+	text-decoration: underline rgb(100, 26, 159)
+}
+
+.flowIn {
+	animation: flowIn 1s cubic-bezier(0.19, -0.01, 0.63, 1.38);
+	animation-delay: calc(var(--cind) * 0.25s);
+	animation-fill-mode: backwards
+}
+
+@keyframes flowIn {
+	from {
+		transform: translateY(50px);
+		opacity: 0
+	}
+}
+
+.shrink {
+	animation: shrink 1.5s both
+}
+
+.shrink2 {
+	animation: shrink2 1.5s both;
+}
+
+.grow1 {
+	animation: grow1 1.5s;
+	overflow: hidden;
+}
+
+.grow2 {
+	animation: grow2 1.5s;
+}
+
+@keyframes shrink {
+	from {
+		transform: scale(100%)
+	}
+	to {
+		height: 0px;
+		transform: scale(0%)
+	}
+}
+
+@keyframes shrink2 {
+	from {
+		transform: scale(100%)
+	}
+	to {
+		height: 0px;
+		transform: scale(0%)
+	}
+}
+
+@keyframes grow1 {
+	from {
+		height: 0%;
+		transform: scale(0)
+	}
+	to {
+		height: 70%;
+		transform: scale(100%)
+	}
+}
+
+@keyframes grow2 {
+	from {
+		transform: scale(0)
+	}
+	to {
+		transform: scale(100%)
+	}
+}
+
+a {
+	color: white;
+	text-decoration: none
+}

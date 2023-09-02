@@ -1,0 +1,12 @@
+#title {
+	text-align: center;
+    font-size: calc(var(--font-size) * 1.8);
+}
+
+.item {
+	padding-bottom: 4px
+}
+
+#back {
+	font-size: calc(var(--font-size) * 1.3)
+}

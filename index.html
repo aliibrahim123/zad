@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<title>زاد العباد ليوم المعاد</title>
+
+<script>globalThis.curPath = './'</script>
+
+<!-- simply.js modules -->
+<script id='lib-comp-base'   type=module src='./node_modules/@simplyjs/lib/dist/comp/base.js'></script>
+<script id='lib-comp-router' type=module src='./node_modules/@simplyjs/lib/dist/comp/router.js'></script>
+<script id='lib-dom-chain' type=module src='./node_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
+
+<!-- core modules -->
+<script id='base' type=module src='./base.js'></script>
+<script id='obj'  type=module src='./obj.js'></script>
+<link preserve-on-route id='global-style' rel=stylesheet href='./base.css'>
+
+<script id='root-page' type=module src='./src/rootPage.js'></script>
+<link rel=stylesheet href='./index.css'>
+
+<div id=main comp-name='lazy:main' is-root path='./'>
+	<div id=content>
+		<div id=title class='flowIn' cind=0>زاد العباد ليوم المعاد</div>
+		<div use:on on(click):call='["showSubMenu", "quran"]' class='item flowIn' cind=1>قران</div>
+		<div class='sub-menu hide' sub-menu=quran>
+			<div class='sub-title'>قران</div>
+			<div id='sub-item' use:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./quran/index.html'>قران كريم</a></div>
+			<div id='sub-item'><a href='./quran/topics.html'>موضوعات القران الكريم</a></div>
+			<div id='sub-item'><a href='./quran/ghera.html'>خيرة</a></div>
+			<div id='sub-item'><a href='./tajweed/index.html'>احكام التجويد</a></div>
+		</div>
+		<div use:on on(click):call='["showSubMenu", "doaa"]'class='item flowIn' cind=2>ادعية</div>
+		<div use:on on(click):call='["showSubMenu", "sala"]'class='item flowIn' cind=3>صلاة</div>
+		<div use:on on(click):call='["showSubMenu", "aamal"]'class='item flowIn' cind=4>اعمال</div>
+		<div use:on on(click):call='["showSubMenu", "kesas"]'class='item flowIn' cind=5>قصص وسير</div>
+		<div use:on on(click):call='["showSubMenu", "turath"]'class='item flowIn' cind=6>تراث الأئمة</div>
+		<div use:on on(click):call='["showSubMenu", "tools"]'class='item flowIn' cind=7>ادوات</div>
+		<div use:on on(click):call='["showSubMenu", "others"]'class='item flowIn' cind=8>اخرى</div>
+		<div class='sub-menu hide' sub-menu=others>
+			<div class='sub-title'>اخرى</div>
+			<div id='sub-item' use:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./setting/index.html'>اعدادات</a></div>
+		</div>
+	</div>
+</div>

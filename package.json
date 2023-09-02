@@ -1,0 +1,10 @@
+{
+	"name": "zad",
+	"version": "0.0.0",
+	"description": "",
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@simplyjs/lib": "^0.0.2"
+	}
+}
