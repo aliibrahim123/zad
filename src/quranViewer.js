@@ -9,17 +9,37 @@ var comp = createComp(() => {
 		var store = useStore();
 		var page = store.page;
 		var soraInd = store.sora;
+		var lastClick = store.lastClick;
+		var textEl = $el('#sub-content')[0];
+		
+		store.lastClick = Date.now();
+		
+		//clone page
+		var old = textEl.cloneNode(true);
 		
 		//get page
 		var content = await fetch(`../data/quran/${soraInd}/${page}.txt`).then(r => r.text());
 		
 		//update page
-		$el('#sub-content')[0].innerText = content;
+		textEl.innerText = content;
 		
 		//update meta
 		$el('#sora')[0].innerText = indToSor[soraInd];
 		$el('#page')[0].innerText = page;
 		$el('#part')[0].innerText = `جزأ: ${page === 1 ? 1 : Math.min(Math.ceil((page -1) / 20), 30)}`;
+		
+		//handle quick navigation
+		if (Date.now() - lastClick < 1500) return;
+		//animate old
+		old.id = '';
+		old.style.top = 0;
+		$el('#content')[0].append(old);
+		old.animate([{opacity: 1}, {opacity: 0}], {duration: 400}).finished.then(
+			() => old.remove()
+		);
+		
+		//animate new
+		textEl.animate([{opacity: 0}, {opacity: 0, offset: 0.4}, {opacity: 1}], {duration: 500});
 	});
 	
 	setFun('decFont', () => fontMan.decSize());
@@ -72,6 +92,11 @@ var comp = createComp(() => {
 		globalObjects['قرآن']['علامة'][el.innerText] = sora + '/' + page;
 		localStorage.setItem('z-markers', JSON.stringify(globalObjects['قرآن']['علامة']));
 		$el('#markers')[0].open = false
+	});
+	
+	setFun('tafseer', () => {
+		var { page, sora } = useStore();
+		$comp.router.go(`../tafseer/viewer.html?id=${sora}/${page}&title=صفحة (${page})`)
 	})
 	
 	return `<span>`

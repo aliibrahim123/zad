@@ -28,7 +28,7 @@
 
 .flowIn {
 	animation: flowIn 1s cubic-bezier(0.19, -0.01, 0.63, 1.38);
-	animation-delay: calc(var(--cind) * 0.25s);
+	animation-delay: calc(var(--cind) * 0.1s);
 	animation-fill-mode: backwards
 }
 

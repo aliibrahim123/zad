@@ -49,6 +49,10 @@ html, body {
 	--cind: 8
 }
 
+*[cind='9'] {
+	--cind: 9
+}
+
 #main {
 	position: absolute;
 	top: 0px;

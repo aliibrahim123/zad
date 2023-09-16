@@ -4,7 +4,13 @@
 }
 
 .item {
-	padding-bottom: 4px
+	padding: 2px
+}
+
+.cat {
+	text-decoration: underline;
+	padding-bottom: 4px;
+	padding-top: 4px;
 }
 
 #back {

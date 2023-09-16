@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<title>زاد العباد ليوم المعاد: محول تواريخ</title>
+
+<!-- simply.js modules -->
+<script id='lib-comp-base'   type=module src='../n_modules/@simplyjs/lib/dist/comp/base.js'></script>
+<script id='lib-comp-router' type=module src='../n_modules/@simplyjs/lib/dist/comp/router.js'></script>
+<script id='lib-dom-chain' type=module src='../n_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
+
+<!-- core modules -->
+<script id='base' type=module src='../base.js'></script>
+<script id='obj'  type=module src='../obj.js'></script>
+<link preserve-on-route id='global-style' rel=stylesheet href='../base.css'>
+
+<script id='tconv-page' type=module src='../src/tconvPage.js'></script>
+<link rel=stylesheet href='./index.css'>
+
+<div id=main comp-name='lazy:tconv' is-root path='../'>
+	<div id=content>
+		<span id=add class=button use:on on(click):call='["toHijri"]'>إلى هجري</span>
+		<span id=add class=button use:on on(click):call='["fromHijri"]'>إلى ميلادي</span>
+		<div id=out></div>
+		<input type=number id=day min=1 max=31 placeholder='يوم'>
+		<input type=number id=month min=1 max=12 placeholder='شهر'>
+		<input type=number id=year placeholder='سنة'>
+	</div>
+	
+</div>

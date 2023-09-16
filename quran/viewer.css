@@ -2,6 +2,11 @@
 	font-family: quran
 }
 
+#sub-content {
+	height: 0px;
+	overflow-y: visible;
+}
+
 .button {
 	padding: 2px;
 	margin: 1px;

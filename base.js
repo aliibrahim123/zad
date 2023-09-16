@@ -2,8 +2,10 @@
 
 import { randomBackground } from './src/rand-bck.js';
 import { fontMan } from './src/font.js';
+import { toHijri, fromHijri } from './src/dateConv.js';
 
 globalThis.curPath = $el('#main')[0].getAttribute('path');
+globalThis.lastFahrasPath = [''];
 
 globalThis.fontMan = fontMan;
 var font = JSON.parse(localStorage.getItem('z-font'));
@@ -14,6 +16,8 @@ if (font) {
 fontMan.apply();
 
 randomBackground();
+
+globalThis.dateConverter = { toHijri, fromHijri };
 
 $comp.attachRouter();
 $comp.router.on('before-update', (_, page) => {
