@@ -6,6 +6,7 @@ var { pageToSor, sormap, sorToInd, indToSor } = globalObjects.quranHelpers;
 
 var comp = createComp(() => {
 	setFun('update', async (url) => {
+		$el('#main')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.87)';
 		var store = useStore();
 		var page = store.page;
 		var soraInd = store.sora;

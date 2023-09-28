@@ -13,7 +13,7 @@ if (font) {
 	fontMan.curSize = font.size;
 	fontMan.curFont = font.type
 }
-fontMan.apply();
+setTimeout(() => fontMan.apply(), 5000);
 
 randomBackground();
 

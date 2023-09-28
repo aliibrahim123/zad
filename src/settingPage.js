@@ -10,7 +10,7 @@ var comp = createComp(() => {
 	
 	return `<span>`
 }, () => {
-	
+	$el('#main')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.87)';
 });
 
 $comp.add('setting', comp);

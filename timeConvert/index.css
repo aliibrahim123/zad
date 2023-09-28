@@ -1,14 +1,37 @@
 .button {
-	padding: 2px;
-	margin: 1px;
-	border: black solid 3px
+	transition: background 0.3s;
+	padding: calc(var(--vd) * (1/3));
+	margin-bottom: calc(var(--vd) * (1/3));
+	border: black solid 3px;
+	border-radius: var(--vd);
+	background: rgba(0,0,0,0.6);
+	display: inline-block;
+}
+
+.button:hover {
+	background: rgba(0,0,0,0.8)
+}
+
+.button:active {
+	background: black
+}
+
+#out {
+	padding: 7px;
+	border: black solid 3px;
+	border-radius: var(--vd);
+	background: rgba(0,0,0,0.6);
+	width: fit-content;
 }
 
 #title {
+	background: rgba(0,0,0,0.35);
+	border: solid black 3px;
+	border-radius: calc(var(--vd) * 1.6);
 	text-align: center;
     font-size: calc(var(--font-size) * 1.8);
 }
 
 #item {
-    margin-top: 10px;
+    margin-top: calc(var(--vd) * (2/3));
 }

@@ -18,7 +18,7 @@ var comp = createComp(() => {
 		setTimeout(() => {
 			$el.chain('.grow2').removeClass('grow2').removeClass('shrink');
 			$el.chain('.shrink2').addClass('hide').removeClass('shrink2')
-		}, 2000)
+		}, 1500)
 	});
 	setFun('goToMWork', () => {
 		var [day, month] = dateConverter.toHijri(new Date().getDate(), new Date().getMonth() +1, new Date().getFullYear());

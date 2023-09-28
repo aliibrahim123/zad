@@ -11,7 +11,8 @@ var comp = createComp(() => {
 		
 		//generate list
 		var items = Object.keys(list).map(
-			item => $el(`<div class='item hide ${typeof list[item] === 'object' ? 'cat' : ''}' use:on on(click):call='["change", "${item}"]'>${item}`)[0]
+			item => $el(`<div class='item hide ${typeof list[item] === 'object' ? 'cat' : ''}' use:on on(click):call='["change", "${item}"]'>
+				${typeof list[item] === 'object' ? '' : '⦁ '}${item}`)[0]
 		);
 		items.unshift(
 			$el(`<div id=title class=hide>${path[path.length -1]}`)[0],

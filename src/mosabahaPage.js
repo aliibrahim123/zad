@@ -5,6 +5,7 @@ var { createComp, setFun, useCall, useComp } = $comp.func;
 globalThis.mosabaha = JSON.parse(localStorage.getItem('mosabaha')) || {};
 var comp = createComp(() => {
 	setFun('update', () => {
+		$el('#main')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.87)';
 		$el('#items')[0].replaceChildren(...Object.keys(mosabaha).map(name => 
 			$el(`<div id=item>
 				${name}: ${mosabaha[name]}
