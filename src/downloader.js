@@ -12,7 +12,7 @@ if (!localStorage.getItem('notFirstTime')) document.body.append($el(`<div id=ftd
 
 var finished = false;
 navigator.serviceWorker.onmessage = ({data}) => {
-	if (finished || (data[0] === 'c-process' && data[1] === data[2])) return;
+	if (finished || (data[0] === 'c-process' && data[1] < data[2])) return;
 	if (!$el('#download').length) document.body.append($el(`<div id=download class='popup hide'>`)[0]);
 	var el = $el('#download')[0];
 	el.classList.remove('hide');

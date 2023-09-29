@@ -25,6 +25,53 @@ export var fontMan = {
 	}
 }
 
+var askForSize = () => {
+	if (!confirm('اهذا هاتف')) fontMan.curSize = 1.6;
+	else {
+		fontMan.curSize = 1.46
+	}
+}
+
+var delay = (d) => new Promise((r) => setTimeout(r, d));
+
+if (!localStorage.getItem('notFirstTime')) setTimeout(async () => {
+	if (!confirm('اهذا هاتف')) return;
+	fontMan.curSize = 2.3;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 3.0;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 3.8;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 4.4;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 4.9;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 5.3;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 6.0;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 7;
+	fontMan.apply();
+	await delay(1000)
+	if (confirm('أهذا احسن')) return;
+	fontMan.curSize = 8;
+	fontMan.apply();
+}, 3000)
+
 //generate vd (viewport diagonal)
 //represent 1% of the viewport diagonals
 //usefull for exact dimensions across every screen size
