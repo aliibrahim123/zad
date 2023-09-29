@@ -5,7 +5,6 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"@simplyjs/lib": "^0.0.2",
-		"date-fns": "^2.30.0"
+		"@simplyjs/lib": "^0.0.2"
 	}
 }

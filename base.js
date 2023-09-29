@@ -3,9 +3,17 @@
 import { randomBackground } from './src/rand-bck.js';
 import { fontMan } from './src/font.js';
 import { toHijri, fromHijri } from './src/dateConv.js';
+import './src/downloader.js'
 
 globalThis.curPath = $el('#main')[0].getAttribute('path');
 globalThis.lastFahrasPath = [''];
+navigator.serviceWorker.register(curPath + 'sw.js', {type:'module'});
+
+//handle cache
+if (localStorage.getItem('downloadale') && localStorage.getItem('z-last-v') !== '1')
+	downloadAll()
+localStorage.setItem('z-last-v', '1');
+localStorage.setItem('notFirstTime', 'true');
 
 globalThis.fontMan = fontMan;
 var font = JSON.parse(localStorage.getItem('z-font'));
