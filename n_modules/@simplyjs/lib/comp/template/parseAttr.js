@@ -47,7 +47,7 @@ parse.parseArg = (str) => {
 	if (str === 'true') return true;
 	if (str === 'false') return false;
 	if (str === 'null') return null;
-	if (str === 'undefined') return undefined;
+	if (str === 'undefined') return;
 	var n = Number(str);
 	if (!isNaN(n)) return n;
 	return str
@@ -91,7 +91,7 @@ parse.handle = (str, comp, el, value) => {
 			Array.isArray(i) ? parse.valueNS[i[0]](comp, el, value, i) : i
 		)); //function call
 		else if (i.type === 'vNS') return parse.valueNS[i.value[0]](comp, el, value, i.value); //value namespace
-		else throw new CompError('parse attr: undefined attribute expression type ('+i.type+')')
+		else throw new CompError('parse attr: undefined expression type ('+i.type+')')
 	}).join('')
 }
 

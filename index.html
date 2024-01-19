@@ -7,7 +7,7 @@
 <!-- simply.js modules -->
 <script id='lib-comp-base'   type=module src='./n_modules/@simplyjs/lib/dist/comp/base.js'></script>
 <script id='lib-comp-router' type=module src='./n_modules/@simplyjs/lib/dist/comp/router.js'></script>
-<script id='lib-dom-chain' type=module src='./n_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
+<script id='lib-dom-chain'   type=module src='./n_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
 
 <!-- core modules -->
 <script id='base' type=module src='./base.js'></script>
@@ -18,81 +18,78 @@
 <link rel=stylesheet href='./index.css'>
 
 <div id=main comp-name='lazy:main' is-root path='./'>
-	<div id=content>
-		<div id=title class='flowIn' cind=0>زاد العباد ليوم المعاد</div>
-		<div use:on on(click):call='["showSubMenu", "today"]'  class='item flowIn' cind=1>عن اليوم</div>
-		<div use:on on(click):call='["showSubMenu", "quran"]'  class='item flowIn' cind=2>قران</div>
-		<div use:on on(click):call='["showSubMenu", "doaa"]'   class='item flowIn' cind=3>ادعية</div>
-		<div use:on on(click):call='["showSubMenu", "sala"]'   class='item flowIn' cind=4>صلاة</div>
-		<div use:on on(click):call='["showSubMenu", "aamal"]'  class='item flowIn' cind=5>اعمال</div>
-		<div use:on on(click):call='["showSubMenu", "kesas"]'  class='item flowIn' cind=6>قصص وسير</div>
-		<div use:on on(click):call='["showSubMenu", "turath"]' class='item flowIn' cind=7>تراث الأئمة</div>
-		<div use:on on(click):call='["showSubMenu", "tools"]'  class='item flowIn' cind=8>ادوات</div>
-		<div use:on on(click):call='["showSubMenu", "others"]' class='item flowIn' cind=9>اخرى</div>
+	<div id=filler>
+		<div id=main-menu r:on comp:ref='main-menu'>
+			<div id=title class='centered' r:on comp:ref='title'>زاد العباد ليوم المعاد</div>
+			<div class=grid r:on comp:ref='button-grid'>
+				<div r:on on(click):call='["showSubMenu", "today"]'  style='grid-column: span 2' class='button hide'>عن اليوم</div>
+				<div r:on on(click):call='["showSubMenu", "quran"]'  class='button hide'>قران</div>
+				<div r:on on(click):call='["showSubMenu", "doaa"]'   class='button hide'>أدعية وعبادات</div>
+				<div r:on on(click):call='["showSubMenu", "kesas"]'  class='button hide'>قصص وسير</div>
+				<div r:on on(click):call='["showSubMenu", "turath"]' class='button hide'>تراث الأئمة</div>
+				<div r:on on(click):call='["showSubMenu", "tools"]'  class='button hide'>ادوات</div>
+				<div r:on on(click):call='["showSubMenu", "others"]' class='button hide'>اخرى</div>
+			</div>
+		</div>
 		
-		<div class='sub-menu hide' sub-menu=today>
+		<div class='sub-menu hide' r:on comp:ref=today>
 			<div class='sub-title'>عن اليوم</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id=time></div>
-			<h3 id=monhead class=hide>مناسبات</h3>
-			<div id=monasabat></div>
-			<div id=mwork use:on on(click):call='["goToMWork"]' class=hide>أعمال اليوم (كل سنة)</div>
-			<div id=wwork use:on on(click):call='["goToWWork"]'>أعمال اليوم (كل أسبوع)</div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id=date r:on bind(date):text>اليوم: {date}</div></br>
+			<b>أوقات: </b>
+			<div id=sala r:on bind(stime):text>{stime}</div><br>
+			<h3 id=monhead r:on bind(monasabat):if='monasabat'>مناسبات</h3>
+			<div id=monasabat r:on bind(monasabat):text>{monasabat}</div>
+			<div id=mwork class=hide r:on on(click):call='["goToMWork"]' comp:ref=mwork>⦁ أعمال اليوم (كل سنة)</div>
+			<div id=wwork r:on on(click):call='["goToWWork"]'>⦁ أعمال اليوم (كل أسبوع)</div>
 		</div>
-		<div class='sub-menu hide' sub-menu=quran>
+		<div class='sub-menu hide' r:on comp:ref=quran>
 			<div class='sub-title'>قران</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./quran/index.html'>قران كريم</a></div>
-			<div id='sub-item'><a href='./quran/topics.html'>موضوعات القران الكريم</a></div>
-			<div id='sub-item'><a href='./quran/ghera.html'>خيرة</a></div>
-			<div id='sub-item'><a href='./quran/soraBenifits.html'>ثواب السور القرآنية</a></div>
-			<div id='sub-item'><a href='./tajweed/index.html'>احكام التجويد</a></div>
-			<div id='sub-item'><a href='./tafseer/index.html'>تفسير</a></div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./fahras.html#قرآن/0'>قران كريم</a></div>
+			<div id='sub-item'><a href='./opages/ghera.html'>خيرة</a></div>
+			<div id='sub-item'><a href='./fahras.html#تفسير/0'>تفسير</a></div>
+			<div id='sub-item'><a href='./fahras.html#أحكام التجويد/0'>احكام التجويد</a></div>
+			<div id='sub-item'><a href='./fahras.html#مواضيع القرآن الكريم/0'>موضوعات القران الكريم</a></div>
 		</div>
-		<div class='sub-menu hide' sub-menu=doaa>
-			<div class='sub-title'>ادعية</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./doaa/index.html'>أدعية</a></div>
-			<div id='sub-item'><a href='./ziara/index.html'>زيارات</a></div>
-			<div id='sub-item'><a href='./doaa/short.html'>مقتطفات من الأدعية</a></div>
+		<div class='sub-menu hide' r:on comp:ref=doaa>
+			<div class='sub-title'>أدعية وعبادات</div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./fahras.html#أدعية/0'>أدعية</a></div>
+			<div id='sub-item'><a href='./fahras.html#زيارات/0'>زيارات</a></div>
+			<div id='sub-item'><a href='./fahras.html#قسم الصلاة/0'>قسم الصلاة</a></div>
+			<div id='sub-item'><a href='./fahras.html#اعمال الساعات/0'>اعمال الساعات</a></div>
+			<div id='sub-item'><a href='./fahras.html#اعمال الأسبوع/0'>اعمال الأسبوع</a></div>
+			<div id='sub-item'><a href='./fahras.html#اعمال الأشهر/0'>اعمال الأشهر</a></div>
+			<div id='sub-item'><a href='./opages/short-doaa.html'>مقتطفات من الأدعية</a></div>
 		</div>
-		<div class='sub-menu hide' sub-menu=sala>
-			<div class='sub-title'>صلاة</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./sala/index.html'>قسم الصلاة</a></div>
-		</div>
-		<div class='sub-menu hide' sub-menu=aamal>
-			<div class='sub-title'>اعمال</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./amal/saaa.html'>اعمال الساعات</a></div>
-			<div id='sub-item'><a href='./amal/ayam.html'>اعمال الأسبوع</a></div>
-			<div id='sub-item'><a href='./amal/month.html'>اعمال الأشهر</a></div>
-		</div>
-		<div class='sub-menu hide' sub-menu=kesas>
+		<div class='sub-menu hide' r:on comp:ref=kesas>
 			<div class='sub-title'>قصص وسير</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./monasabat/index.html'>مناسبات دينية</a></div>
-			<div id='sub-item'><a href='./sera/index.html'>سيرة أهل البيت</a></div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./fahras.html#مناسبات/0'>مناسبات دينية</a></div>
+			<div id='sub-item'><a href='./fahras.html#سيرة أهل البيت/0'>سيرة أهل البيت</a></div>
 		</div>
-		<div class='sub-menu hide' sub-menu=turath>
+		<div class='sub-menu hide' r:on comp:ref=turath>
 			<div class='sub-title'>تراث الأئمة</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./shorts/index.html'>أقوال قصيرة</a></div>
-			<div id='sub-item'><a href='./dewan/index.html'>ديوان</a></div>
-			<div id='sub-item'><a href='./ghodab/index.html'>خطب</a></div>
-			<div id='sub-item'><a href='./ibooks/index.html'>كتب أهل البيت</a></div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./fahras.html#أقوال قصيرة/0'>أقوال قصيرة</a></div>
+			<div id='sub-item'><a href='./fahras.html#ديوان/0'>ديوان</a></div>
+			<div id='sub-item'><a href='./fahras.html#خطب/0'>خطب</a></div>
+			<div id='sub-item'><a href='./fahras.html#كتب أهل البيت/0'>كتب أهل البيت</a></div>
 		</div>
-		<div class='sub-menu hide' sub-menu=tools>
+		<div class='sub-menu hide' r:on comp:ref=tools>
 			<div class='sub-title'>ادوات</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./mosabaha/index.html'>مسبحة</a></div>
-			<div id='sub-item'><a href='./timeConvert/index.html'>محول التواريخ</a></div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./opages/mosabaha.html'>مسبحة</a></div>
+			<div id='sub-item'><a href='./opages/tconv.html'>محول التواريخ</a></div>
 		</div>
-		<div class='sub-menu hide' sub-menu=others>
+		<div class='sub-menu hide' r:on comp:ref=others>
 			<div class='sub-title'>اخرى</div>
-			<div id='sub-item' class=back use:on on(click):call='["showMainMenu"]'>رجوع</div>
-			<div id='sub-item'><a href='./setting/index.html'>اعدادات</a></div>
-			<div id='sub-item'><span onclick='downloadAll()'>تحميل</span></div>
+			<div id='sub-item' class=back r:on on(click):call='["showMainMenu"]'>رجوع</div>
+			<div id='sub-item'><a href='./opages/setting.html'>اعدادات</a></div>
+			<div id='sub-item'><a href='./fahras.html#المفضلة'>المفضلة</a></div>
+			<div id='sub-item'><a href='./opages/download.html'>تحميل</a></div>
+			<div id='sub-item'><a href='./opages/hallo.html'>مرحبا</a></div>
 		</div>
 	</div>
 </div>

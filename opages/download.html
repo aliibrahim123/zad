@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<title>زاد العباد ليوم المعاد: تنزيل</title>
+
+<!-- simply.js modules -->
+<script id='lib-comp-base'   type=module src='../n_modules/@simplyjs/lib/dist/comp/base.js'></script>
+<script id='lib-comp-router' type=module src='../n_modules/@simplyjs/lib/dist/comp/router.js'></script>
+<script id='lib-dom-chain'   type=module src='../n_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
+
+<!-- core modules -->
+<script id='base' type=module src='../base.js'></script>
+<script id='obj'  type=module src='../obj.js'></script>
+<link preserve-on-route id='global-style' rel=stylesheet href='../base.css'>
+
+<script id='download-page' type=module src='../src/downloadPage.js'></script>
+<link rel=stylesheet href='./download.css'>
+
+<div id=main comp-name='lazy:download' is-root path='../'>
+	<div id=filler>
+		<div id=title>تنزيل</div>
+		<div r:on bind(list):for:sub='["item"]'></div>
+	</div>
+	
+</div>

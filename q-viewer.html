@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<title>زاد العباد ليوم المعاد: قران</title>
+
+<!-- simply.js modules -->
+<script id='lib-comp-base'   type=module src='./n_modules/@simplyjs/lib/dist/comp/base.js'></script>
+<script id='lib-comp-router' type=module src='./n_modules/@simplyjs/lib/dist/comp/router.js'></script>
+<script id='lib-dom-chain'   type=module src='./n_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
+
+<!-- core modules -->
+<script id='base' type=module src='./base.js'></script>
+<script id='obj'  type=module src='./obj.js'></script>
+<link preserve-on-route id='global-style' rel=stylesheet href='./base.css'>
+
+<script id='quran-viewer-page' type=module src='./src/quranViewer.js'></script>
+<link rel=stylesheet href='./q-viewer.css'>
+
+<div id=main comp-name='lazy:viewer-quran' is-root path='./'>
+	<div id=filler>
+		<dialog id=markers r:on comp:ref=markers class=hide>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 1</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 2</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 3</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 4</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 5</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 6</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 7</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 8</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 9</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 10</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 11</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 12</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 13</div>
+			<div class=button r:on on(click):call='["setMarker"]'>علامة 14</div>
+		</dialog>
+		<span id=sora class=button r:on bind(sora):text>{sora}</span>
+		<span id=page class=button r:on bind(page):text>صفحة: {page}</span>
+		<span id=part class=button r:on bind(part):text>جزأ: {part}</span>
+		<span id='prev-page' class=button r:on on(click):call='["prevPage"]'>الصفحة السابقة</span>
+		<span id='next-page' class=button r:on on(click):call='["nextPage"]'>الصفحة التالية</span>
+		<span id='prev-sora' class=button r:on on(click):call='["prevSora"]'>السورة السابقة</span>
+		<span id='next-sora' class=button r:on on(click):call='["nextSora"]'>السورة التالية</span>
+		<span id='decFont' class=button r:on on(click):call='["decFont"]'>تصغير الخط</span>
+		<span id='incFont' class=button r:on on(click):call='["incFont"]'>تكبير الخط</span>
+		<span id='saveMarker' class=button r:on on(click):call='["showMarkers"]'>ضع علامة</span>
+		<span id='tafseer' class=button r:on on(click):call='["tafseer"]'>تفسير</span>
+		<div id=content r:on comp:ref=content></div>
+	</div>
+</div>

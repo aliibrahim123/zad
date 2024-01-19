@@ -1,8 +1,8 @@
 //ui framework core
 
-import { checkstr, checkel, checkcomp, checkCompClass, CompError } from './check.js';
+import { checkstr, checkel, checkcomp, checkCompClass, checkfn, CompError } from './check.js';
 import { EventEmmiter } from './base/event.js';
-import { Comp, Model, View, Binder, EffectEmmiter, Signal } from './base/comp.js';
+import { Comp, Model, View, Binder, EffectEmmiter, Signal, CSignal } from './base/comp.js';
 import { attrManeger } from './attrs/attrMan.js';
 import { actManager } from './acts/actMan.js';
 import { funNS } from './base/funns.js';
@@ -10,6 +10,7 @@ import { tempManager } from './template/tempMan.js';
 import { CompCollection } from './base/collection.js';
 import { func } from './functional.js';
 import { lazyCManager, LazyComp } from './lazy/lazyCManager.js';
+import { createBound } from './state/misc.js';
 
 var $comp = {
 	isDataProvider: true, //for global state
@@ -98,6 +99,10 @@ var $comp = {
 		this.events.off(name, fn);
 		return this
 	},
+	once (name, fn) {
+		this.events.once(name, fn);
+		return this
+	},
 	trigger (name, ...args) {
 		this.events.trigger(name, this, ...args);
 		return this
@@ -115,8 +120,17 @@ var $comp = {
 		this.attrs.walk(comp, el)
 	},
 	
-	//others
+	//function managment
 	funNS,
+	globFuns: {},
+	addFun (name, fn) {
+		checkstr(name, 'name', 'comp');
+		checkfn(fn, 'fun', 'comp');
+		if (this.globFuns[name]) throw new CompError(`comp: adding defined global function (${name})`);
+		this.globFuns[name] = fn
+	},
+	
+	//others
 	func,
 	temps: tempManager,
 	
@@ -142,15 +156,21 @@ var $comp = {
 	
 	//effect
 	addEffect (prop, fn) {
-		this.effect.add(prop, fn);
+		this.effects.add(prop, fn);
 		return this
 	},
 	
 	//signal
-	addSignal(comp, obj) {
-		this.signal.add(comp, obj);
-		return this
+	createSignal (name, value) {
+		return new Signal(this, name, value)
 	},
+	createCSignal (name, depends, fn) {
+		return new CSignal(this, name, depends, fn)
+	},
+	
+	//state utility
+	createBound,
+	
 	classes: {
 		comp: Comp,
 		event: EventEmmiter,
@@ -159,9 +179,10 @@ var $comp = {
 		view: View,
 		binder: Binder,
 		effect: EffectEmmiter,
-		signal: Signal,
 		collection: CompCollection,
-		lazyComp: LazyComp
+		lazyComp: LazyComp,
+		signal: Signal, 
+		csignal: CSignal
 	},
 	Comp,
 	EventEmmiter,
@@ -171,8 +192,9 @@ var $comp = {
 	CompCollection,
 	Binder,
 	EffectEmmiter,
-	Signal,
-	LazyComp
+	LazyComp,
+	Signal, 
+	CSignal
 };
 
 //bind $comp as this for all methods, for destruction capabilities
@@ -180,7 +202,7 @@ for (let i in $comp) {
 	if ($comp[i]?.bind && !$comp[i].prototype) $comp[i] = $comp[i].bind($comp)
 } 
 
-//assign to globa;
+//assign to global;
 globalThis.$comp = $comp;
 globalThis.CompError = CompError;
 globalThis.Comp = Comp;
@@ -192,13 +214,12 @@ globalThis.Comp = Comp;
 //add data provider components
 Object.assign($comp, {
 	model: new Model($comp, {}, {}),
-	signal: new Signal($comp, {}, []),
-	effect: new EffectEmmiter($comp, {})
+	effects: new EffectEmmiter($comp, {})
 });
 
 Comp.defaults.warn = $comp.opts.warn;
 
-export { $comp, EventEmmiter, CompError, Comp, Model, View, EffectEmmiter, Signal };
+export { $comp, EventEmmiter, CompError, Comp, Model, View, EffectEmmiter, Signal, CSignal };
 export default $comp;
 
 export var get = $comp.get;
@@ -207,6 +228,7 @@ export var has = $comp.has;
 export var setRoot = $comp.setRoot;
 export var getById = $comp.getById;
 export var addById = $comp.addById;
+export var addFun = $comp.addFun;
 
 export var on = $comp.on;
 export var off = $comp.off;
@@ -222,7 +244,10 @@ export var getProp = $comp.getProp;
 export var hasProp = $comp.hasProp;
 export var deleteProp = $comp.deleteProp;
 export var addEffect = $comp.addEffect;
-export var addSignal = $comp.addSignal;
+export var createSignal = $comp.createSignal;
+export var createCSignal = $comp.createCSignal;
+
+export { createBound };
 
 export var createComp = func.createComp;
 export var enableFor = func.enableFor;
@@ -231,11 +256,11 @@ export var useDefaults = func.useDefaults;
 export var setFun = func.setFun;
 export var useComp = func.useComp;
 export var useStore = func.useStore;
-export var useState = func.useState;
 export var useEffect = func.useEffect;
 export var useEvent = func.useEvent;
 export var useTrigger = func.useTrigger;
 export var useSignal = func.useSignal;
+export var useCSignal = func.useCSignal;
 export var useCall = func.useCall;
 export var useCallSafe = func.useCallSafe;
 export var useRef = func.useRef;

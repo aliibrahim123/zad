@@ -1,0 +1,41 @@
+.button {
+	transition: background 0.3s;
+	padding: 5px;
+	margin-bottom: 5px;
+	border: black solid 3px;
+	border-radius: 15px;
+	background: rgba(0,0,0,0.6);
+	display: inline-block;
+}
+
+.button:hover {
+	background: rgba(0,0,0,0.8)
+}
+
+.button:active {
+	background: black
+}
+
+#out {
+	padding: 7px;
+	border: black solid 3px;
+	border-radius: 15px;
+	background: rgba(0,0,0,0.6);
+	width: fit-content;
+}
+
+#title {
+	background: rgba(0,0,0,0.35);
+	border: solid black 3px;
+	border-radius: 24px;
+	text-align: center;
+    font-size: calc(var(--font-size) * 1.8);
+}
+
+#item {
+    margin-top: 10px;
+}
+
+#main {
+	background: rgba(0, 0, 0, 0.87)
+}

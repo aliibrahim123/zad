@@ -1,29 +1,50 @@
 //binder handlers
 
 import { handleCreate, handleDelete, handleChange } from './forElHndl.js';
+import { parse } from '../template/parseAttr.js';
 
 var handlers = {
-	attr (obj, val, comp) { //attr bind by template
-		comp.view.attr(obj.el, obj.attr, $comp.temps.parseAttr.handle(obj.temp, comp, obj.el, undefined))
-	},
-	html (obj, val, comp) {
-		obj.el.innerHTML = val
-	},
-	text (obj, val, comp) {
-		obj.node.textContent = $comp.temps.parseAttr.handle(obj.temp, comp, obj.el, undefined)
-	},
 	attrBasic (obj, val, comp) { //basic attribute bind by value
 		comp.view.attr(obj.el, obj.attr, val)
 	},
 	attrCall (obj, val, comp) { //attribute bind with function call
 		comp.view.attr(obj.el, obj.attr, comp.call(obj.fun, val, ...obj.args))
 	},
-	if (obj, val, comp) { //lonely conditions
-		comp.call(obj.fun, obj.el, obj.condF(comp, obj.el, ...obj.prop.map(i=>comp.get(i))), ...obj.args)
+	attr (obj, val, comp) { //attr bind by template
+		comp.view.attr(obj.el, obj.attr, parse.handle(obj.temp, comp, obj.el))
 	},
-	ifElse (obj, val, comp) { //connected conditions
-		var proparg = obj.prop.map(i=>comp.get(i));
-		obj.conds.some(i => i.condF(comp, obj.el, ...proparg) && (comp.call(i.fun, obj.el, true, ...i.args) || true))
+	html (obj, val, comp) {
+		obj.el.innerHTML = val
+	},
+	classOne (obj, val, comp) {
+		if (val) obj.el.classList.add(obj.name);
+		else obj.el.classList.remove(obj.name)
+	},
+	classAll (obj, val, comp, _, __, ___, meta) {
+		var classList = obj.el.classList;
+		//if not array
+		if (!meta.arr) obj.el.className = '';
+		//if empty
+		else if (meta['arr:empty']) obj.el.className = '';
+		//if was empty
+		else if (meta['arr:wasempty']) obj.el.className = val.join(' ');
+		
+		else {
+			//remove old
+			[].forEach.call(classList, (name) => !val.includes(name) && classList.remove(name));
+			
+			//add new
+			val.forEach((name) => !classList.contains(name) && classList.add(name))
+		}
+	},
+	style (obj, val, comp) {
+		obj.el.style.setProperty(obj.prop, obj.temp ? parse.handle(obj.temp, comp, obj.el) : val)
+	},
+	text (obj, val, comp) {
+		obj.el.innerText = parse.handle(obj.temp, comp, obj.el, undefined)
+	},
+	if (obj, val, comp) {
+		comp.call('v:show', obj.el, obj.cond(comp, obj.el, ...obj.prop.map(i=>comp.get(i))))
 	},
 	for (obj, val, comp,_, prop,__,meta) {
 		var { el, collection } = obj;

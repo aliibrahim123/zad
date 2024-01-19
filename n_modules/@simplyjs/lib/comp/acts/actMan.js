@@ -2,17 +2,17 @@
 //defining and handling actions on elements
 
 import { checkstr, checkcomp, checkfn, CompError } from '../check.js';
-import { useCompActs } from './useComp.js';
-import { useBindActs } from './useBind.js';
-import { useSetActs } from './useSet.js';
-import { useOnActs } from './useOn.js';
+import { compActs } from './comp.js';
+import { bindActs } from './bind.js';
+import { setActs } from './set.js';
+import { onActs } from './on.js';
 
 var actManager = {
 	actions: {
-		...useCompActs,
-		...useBindActs,
-		...useSetActs,
-		...useOnActs
+		...compActs,
+		...bindActs,
+		...setActs,
+		...onActs
 	},
 	add (type, action) {
 		checkstr(type, 'type', 'action');

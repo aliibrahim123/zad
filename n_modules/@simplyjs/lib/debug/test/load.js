@@ -7,7 +7,7 @@ import { resolve } from 'node:path/posix';
 export var load = async (path = './') => {
 	//handle path
 	checkstr(path);
-	path = resolve(path); //convert from relative to working directory to absolute
+	path = resolve(path); //convert from (relative to working directory) to absolute
 	
 	//gather files and folders
 	var haveIndexFile = false, files = [], folders = [];
@@ -18,15 +18,17 @@ export var load = async (path = './') => {
 		if (name === 'index.test.js') return haveIndexFile = true;
 		if (name.includes('test')) files.push(name)
 	})
-	
+
 	//load files and folders
-	if (haveIndexFile) import(path + '/index.test.js').then(() => handleLoad(files, folders, path));
-	else handleLoad(files, folders, path);
+	if (haveIndexFile) await import(path + '/index.test.js');
+	await handleLoad(files, folders, path);
 }
 
-var handleLoad = (files, folders, path) => {
-	files.forEach(file => import(path + '/' + file));
-	folders.forEach(folder => load(path + '/' + folder));
+var handleLoad = async (files, folders, path) => {
+	await Promise.all([
+		Promise.all(files.map(file => import(path + '/' + file))),
+		Promise.all(folders.map(folder => load(path + '/' + folder)))
+	])
 }
 
 if (globalThis.$test) $test.load = load

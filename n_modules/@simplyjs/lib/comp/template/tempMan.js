@@ -18,7 +18,9 @@ var tempManager = {
 			els = $el(temp);
 			this.temps[name] = () => {return {els: els.map(el => el.cloneNode(true)), acts: []}};
 		} else if (temp?.nodeType === 1) 
-			this.temps[name] = () => {return {els: [...temp.cloneNode(true).childNodes], acts: []}}; //clone existing element 
+			this.temps[name] = () => { return { 
+				els: Array.from(temp.cloneNode(true).childNodes), acts: []
+			}}
 		else {
 			checkfn(temp, 'temp', 'temps')
 			this.temps[name] = temp;
@@ -55,10 +57,12 @@ var tempManager = {
 		var els;
 		
 		if (typeof sub === 'string') {//constuct from html string
-			els = $el(sub);
-			this.subs[name] = {$isSub: true, fn() {return {el: els.map(el => el.cloneNode(true)), acts: []}}};
-		} else if (sub?.nodeType === 1) 
-			this.subs[name] = {$isSub: true, fn() {return {el: [...sub.cloneNode(true).childNodes], acts: []}}}; //clone existing element
+			let el = $el(sub)[0];
+			this.subs[name] = {$isSub: true, fn() {return {el: el.cloneNode(true), acts: []}}};
+			
+		} else if (sub?.nodeType === 1) //clone existing element
+			this.subs[name] = {	$isSub: true, fn () {return { el: sub.cloneNode(true), acts: [] }} }; 
+			
 		else {
 			checkfn(sub?.fn, 'fn', 'temps');
 			this.subs[name] = sub;

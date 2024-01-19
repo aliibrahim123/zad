@@ -1,0 +1,60 @@
+#main {
+	background: rgba(0, 0, 0, 0.87)
+}
+
+#filler {
+	font-family: quran
+}
+
+#content {
+	height: 0px;
+	overflow-y: visible;
+}
+
+.button {
+	padding-top: 0;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 0;
+}
+
+#markers > * {
+	display: block
+}
+
+#markers.hide {
+	display: none
+}
+
+#markers {
+	overflow: auto;
+	max-height: 85%;
+	display: block;
+	animation: shrink 1s both
+}
+
+#markers[open] {
+	animation: grow 1s
+}
+
+@keyframes grow {
+	from {
+		max-height: 0%;
+		transform: scale(0)
+	}
+	to {
+		max-height: 85%;
+		transform: scale(100%)
+	}
+}
+
+@keyframes shrink {
+	from {
+		max-height: 85%;
+		transform: scale(100%)
+	}
+	to {
+		max-height: 0%;
+		transform: scale(0)
+	}
+}

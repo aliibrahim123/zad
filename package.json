@@ -6,5 +6,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"@simplyjs/lib": "^0.0.2"
-	}
+	},
+	"type": "module"
 }

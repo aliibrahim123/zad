@@ -56,7 +56,11 @@ var handleUpdate = (router, page, events, url) => {
 	events.trigger('after-update', router, url);
 	
 	//if url has hash, scroll
-	if (url.hash) setTimeout(()=>query(url.hash)[0]?.scrollIntoView?.({behavior: 'smooth'}), 1);
+	if (url.hash) setTimeout(()=>{ 
+		try { 
+			query(url.hash)[0]?.scrollIntoView?.({behavior: 'smooth'}) 
+		} catch (error) {} 
+	}, 1);
 	
 	//reatach to dom
 	router.attachToDom();
@@ -76,7 +80,7 @@ var handleError = (router, response, url, events) => {
 }
 
 var handleHash = (url, events) => {
-	var hashEl = query(url.hash)[0];
+	try { var hashEl = query(url.hash)[0] } catch (error) {}
 		
 	if (hashEl) setTimeout(()=>hashEl.scrollIntoView({behavior: 'smooth'}), 1);
 	

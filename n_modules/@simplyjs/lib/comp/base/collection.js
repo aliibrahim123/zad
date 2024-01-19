@@ -29,7 +29,8 @@ class CompCollection {
 	}
 	set (values) {
 		if (Array.isArray(values)) {
-			if (values.length !== this.comps.length) $comp.warn('collection: values length (' + values.length + ') is not equal to length (' + this.comps.length + ')');
+			if (values.length !== this.comps.length) 
+				$comp.warn('collection: values length (' + values.length + ') is not equal to length (' + this.comps.length + ')');
 			values.forEach((v, i) => this.comps[i] && this.comps[i].set(typeof v === 'object' ? v : this.propName, v))
 		}
 		else $comp.warn('collection: values of type (' + values?.constructor?.name + '), expected (Array)');

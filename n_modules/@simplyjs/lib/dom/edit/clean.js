@@ -14,7 +14,7 @@ export var clean = (el, tag, includeParent = true, fun, data = {}) => {
 	
 	//get elements
 	tag = tag.toLowerCase();
-	var els = [...el.getElementsByTagName(tag)];
+	var els = Array.from(el.getElementsByTagName(tag));
 	if (includeParent && el.tagName === tag.toUpperCase()) els.push(el);
 	
 	//filter them based on their class and clean function
@@ -27,38 +27,43 @@ export var clean = (el, tag, includeParent = true, fun, data = {}) => {
 	els.forEach(el => unwrap(el))
 };
 
-export var cleanDom = (node, doNotCleanTags = [], tagset = new Set()) => {
+export var cleanDom = (node, doNotCleanTags = [], doNotMergeTags = [], skipTags = [], tagset = new Set()) => {
 	checknode(node, 'node');
 	checkarr(doNotCleanTags, 'doNotCleanTags');
 	
 	//case element
 	if (node.nodeType === node.ELEMENT_NODE) {
-		var children = Array.from(node.childNodes);
+		var children = Array.from(node.childNodes),
+		tag = node.tagName.toLowerCase();
 		
 		//skip element if possible
-		if (doNotCleanTags.includes(node.tagName.toLowerCase())) {}
+		if (skipTags.includes(tag)) return;
+		else if (doNotCleanTags.includes(tag)) {}
 		
 		//if empty, remove
-		else if (node.childNodes.length === 0) node.remove(); 
+		else if (node.childNodes.length === 0) node.remove();
+
+		//do not merge tags are cleaned only if they are empty, not merged with sibling or parent
+		else if (doNotMergeTags.includes(tag)) {}
 		
 		//if it and previous sibling share same tag, merge
 		else if (node.tagName === node.previousSibling?.tagName) { 
 			node.previousSibling.append(...children);
 			node.remove()
-		} 
+		}
 		
 		//if tagname is like one of parents and is cleanable, remove
-		else if (tagset.has(node.tagName) && !([...node.classList].some(item => item in cleanMap))) {
+		else if (tagset.has(tag) && !(Array.from(node.classList).some(item => item in cleanMap))) {
 			node.after(...children);
 			node.remove()
 		}
 		
 		//loop through children
-		children.forEach(child => cleanDom(child, doNotCleanTags, new Set([...tagset, node.tagName])))
+		children.forEach(child => cleanDom(child, doNotCleanTags, doNotMergeTags, skipTags, new Set([...tagset, tag])))
 	} 
 	
 	//case text node
-	else {
+	else if (node.nodeType === 3) {
 		//if empty, remove
 		if (node.textContent === '') node.remove();
 		
@@ -79,13 +84,13 @@ export var cleanMap = {
 		var [prop, className] = data;
 		
 		//if it is styled with property, remove
-		if (el.classList.contains(className + prop)) {
-			el.classList.remove(className + prop);
+		if (el.classList.contains(className + '-' + prop)) {
+			el.classList.remove(className + '-' + prop);
 			el.style[prop] = ''
 		}
 		
 		//if have no more styles, clean
-		if ([...el.classList].reduce((n, cls) => cls.startsWith(className) ? n+1 : n, 0) === 0) return true
+		if ([].reduce.call(el.classList, (n, cls) => cls.startsWith(className) ? n+1 : n, 0) === 1) return true
 		
 		return false
 	}

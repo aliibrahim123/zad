@@ -1,19 +1,27 @@
 //base functionality
 
-import { randomBackground } from './src/rand-bck.js';
+import { randomBackground, changeBack } from './src/style.js';
 import { fontMan } from './src/font.js';
 import { toHijri, fromHijri } from './src/dateConv.js';
-import './src/downloader.js'
+import './src/prompt.js';
+import { register } from './src/handleSW.js';
+import { getSalaTiming } from './src/sala.js';
 
 globalThis.curPath = $el('#main')[0].getAttribute('path');
-globalThis.lastFahrasPath = [''];
-navigator.serviceWorker.register(curPath + 'sw.js', {type:'module'});
+register();
 
-//handle cache
-if (localStorage.getItem('downloadale') && localStorage.getItem('z-last-v') !== '1')
-	downloadAll()
-localStorage.setItem('z-last-v', '1');
-localStorage.setItem('notFirstTime', 'true');
+globalThis.setting = JSON.parse(localStorage.getItem('z-setting'));
+if (!setting) setting = {
+	color: 'black',
+	dateAdjustment: 0,
+	sala: {
+		method: 0,
+		tune: [0,0,0,0,0,0,0,0,0],
+		midnightMode: 0,
+		latitudeAdjustmentMethod: 1,
+		shafaq: 'general'
+	}
+}
 
 globalThis.fontMan = fontMan;
 var font = JSON.parse(localStorage.getItem('z-font'));
@@ -21,18 +29,24 @@ if (font) {
 	fontMan.curSize = font.size;
 	fontMan.curFont = font.type
 }
-setTimeout(() => fontMan.apply(), 5000);
+//delay font changing to when root is inited
+$comp.on('set-root', (comp) => comp instanceof $comp.Comp && fontMan.apply());
 
 randomBackground();
 
 globalThis.dateConverter = { toHijri, fromHijri };
+globalThis.getSalaTiming = getSalaTiming;
 
 $comp.attachRouter();
+$comp.router.on('route', (router, url) => {
+	if (router.lastUrl.pathname === url.pathname) $comp?.root?.callSafe('route', url)
+})
 $comp.router.on('before-update', (_, page) => {
 	curPath = $el('#main', page)[0].getAttribute('path');
 })
 $comp.router.on('after-update', () => {
-	randomBackground()
+	randomBackground();
+	changeBack();
 });
 
 $comp.setRoot($el('#main')[0], $el('#main')[0].getAttribute('comp-name'));

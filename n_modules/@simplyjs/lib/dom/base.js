@@ -75,11 +75,11 @@ export var query = (query, root = document) => {
 	return Array.from(root.querySelectorAll(query))
 }
 
-export var construct = (str) => {
+export var construct = (str, asArray = false) => {
 	checkstr(str, 'string');
 	var temp = document.createElement('div');
 	temp.innerHTML = str;
-	return temp.children.length === 1 ? temp.children[0] : Array.from(temp.children);
+	return (!asArray && temp.children.length === 1) ? temp.children[0] : Array.from(temp.children);
 }
 
 export default $el

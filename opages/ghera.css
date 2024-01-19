@@ -1,0 +1,25 @@
+.button {
+	transition: background 0.3s;
+	padding: 5px;
+	margin-bottom: 5px;
+	border: black solid 3px;
+	border-radius: 15px;
+	background: rgba(0,0,0,0.6);
+	display: inline-block;
+}
+
+.button:hover {
+	background: rgba(0,0,0,0.8)
+}
+
+.button:active {
+	background: black
+}
+
+#sub-content {
+	padding-top: 5px
+}
+
+#main {
+	background: rgba(0, 0, 0, 0.87)
+}

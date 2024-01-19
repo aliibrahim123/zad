@@ -144,7 +144,7 @@ export var decode = (data, opts = {}) => {
 			if (casting === 'number') return Number(cell);
 			if (cell === 'true') return true;
 			if (cell === 'false') return false;
-			if (cell === 'undefined') return undefined;
+			if (cell === 'undefined') return;
 			if (cell === 'null') return null;
 			if (casting === 'date') return new Date(cell);
 			if (casting === 'json') return JSON.parse(cell);
@@ -155,7 +155,7 @@ export var decode = (data, opts = {}) => {
 		else if (cast) line = line.map(cell => {
 			if (cell === 'true') return true;
 			if (cell === 'false') return false;
-			if (cell === 'undefined') return undefined;
+			if (cell === 'undefined') return;
 			if (cell === 'null') return null;
 			var nb = Number(cell);
 			if (!Number.isNaN(nb)) return nb;

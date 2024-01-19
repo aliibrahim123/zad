@@ -33,23 +33,13 @@ var func = {
 	},
 	
 	currentClass: null,
-	createComp (createFn, initFn, superClass = Comp) {
+	createComp (createFn, superClass = Comp) {
 		checkfn(createFn, 'createFn', 'functional');
-		checkfn(initFn, 'initFn', 'functional');
 		checkCompClass(superClass, 'superClass', 'functional');
 		
 		var cclass = class FComp extends superClass {
-			init () {
-				func.push(this);
-				
-				var data = initFn();
-				if (data) this.set(data);
-				
-				func.pop();
-				super.init()
-			}
+			static defaults = {...superClass.defaults};
 			static funs = {...superClass.funs}
-			static defaults = {...superClass.defaults}
 		}
 		this.currentClass = cclass;
 		
@@ -70,35 +60,25 @@ var func = {
 	setFun (name, fn) {
 		this.useClass().funs[name] = this.enableFor(fn)
 	},
+	setSub (name, sub) {
+		this.useClass().defaults.view.subs[name] = sub
+	},
 
 	useComp () {
 		return this.getCur()
 	},
 	useStore () {
-		return this.getCur().model.toProxy()
+		return this.getCur().model.toStore()
 	},
-	useState (prop, Default) {
-		var comp = this.getCur(), wasSet = false;
-		if (Default !== undefined && !comp.has(prop)) { 
-			comp.set(prop, Default);
-			wasSet = true;
-		}
-		var [value, Prop] = comp.model.getLow(prop);
-		
-		//[state, setState, getState, State]
-		return [
-			value,
-			(value) => comp.set(prop, value),
-			() => comp.get(prop),
-			Prop
-		]
+	useSignal (name, value) {
+		return this.getCur().createSignal(name, value)
+	},
+	useCSignal (name, depends, fn) {
+		return this.getCur().createCSignal(name, depends, fn)
 	},
 	
 	useEffect (prop, effect) {
 		this.getCur().addEffect(prop, typeof effect === 'string' ? effect : this.enableFor(effect))
-	},
-	useSignal (comp, obj) {
-		this.getCur().addSignal(comp, obj)
 	},
 
 	useEvent (event, fn) {
@@ -120,6 +100,9 @@ var func = {
 	},
 	use$ (...args) {
 		return this.getCur().view.$(...args)
+	},
+	useSub (name, ...args) {
+		return this.useComp().view.createSub(name, ...args)
 	},
 	useEl () {
 		return this.getCur().el

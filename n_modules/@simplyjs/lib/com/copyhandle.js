@@ -184,7 +184,7 @@ export var handleDom = (node, opts, cache) => { //handle Dom element
 
 var handleDomNode = (node, cloned, opts, cache) => {
 	cache.set(node, cloned);
-	if (node.nodeType === 1) [...node.children].forEach((c,i) => handleDomNode(c, cloned.children[i], opts, cache));
+	if (node.nodeType === 1) Array.from(node.children).forEach((c,i) => handleDomNode(c, cloned.children[i], opts, cache));
 	
 	if (opts.domNodeProps) {
 		if (opts.strict) copyPropsStrict(node, cloned, opts, cache);

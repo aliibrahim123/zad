@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<title>زاد العباد ليوم المعاد: تنزيل</title>
+
+<!-- simply.js modules -->
+<script id='lib-comp-base'   type=module src='../n_modules/@simplyjs/lib/dist/comp/base.js'></script>
+<script id='lib-comp-router' type=module src='../n_modules/@simplyjs/lib/dist/comp/router.js'></script>
+<script id='lib-dom-chain'   type=module src='../n_modules/@simplyjs/lib/dist/dom/chain.g.js'></script>
+
+<!-- core modules -->
+<script id='base' type=module src='../base.js'></script>
+<script id='obj'  type=module src='../obj.js'></script>
+<link preserve-on-route id='global-style' rel=stylesheet href='../base.css'>
+
+<script id='hallo-page' type=module src='../src/halloPage.js'></script>
+<link rel=stylesheet href='./hallo.css'>
+
+<div id=main comp-name='lazy:hallo' is-root path='../'>
+	<div id=filler style='display: flex'>
+		<div r:on class=section comp:ref=section style='width: 100%'>
+			<div class=title>أختر الخط المناسب</div>
+			<div class=button r:on on(click):call='["next"]'>التالي</div>
+			<div r:on comp:ref=fsize-cont></div>
+		</div>
+	</div>
+	
+</div>

@@ -1,9 +1,18 @@
-import assets from './assets.js';
 import { contentType } from './n_modules/@simplyjs/lib/dist/encode/mine.lite.js';
+import { chunk } from './n_modules/@simplyjs/lib/dist/com/arr.js';
+import { mapSeries } from './n_modules/@simplyjs/lib/dist/com/promise.js';
+import assets from './assets.js';
+
+var delay = (ms) => new Promise(r => setTimeout(r, ms));
 
 var cacheName = 'zad';
-var cacheVersion = '1';
-var cacheFull = cacheName + '.v.' + cacheVersion;
+var whenFinished = [];
+(async () => {
+	globalThis.cacheVersion = await (await fetch('./version.txt')).text();
+	globalThis.cacheFull = cacheName + '.v.' + cacheVersion;
+	whenFinished.forEach(r => r());
+	whenFinished = []
+})();
 
 self.addEventListener('install', (e) => {
 	console.log('installed')
@@ -13,10 +22,12 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
 	console.log('activated');
 	e.waitUntil((async () => {
+		if (!globalThis.cacheFull) await new Promise(r =>whenFinished.push(r));
+		
 		//clean up old caches
 		var keys = await caches.keys();
-		return Promise.all(keys.map(async (key) => {
-			if (key.startsWith(cacheName) && key !== cacheFull) {
+		await Promise.all(keys.map((key) => {
+			if (key.startsWith(cacheName) && key !== globalThis.cacheFull) {
 				console.log('removing old cache', key);
 				return caches.delete(key);
 			}
@@ -25,67 +36,74 @@ self.addEventListener('activate', (e) => {
 	return self.clients.claim();
 });
 
-
 self.addEventListener('fetch', (e) => {
-	//stip from search field
-	var url = new URL(e.request.url.replace(/\?.*/, ''));
 	e.respondWith((async () => {
-		var cache = await caches.open(cacheFull);
+		if (!globalThis.cacheFull) await new Promise(r =>whenFinished.push(r));
+		var bareUrl = new URL(e.request.url.match(/^[^#?]+/));
+		
+		var cache = await caches.open(globalThis.cacheFull);
 	
 		//try cache first
-		var response = await cache.match(url);
+		var response = await cache.match(bareUrl);
 		if (response) return response;
-	
+		
 		//else fetch from internet
-		return await fetch(e.request);
+		if (navigator.onLine) return fetch(e.request);
+		
+		//else return not found
+		return new Response('', { status: 404 })
 	})())
 });
 
 onmessage = async (e) => {
 	var client = e.source;
-	var cache = await caches.open(cacheFull);
+	var sub = e.data[0];
+	if (!globalThis.cacheFull) await new Promise(r =>whenFinished.push(r));
+	var cache = await caches.open(globalThis.cacheFull);
+	
+	if (sub === 'assets') return cacheAssets(e, client, cache);
 	
 	//fetch content
-	var content = await (await fetch('./content.txt')).text();
-	client.postMessage(['c-fetched']);
+	var content = await (await fetch('./cpacks/' + sub + '.txt')).text();
+	client.postMessage(['c-fetched', sub]);
 	
 	//extract it
-	await new Promise((r) => setTimeout(() => {
-		content = content.split('/#$:[separator]#/')
-		r()
-	}, 2000));
-	client.postMessage(['c-extracted']);
+	await delay(2000);
+	content = content.split('#[{[SEP]}]#').map(v => v.split(':://::'));
+	client.postMessage(['c-extracted', sub]);
 	
 	//cache it
-	var added = 0, current = 0;
-	var resolve;
-	var interval = setInterval(async () => {
-		var chunk = content.slice(current * 500, (current +1) * 500);
-		await Promise.all(chunk.map(async v => {
-			var [path, file] = v.split(':://::');
-			if (path.includes('.html') && !path.includes('sera')) {
-				await cache.add(path);
-				added++;
-				return
-			}
-			var response = new Response(file);
-			response.headers.set('Content-Type', contentType(path));
-			await cache.put(path, response);
-			added++
-		}));
-		current++;
-		client.postMessage(['c-process', content.length, added]);
-		if (chunk.length === 0 || added > content.length) resolve();
-	}, 500);
-	await new Promise((r) => resolve = r);
-	
-	//cache assets
-	client.postMessage(['c-p2'])
-	await Promise.all(assets.map(async v => {
-		await cache.add('./assests/' + v, await fetch('./assests/' + v))
-	}));
+	var chunks = chunk(content, 250);
+	await mapSeries(chunks, async (chunk, resolve, reject, i) => {
+		//retry until done
+		loop: while (true) {
+			try { await cacheChunk(chunk, cache); break loop }
+			catch (error) {}
+		}
+		client.postMessage(['c-process', sub, content.length, Math.min((i+1) * 250, content.length)]);
+		await delay(500);
+		resolve();
+	})
 	
 	//finished
-	clearInterval(interval);
-	client.postMessage(['c-finished'])
+	client.postMessage(['c-finished', sub])
+}
+
+var cacheChunk = (chunk, cache) => Promise.all(chunk.map(async (data) => {
+	var [path, content] = data;
+	var response = new Response(content, { status: '200', headers: {
+		'Content-Type': contentType(path),
+		'Content-Length': content.length,
+		'Date': new Date().toGMTString()
+	} });
+	await cache.put(path, response)
+}))
+
+var cacheAssets = async (e, client, cache) => {
+	var finished = 0;
+	await Promise.all(assets.map(async file => {
+		await cache.add(file);
+		client.postMessage(['c-process', 'assets', assets.length, ++finished])
+	}));
+	client.postMessage(['c-finished', 'assets'])
 }

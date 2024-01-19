@@ -1,6 +1,6 @@
 //document.execCommand alternative
 
-import { checkel, checkstr, checknode } from './edit/check.js';
+import { checkel, checkstr, checknode, checkarr } from './edit/check.js';
 import { unwrap, getContainer, splitEl, getWrapped } from './edit/utils.js';
 import { clean, cleanDom, cleanMap } from './edit/clean.js';
 
@@ -62,7 +62,10 @@ var $edit = {
 		//if selection not wrapped with tagname, insert into dom and return
 		var topNode = getWrapped(tag, fun);
 		if (!topNode) {
+			var start = temp.childNodes[0], end = temp.childNodes[temp.childNodes.length -1];
 			unwrap(temp);
+			range.setStartBefore(start);
+			range.setEndAfter(end);
 			return {success: true, type: 'undo'}
 		}
 		
@@ -76,14 +79,14 @@ var $edit = {
 		//split parents at temp
 		var lastClonedNode;
 		pars.forEach((el, i) => {
-			if (i === 0) return; //skip temp
+			if (el === topNode) return; //skip topNode
 			lastClonedNode = splitEl(el.parentElement, el.nextSibling, lastClonedNode);
 		});
 		
 		//readd text modifiers for temp without the undo one
+		//clone parents without topnode
 		var lastClonedPar = pars.reduce((par, el, i) => {
-			//clone parents without topnode and append the selected nodes in the bottom one
-			if (i === pars.length -1) return par;//skip topNode
+			if (i === pars.length -1) return par;//skip last
 			var cloned = el.cloneNode(false);
 			if (par === topNode) par.after(cloned);
 			else par.append(cloned);
@@ -94,8 +97,11 @@ var $edit = {
 		if (lastClonedPar === topNode) topNode.after(temp);
 		else lastClonedPar.append(temp);
 		
-		range.selectNode(lastClonedPar);//reselect the content
+		//reselect content
+		var start = temp.childNodes[0], end = temp.childNodes[temp.childNodes.length -1];
 		unwrap(temp);
+		range.setStartBefore(start);
+		range.setEndAfter(end);
 		
 		return {success: true, type: 'undo'}
 	},
@@ -127,15 +133,15 @@ var $edit = {
 		}
 		return {success: true, type: 'replace'}
 	},
-	applyCss (prop, value, tag = 'span', className = 'styled-', clean = true, cleanFun) {
+	applyCss (prop, value, tag = 'span', className = 'styled', clean = true, cleanFun) {
 		//apply style for selection
 		checkstr(prop, 'property');
 		checkstr(value, 'value');
 		
 		//create element
 		var el = document.createElement(tag);
-		el.classList.add('styled');
-		el.classList.add(className + prop);
+		el.classList.add(className);
+		el.classList.add(className + '-' + prop);
 		el.style[prop] = value;
 		
 		//surround selection with it
@@ -143,7 +149,23 @@ var $edit = {
 	},
 	copy () { 
 		//return selected text as string
-		return getSelection().toString()
+		var selection = getSelection();
+		if (!selection.rangeCount) return '';
+		var range = selection.getRangeAt(0);
+		
+		var temp = document.createElement('div');
+		temp.append(range.cloneContents());
+		return temp.innerHTML
+	},
+	cut () { 
+		//return selected text as string
+		var selection = getSelection();
+		if (!selection.rangeCount) return '';
+		var range = selection.getRangeAt(0);
+		
+		var temp = document.createElement('div');
+		temp.append(range.extractContents());
+		return temp.innerHTML
 	},
 	delete () {
 		var selection = getSelection();
@@ -200,7 +222,8 @@ var $edit = {
 		
 		else throw new Error('edit: toggle type is (' + type + '), expected 0, 1, or 2')
 	},
-	removeFormat () {
+	removeFormat (tagNames = ['b', 'i', 'u', 's', 'sup', 'sub', 'span', 'div']) {
+		checkarr(tagNames, 'tagNames');
 		//get selection
 		var selection = getSelection();
 		if (!selection.rangeCount) return {success: false};
@@ -213,7 +236,16 @@ var $edit = {
 		range.deleteContents();
 		range.insertNode(new Text(str));
 		
+		//undo all modifiers
+		tagNames.forEach(tag => this.undo(tag));
+		
 		return {success: true, type: 'remove-format'}
+	},
+	getSelectedElement () {
+		var selection = getSelection();
+		if (!selection.rangeCount) return;
+		var node = selection.getRangeAt(0).commonAncestorContainer;
+		return node.nodeType === 3 ? node.parentNode : node
 	},
 	selectParagraph () {
 		//get selection
@@ -235,8 +267,8 @@ var $edit = {
 		
 		//get container and select it
 		var container = this.getContainer()
-		range.setStart(container.firstChild, 0);
-		range.setEnd(container.lastChild, container.lastChild.childNodes.length);
+		range.setStartBefore(container.firstChild);
+		range.setEndAfter(container.lastChild);
 		return {success: true, type: 'select'}
 	},
 	
@@ -317,18 +349,29 @@ var $edit = {
 	inline (type) {
 		return this.toggle('span', type);
 	},
-	paragraph (type) {
-		return this.toggle('p', type);
+	paragraph () {
+		var el = getWrapped('p');
+		if (el) {
+			unwrap(el);
+			return { success: true, type: 'undo' }
+		}
+		return this.surround(document.createElement('p'));
+	},
+	quote (type) {
+		return this.toggle('q', type);
 	},
 	
 	//other text style
 	indent (size) {
 		this.selectParagraph();
-		return this.applyCss('text-indent', size ? size : '')
+		return this.applyCss('text-indent', size ? size : '', 'div')
 	},
 	align (type) {
 		this.selectParagraph();
 		return this.applyCss('text-align', type ? type : '', 'div')
+	},
+	direction (type) {
+		return this.applyCss('direction', type ? type : '', 'div')
 	},
 	
 	//others

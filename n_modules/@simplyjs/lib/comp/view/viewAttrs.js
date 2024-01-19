@@ -9,7 +9,7 @@ var attrs = {
 		}
 		if (curNode.$comp) return -1;
 		el.$subEl = curNode;
-		return [...curNode.parentElement.children].indexOf(curNode)
+		return [].indexOf.call(curNode.parentElement.children, curNode)
 	}
 };
 

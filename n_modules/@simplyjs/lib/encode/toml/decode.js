@@ -139,7 +139,7 @@ var handleTable = (parent, keys, tableIsInlined, arrayIsTableArray, keysFromRoot
 
 var handleTableArray = (root, keys, tableIsInlined, arrayIsTableArray, data, startInd) => {
 	//get keys
-	keys = [...keys];
+	keys = keys.concat();
 	var lastKey = keys.pop();
 	
 	//get parent table

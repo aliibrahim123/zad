@@ -3,8 +3,8 @@
 import { simple } from '../../com/diff/simple.js';
 
 var prehandlers = {
-	Array (comp, prop, oldv, newv, meta) {
-		var nmeta,/* new meta */ oldarr = prop.meta['arr:old'];
+	Array (comp, name, oldv, newv, prop, meta) {
+		var nmeta,/* new meta */ oldarr = prop.meta?.['arr:old'];
 		if (meta.set) //is set
 			nmeta = {...meta, 'arr:wasempty': true}; 
 		
@@ -17,10 +17,12 @@ var prehandlers = {
 		else if (newv.length === 0) //empty
 			nmeta = {...meta, 'arr:empty': true};
 		
-		else //differencing
-			nmeta = {...meta, 'arr:patch': simple(oldarr, newv).map(i=>{return {...i, values: newv.slice(i.nind, i.nind + i.count)}})};
+		else //diffiring
+			nmeta = {...meta, 'arr:patch': simple(oldarr, newv).map(
+				i=>{return {...i, values: newv.slice(i.nind, i.nind + i.count)}})
+			};
 		
-		prop.meta['arr:old'] = [...newv];
+		prop.meta['arr:old'] = newv.concat();
 		nmeta.arr = true;
 		return nmeta
 	} 

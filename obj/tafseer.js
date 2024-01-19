@@ -1,3 +1,10 @@
 import { quran } from './quran.js';
 
-export default quran['سورة']
+var copy = (obj) => {
+	if (typeof obj !== 'object') return obj;
+	var cloned = {};
+	for (let prop in obj) cloned[prop] = copy(obj[prop]);
+	return cloned
+}
+
+export default copy(quran['سورة'])

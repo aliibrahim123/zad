@@ -28,10 +28,10 @@ class Binder {
 		this.binds = {};
 		this.sets = {};
 		for (let prop in binds) {
-			binds[prop].forEach(obj => this.addB(prop, obj))
+			binds[prop].forEach(obj => this.addBind(prop, obj))
 		}
 		for (let prop in sets) {
-			sets[prop].forEach(obj => this.addS(prop, obj))
+			sets[prop].forEach(obj => this.addSet(prop, obj))
 		}
 		
 		comp.on('model:change', this.patch.bind(this));
@@ -48,11 +48,11 @@ class Binder {
 			this.binds[name].forEach(b=>this.handlers[b.type] (b, newv, this.comp, oldv, prop, name, meta))
 		}
 	}
-	prehandle (prop, oldv, newv, meta) {
-		if (newv?.constructor?.name in this.prehandlers) return this.prehandlers[newv?.constructor?.name](this.comp, prop, oldv, newv, meta);
+	prehandle (prop, oldv, newv, Prop, meta) {
+		if (newv?.constructor?.name in this.prehandlers) return this.prehandlers[newv?.constructor?.name](this.comp, prop, oldv, newv, Prop, meta);
 		else return meta
 	}
-	addB (prop, obj, set = true, prehandle = this.opts.prehandle) {//add bind
+	addBind (prop, obj, set = true, prehandle = this.opts.prehandle) {//add bind
 		var val, Prop, meta;
 		
 		//check
@@ -63,17 +63,20 @@ class Binder {
 		if (Array.isArray(prop)) prop.forEach(p=>this.binds[p] ? this.binds[p].push(obj) : this.binds[p] = [obj]);
 		else this.binds[prop] ? this.binds[prop].push(obj) : this.binds[prop] = [obj];
 		
-		if (!Array.isArray(prop)) [val, Prop] = this.comp.model.getLow(prop);
+		if (!Array.isArray(prop)) {
+			var Prop = this.comp.model.get(prop, true);
+			var val = Prop.value
+		}
 		
 		//set if possible
 		if (set && this.opts.setOnDefine) {
-			if (prehandle) meta = this.prehandle(prop, val, val, {});
+			if (prehandle) meta = this.prehandle(prop, val, val, Prop, {});
 			this.handlers[obj.type] (obj, val, this.comp, val, Prop, prop, {...meta, set:true});
 		}
 		
 		return this
 	}
-	addS (prop, obj, set = true, prehandle = this.opts.prehandle) {//add set
+	addSet (prop, obj, set = true, prehandle = this.opts.prehandle) {//add set
 		var val, Prop, meta;
 		
 		//check
@@ -84,7 +87,10 @@ class Binder {
 		if (Array.isArray(prop)) prop.forEach(p=>this.sets[p] ? this.sets[p].push(obj) : this.sets[p] = [obj]);
 		else this.sets[prop] ? this.sets[prop].push(obj) : this.sets[prop] = [obj];
 		
-		if (!Array.isArray(prop)) [val, Prop] = this.comp.model.getLow(prop);
+		if (!Array.isArray(prop)) {
+			var Prop = this.comp.model.get(prop, true);
+			var val = Prop.value
+		}
 
 		//set if possible
 		if (set && this.opts.setOnDefine) {
@@ -123,11 +129,14 @@ class Binder {
 			return
 		}
 		
-		var [val, prop] = this.comp.model.getLow(name);
+		var prop = this.comp.model.get(prop, true);
+		var val = prop?.value;
+		
 		if (name in this.sets) {
 			if (prehandle) meta = this.prehandle(prop, val, val, meta);
-			this.sets[name].forEach(s=> this.handlers[s.type] (s, val, this.comp, undefined, prop, name, {...meta, set:true, reset: true}))
-			
+			this.sets[name].forEach(
+				s=> this.handlers[s.type] (s, val, this.comp, undefined, prop, name, {...meta, set:true, reset: true})
+			)
 		} else this.comp.warn('binder: undefined property (' + name +')');
 		return this
 	}

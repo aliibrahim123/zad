@@ -137,50 +137,59 @@ class View {
 		else this.comp.warn('view: undefined function (' + name + ')');
 		return;
 	}
-	appendSub (el, name, ind = -1, ...args) {
+	createSub (name, ...args) {
 		checkstr(name, 'name', 'view');
-		checkpInt(ind, 'ind', 'view', -1);
-		var sub = this.subs[name], subel, acts = [];
+		var sub = this.subs[name], el, acts = [];
 		if (!sub) throw new CompError('view: undefined sub (' + name + ')');
 		
+		//construct element
+		if (sub.$isSub) ({el, acts} = sub.fn(this, 0, ...args)); //call if sub
+		else el = sub[0].cloneNode(true); //clone else
+		
+		//handle actions and walking
+		if (!('dowalk' in sub) || sub.dowalk) this.walk(el);
+		acts?.forEach?.(act => this.comp.doAct(act));
+		
+		return el
+	}
+	appendSub (el, name, ind = -1, ...args) {
+		checkpInt(ind, 'ind', 'view', -1);
+		
 		this.$(el).forEach(el => {
-			//construct element
-			if (sub.$isSub) ({el: subel, acts} = sub.fn(el, this, true, ...args)); //call if sub
-			else subel = sub[0].cloneNode(true); //clone else
+			//construct sub
+			var subEl = this.createSub(name, ...args)
+			
 			//mark element as sub element
-			subel.$isSub = true; 
+			el.$isSub = true; 
 			
 			//append it
-			if (ind === -1 || ind === el.children.length) el.append(subel); 
-			else if (ind === 0) el.prepend(subel);
-			else el.children[ind].before(subel);
-			
-			//handle actions and walking
-			if (!('dowalk' in sub) || sub.dowalk) this.walk(subel);
-			acts?.forEach?.(it => this.comp.doAct(it))
+			if (ind === -1 || ind === el.children.length) el.append(subEl); 
+			else if (ind === 0) el.prepend(subEl);
+			else el.children[ind].before(subEl);
 		});
 		return this
 	}
-	setSub (el, name, appendM = 'append', ...args) {
+	setSub (el, name, appendMode = 'append', ...args) {
 		checkstr(name, 'name', 'view');
-		checkstr(appendM, 'appendMode', 'view');
-		var sub = this.subs[name], subels, acts = [];
+		checkstr(appendMode, 'appendMode', 'view');
+		var sub = this.subs[name], childs, acts = [], tempEl;
 		if (!sub) throw new CompError('view: undefined sub (' + name + ')');
 		
 		this.$(el).forEach(el => {
 			//construct elements
-			if (sub.$isSub) ({el: subels, acts} = sub.fn(el, this, false, ...args)); //call if sub
-			else subels = sub.cloneNode(true).childNodes; //else clone node
+			if (sub.$isSub) ({el: tempEl, acts} = sub.fn(this, 1, el, ...args)); //call if sub
+			else tempEl = sub.cloneNode(true); //else clone node
+			var childs = tempEl.children;
 			
 			//append them
-			if (appendM === 'append') el.append(...subels);
-			else if (appendM === 'prepend') el.prepend(...subels);
-			else if (appendM === 'replace') el.replaceChildren(...subels);
-			else throw new CompError('view: undefined append mode (' + appendM + ')');
+			if (appendMode === 'append') el.append(...childs);
+			else if (appendMode === 'prepend') el.prepend(...childs);
+			else if (appendMode === 'replace') el.replaceChildren(...childs);
+			else throw new CompError('view: undefined append mode (' + appendMode + ')');
 			
 			//handle actions and walking
-			if (!('dowalk' in sub) || sub.dowalk) [...el.children].forEach(el => this.walk(el));
-			acts?.forEach?.(it => this.comp.doAct(it))
+			if (!('dowalk' in sub) || sub.dowalk) Array.from(el.children).forEach(el => this.walk(el));
+			acts?.forEach?.(act => this.comp.doAct(act))
 		});
 		return this
 	}

@@ -1,0 +1,21 @@
+#content {
+	padding-top: 5px
+}
+
+.button {
+	display: block;
+}
+
+.title {
+	background: rgba(0,0,0,0.35);
+	border: solid black 3px;
+	border-radius: 24px;
+	text-align: center;
+    font-size: calc(var(--font-size) * 1.8);
+}
+
+.section {
+	width: 0%;
+	display: inline-block;
+	overflow: auto
+}

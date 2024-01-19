@@ -1,25 +1,20 @@
 //component class
 //the core components of the framework
 
-//subsystems:
-//	core:
-//		events, model, view
-//	binders:
-//		effects, signals, binder
-
 //component functions: functions for component handling
 
-import { CompError, checkarr, checkcomp, checkstr } from '../check.js';
+import { CompError, checkarr, checkcomp, checkstr, checkpInt } from '../check.js';
 import { EventEmmiter } from './event.js';
-import { Model } from '../model/model.js';
+import { Model } from '../state/model.js';
 import { View } from '../view/view.js';
-import { EffectEmmiter } from '../binders/effect.js';
-import { Signal } from '../binders/signal.js';
+import { EffectEmmiter } from '../state/effect.js';
 import { Binder } from '../binders/binder.js';
+import { Signal, CSignal } from '../state/signals.js';
 
 class Comp {
 	class = this.constructor; //self class
 	constructor (el, opts, children = []) {
+		checkarr(children, 'children', 'comp');
 		opts = this.opts = {
 			...this.class.defaults,
 			...opts
@@ -29,13 +24,12 @@ class Comp {
 		this.id = el?.nodeType === 1 && el.hasAttribute('id') ? el.getAttribute('id') : typeof opts.id === 'function' ? opts.id() : opts.id;
 		this.parent = null;
 		$comp.addById(this, this.id);
-		
-		//handle acts and funs
-		this.acts = opts.acts;
+		this.children = [];
 		this.funs = this.class.funs;
 		
 		//handle events
 		this.events = new this.class.events({}, opts.addUndefEvent, opts.warn);
+		checkarr(opts.eventNames, 'eventNames', 'comp');
 		opts.eventNames.forEach(evt => this.events.add(evt));
 		for (let e in opts.events) {
 			opts.events[e].forEach(fn => this.events.on(e, fn))
@@ -50,37 +44,34 @@ class Comp {
 		//handle binders
 		this.binder = new this.class.binder(this, opts.binder, opts.binds, opts.sets);
 		this.effects = new this.class.effects(this, opts.effect);
-		this.signal = new this.class.signal(this, opts.signal, opts.sChannels);
-		
-		//handle children
-		this.children = [];
-		checkarr(children, 'children')
-		children.forEach(child => this.addChild(child));
 		
 		//handle parent children relationship
 		this.on('appended-to-parent', (self, comp) => this.parent = comp && comp.trigger('init:child', this));
 		this.on('deleted-child', (self, comp) => this.children = this.children.filter(c=>c!==comp));
 		
+		children.forEach(child => this.addChild(child));
+		
 		if (!this.waitingNb) this.init() //init if all system is ready
-		}
+	}
 	static defaults = {
 		id() { return Math.round(Math.random() * $comp.opts.maxCompRandId) },
 		warn: 'warn',
 		addUndefEvent: true,
-		eventNames: ['appended-to-parent', 'appended-child', 'init', 'delete', 'model:add', 'model:delete', 'model:change', 'init:model', 'init:view',
-			'init:child', 'render', 'deleted', 'deleted-child', 'collection:added'],
+		eventNames: [
+			'appended-to-parent', 'appended-child', 'deleted', 'deleted-child', 
+			'init', 'init:model', 'init:view', 'init:child', 'post-init',
+			'model:add', 'model:delete', 'model:change', 
+			'render', 
+			'collection:added'
+		],
 		events: {},
-		get acts() {return []},
-		doAct: true,
 		model: {},
 		data: {},
-		view: {},
+		get view() { return {subs: {}} },
 		effects: {},
-		signal: {},
 		binder: {},
 		binds: {},
 		sets: {},
-		sChannels: [], //signal channels
 		walkChilds: true
 	}
 	static events = EventEmmiter;
@@ -88,7 +79,6 @@ class Comp {
 	static view = View;
 	static binder = Binder;
 	static effects = EffectEmmiter;
-	static signal = Signal;
 	
 	static funs = {};
 	
@@ -106,22 +96,28 @@ class Comp {
 		if (val === 0) this.init()
 	}
 	init() {
-		if (this.opts.walkChilds) this.walk();
 		this.isInited = true;
 		this.trigger('init');
-		this.callSafe('init')
+		this.callSafe('init');
+		if (this.opts.walkChilds) this.walk();
+		this.trigger('init');
+		this.callSafe('post-init');
 	}
-	addChild (comp) {
+	addChild (comp, ind=-1) {
+		checkpInt(ind, 'index', 'comp', -1)
+		
 		//construct child
 		var child;
 		if (comp?.isComp) child = comp;
 		else if (comp?.isCompClass) child = new comp();
 		else if (comp?.isopts) {
-			child = new ($comp.get(comp.type)) (comp.el, comp.opts, comp.children)
+			child = new ($comp.get(comp.type)) (comp.el, comp, comp.children)
 		} else checkcomp(comp, 'comp', 'adding child');
 		
-		//append it and trigger events
-		this.children.push(child);
+		//append it
+		ind === -1 ? this.children.push(child) : this.children.splice(ind, 0, child);
+		
+		//trigger events
 		this.trigger('appended-child', comp);
 		child.trigger('appended-to-parent', this);
 		
@@ -134,8 +130,9 @@ class Comp {
 		if (this.parent) this.parent.trigger('deleted-child', this);
 		if ($comp.root === this) $comp.events.trigger('delete-root', this) && ($comp.root = null);
 		this.el.remove();
+		this.children.forEach(child => child.remove())
 		
-		$comp.idmap[this.id] = undefined
+		$comp.idmap[this.id] = undefined;
 	}
 	warn (msg) {
 		if (this.opts.warn) console[this.opts.warn](msg)
@@ -167,22 +164,13 @@ class Comp {
 	}
 	
 	//actions
-	addAct (act) {
-		if (!act) throw new CompError('comp: undefined action');
-		this.acts.push(act);
-		return this
-	}
 	doAct (act) {
 		if (!act) throw new CompError('comp: undefined action');
-		if (this.opts.doAct) {
-			if (act.el) $comp.acts.do(this, {...act, el: this.view.$(act.el)}); //convert from selector to elements
-			else $comp.acts.do(this, act)
-		}
-		else this.addAct(act);
+		
+		if (act.el) $comp.acts.do(this, {...act, el: this.view.$(act.el)}); //convert from selector to elements
+		else $comp.acts.do(this, act)
+		
 		return this
-	}
-	doAllActs () {
-		this.acts.forEach(act => $comp.doAct(this, act))
 	}
 	
 	//component functions
@@ -198,7 +186,7 @@ class Comp {
 	callSafe (name, ...args) { //call in safe mode
 		var parts = name.split(':');
 		if (parts.length === 1) { //local function
-			if (!(parts[0] in this.funs)) return undefined;
+			if (!(parts[0] in this.funs)) return;
 			return this.funs[parts[0]](this, ...args);
 		}
 		return $comp.funNS[parts[0]](parts[1], this, true, ...args) //namespace function
@@ -224,20 +212,21 @@ class Comp {
 		return this.model.has(name)
 	}
 	
-	//data binders
 	addEffect (name, fn) {
 		this.effects.add(name, fn);
 		return this
 	}
-	addSignal (comp, obj) {
-		this.signal.add(comp, obj);
-		return this
+	createSignal (name, value) {
+		return new Signal(this, name, value)
+	}
+	createCSignal (name, depends, fn) {
+		return new CSignal(this, name, depends, fn)
 	}
 	
 	//view
 	walk (el, forceNS =[]) {
 		if (el) this.view.$(el).forEach(el => this.view.walk(el, forceNS));
-		else [...this.el.children].forEach(el => this.view.walk(el, forceNS));
+		else Array.from(this.el.children).forEach(el => this.view.walk(el, forceNS));
 		return this
 	}
 	addRef (name, el) {
@@ -246,4 +235,4 @@ class Comp {
 	}
 }
 
-export { Comp, Model, View, Binder, EffectEmmiter, Signal }
+export { Comp, Model, View, Binder, EffectEmmiter, Signal, CSignal }

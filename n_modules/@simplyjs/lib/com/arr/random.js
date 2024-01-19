@@ -14,7 +14,7 @@ export var sample = (arr, size) => {
 
 export var shuffle = (arr) => {
 	checkarr(arr);
-	var shuffled = [...arr];
+	var shuffled = Array.from(arr);
 	for (let i = 0; i < arr.length; i++) {
 		let n = Math.floor(Math.random() * arr.length);
 		let temp = shuffled[i];

@@ -1,86 +1,84 @@
 //fahras page component
 
-var { createComp, setFun, useState, useCall, useComp, useEl } = $comp.func;
+var { createComp, setFun, setSub, useCall, useSub, useRef } = $comp.func;
 
 var comp = createComp(() => {
-	setFun('update', () => {
+	setFun('post-init', () => {
+		useCall('update', location)
+	});
+	setFun('route', (url) => {
+		useCall('update', url)
+	})
+	setFun('update', (url) => {
 		//get list
-		var [path] = useState('path');
-		var list = path.reduce((curObj, path) => curObj[path], globalObjects);
-		lastFahrasPath = path.concat();
+		var path = decodeURI(url.hash).slice(1).split('/');
+		var cat = path[0];
+		var list = globalObjects.indexes[cat]?.[path[1]];
+		if(!list) list = path.reduce((obj, prop) => obj[prop], globalObjects);
 		
-		//generate list
-		var items = Object.keys(list).map(
-			item => $el(`<div class='item hide ${typeof list[item] === 'object' ? 'cat' : ''}' use:on on(click):call='["change", "${item}"]'>
-				${typeof list[item] === 'object' ? '' : '⦁ '}${item}`)[0]
-		);
-		items.unshift(
-			$el(`<div id=title class=hide>${path[path.length -1]}`)[0],
-			$el(`<div id=back class='item hide' use:on on(click):call='["back"]'>رجوع`)[0]
-		);
+		document.title = 'زاد العباد ليوم المعاد: ' + cat;
+		var vname = globalObjects.vdata[cat]?.[0];
+		
+		var itemList = useRef('item-list')[0];
 		
 		//animate old
-		Array.from($el('#content')[0].children).forEach(
+		[].forEach.call(itemList.children, 
 			el => el.animate(
-			  [{opacity: '1'}, {opacity: '0'}]
-			, {duration: 250})
-			  .finished.then(() => el.remove())
+				[{opacity: 1}, {opacity: 0}],
+				{duration: 250}
+			).finished.then(() => el.remove())
 		)
 		
-		//animate new
-		$el('#content')[0].append(...items);
-		items.forEach((el, i) => setTimeout(
-			() => {
-				el.animate(
-					[{opacity: '0', transform: 'translateY(40px)'}, {transform: 'translateY(0px)'}], 
-					{duration: 700, easing: 'ease-out'}
-				);
-				el.classList.remove('hide')
-			}, Math.min(i * 50, 1000) + 250)
-		)
+		//handle title
+		var titleEl = useRef('title')[0];
+		//old title, center and lay over
+		if (titleEl.children.length) [].forEach.call(titleEl.children, child => {
+			child.style.position = 'absolute';
+			child.style.left = '50%';
+			child.style.transform = 'translateX(-50%)';
+			child.animate([{ opacity: 1 }, {opacity: 0}], {duration: 400})
+			  .finished.then(() => child.remove());
+		})
 		
-		//walk throught elements
-		useComp().walk()
+		//new title
+		var newTitle = $el('<div>' + list.$name)[0];
+		titleEl.append(newTitle);
+		newTitle.animate(
+			[{ opacity: 0 }, {opacity: 1}], 
+			{duration: 400, delay: 100, fill: 'both'}
+		);
+		
+		
+		//generate list
+		var items = Object.keys(list).filter(k => k !== '$name' && k !== '$ind').map(
+			item => useSub('item', list[item], item, cat, vname)
+		);
+		itemList.prepend(...items);
+		
+		items.forEach((el, i) => setTimeout(() => {
+			el.classList.remove('hide')
+			el.animate([
+				{ opacity: 0, transform: 'translateY(40px)' }, 
+				{ opacity: 1, transform: 'translateY(0px)' }
+			], { duration: 700, easing: 'ease-out', fill: 'both' })
+		}, 300 + Math.min(i, 30) * 50));
+		
+		$comp.router.attachToDom();
 	});
 	
-	setFun('back', () => {
-		var [path] = useState('path');
-		if (path.length === 1) return;
-		path.pop();
-		useCall('update')
-	});
-	
-	setFun('change', (el, item) => {
-		var [path] = useState('path');
-		path.push(item);
-		
-		//get list
-		var list = path.reduce((curObj, path) => curObj[path], globalObjects);
-		
-		//case link
-		if (Array.isArray(list)) return $comp.router.go(list[0]);
-		
-		//case category
-		if (typeof list === 'object') return useCall('update');
-		
-		//case item
-		$comp.router.go(`./${useState('v-name')[0]}viewer.html?id=${list}&title=${item}`);
-	})
-	
+	setSub('item', {$isSub: true, fn: (view, type, item, name, cat, vname) => {
+		if (item.$isButton)
+			var el = $el(`<div class='item hide' onclick='globalObjects.fahrasBtns["${cat}"]["${item.name}"]()'>${name}</div>`)[0];
+		else if (Array.isArray(item))
+			var el = $el(`<div class='item hide'><a href='${item[0]}'>⦁ ${name}</a></div>`)[0];
+		else if (typeof item === 'object') 
+			var el = $el(`<div class='item cat hide'><a href='#${cat}/${item.$ind}'>${name}</a></div>`)[0];
+		else var el = $el(`<div class='item hide'>
+			<a href='./${vname}?cat=${cat}&id=${item}&title=${globalObjects.nameMap[name]}'>⦁ ${name}</a>
+		</div>`)[0];
+		return { el }
+	}});
 	return `<span>`
-}, () => {
-	var [path] = useState('path', []);
-	var catname = $el('#main')[0].getAttribute('cat');
-	
-	var pathUrlSearch = new URL(location).searchParams.get('path');
-	
-	if (lastFahrasPath[0] === catname) path.push(...lastFahrasPath);
-	else if (pathUrlSearch) path.push(catname, ...pathUrlSearch.split('/'));
-	else path.push(catname);
-	
-	useState('v-name', $el('#main')[0].getAttribute('v-name') || '');
-		
-	useCall('update')
 });
 
 $comp.add('fahras', comp);

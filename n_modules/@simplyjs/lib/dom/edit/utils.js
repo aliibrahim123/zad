@@ -27,7 +27,7 @@ export var getContainer = () => { //get nearest parent with contenteditable in s
 
 export var splitEl = (el, offsetEl, offsetPar) => {
 	checkel(el, 'element');
-	checknode(offsetEl, 'offset element');
+	if (offsetEl) checknode(offsetEl, 'offset element');
 	if (offsetPar) checkel(offsetPar, 'offset parent');
 	
 	//split element at offset (include it in the clone

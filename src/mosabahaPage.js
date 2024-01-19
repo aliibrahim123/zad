@@ -1,46 +1,45 @@
 //mosabaha page component
 
-var { createComp, setFun, useCall, useComp } = $comp.func;
+var { createComp, setFun, useCall, useStore, setSub, useComp } = $comp.func;
 
-globalThis.mosabaha = JSON.parse(localStorage.getItem('mosabaha')) || {};
+globalThis.mosabaha = JSON.parse(localStorage.getItem('mosabaha') || '{}');
 var comp = createComp(() => {
-	setFun('update', () => {
-		$el('#main')[0].style.backgroundColor = 'rgba(0, 0, 0, 0.87)';
-		$el('#items')[0].replaceChildren(...Object.keys(mosabaha).map(name => 
-			$el(`<div id=item>
-				${name}: ${mosabaha[name]}
-				<span class=button use:on on(click):call='["inc", "${name}"]'>زد</span>
-				<span class=button use:on on(click):call='["dec", "${name}"]'>أنقص</span>
-				<span class=button use:on on(click):call='["remove", "${name}"]'>حذف</span>
-			</div>`)[0]
-		));
-		useComp().walk();
-	});
-	setFun('add', () => {
-		var name = prompt('إسم');
-		mosabaha[name] = 0;
+	setFun('post-init', () => {
+		useStore().list = Object.entries(mosabaha);
+	})
+	setFun('save', () => {
 		localStorage.setItem('mosabaha', JSON.stringify(mosabaha));
-		useCall('update')
+		useStore().list = Object.entries(mosabaha);
+	})
+	setFun('add', async () => {
+		var comp = useComp();
+		var name = await createPrompt('إسم');
+		mosabaha[name] = 0;
+		comp.call('save')
 	})
 	setFun('inc', (el, name) => {
 		mosabaha[name]++;
-		localStorage.setItem('mosabaha', JSON.stringify(mosabaha));
-		useCall('update')
+		useCall('save')
 	});
 	setFun('dec', (el, name) => {
 		mosabaha[name]--;
-		localStorage.setItem('mosabaha', JSON.stringify(mosabaha));
-		useCall('update')
+		useCall('save')
 	});
 	setFun('remove', (el, name) => {
 		delete mosabaha[name];
-		localStorage.setItem('mosabaha', JSON.stringify(mosabaha));
-		useCall('update')
+		useCall('save')
 	});
 	
+	setSub('item', {$isSub: true, fn: (view, type, [name, nb]) => { return {
+		el: $el(`<div id=item>
+			${name}: ${nb}
+			<span class=button r:on on(click):call='["inc", "${name}"]'>زد</span>
+			<span class=button r:on on(click):call='["dec", "${name}"]'>أنقص</span>
+			<span class=button r:on on(click):call='["remove", "${name}"]'>حذف</span>
+		</div>`)[0]
+	}}})
+	
 	return `<span>`
-}, () => {
-	useCall('update')
 });
 
 $comp.add('mosabaha', comp);
