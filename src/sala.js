@@ -36,7 +36,7 @@ export var getSalaTiming = async (date = new Date()) => {
 	};
 	
 	var response = (await (await fetch(
-		`http://api.aladhan.com/v1/timings/${dateStr}?${Object.entries(options).map(v => v.join('=')).join('&')}`
+		`https://api.aladhan.com/v1/timings/${dateStr}?${Object.entries(options).map(v => v.join('=')).join('&')}`
 	)).json());
 	
 	var timings = response.data.timings;
