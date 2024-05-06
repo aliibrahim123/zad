@@ -1,5 +1,6 @@
 #main {
-	background: rgba(0, 0, 0, 0.87)
+	background: var(--viewer-theme-back);
+	color: var(--viewer-theme-color)
 }
 
 #filler {
@@ -13,9 +14,20 @@
 
 .button {
 	padding-top: 0;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: calc(var(--vu) * 0.5);
+	padding-right: calc(var(--vu) * 0.5);
 	padding-bottom: 0;
+	background: var(--viewer-theme-but-col)
+}
+
+.button:hover {
+	background: var(--viewer-theme-but-hov-col);
+	color: white
+}
+
+.button:active {
+	background: var(--viewer-theme-but-act-col);
+	color: white
 }
 
 #markers > * {

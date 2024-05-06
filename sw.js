@@ -7,12 +7,8 @@ var delay = (ms) => new Promise(r => setTimeout(r, ms));
 
 var cacheName = 'zad';
 var whenFinished = [];
-(async () => {
-	globalThis.cacheVersion = await (await fetch('./version.txt')).text();
-	globalThis.cacheFull = cacheName + '.v.' + cacheVersion;
-	whenFinished.forEach(r => r());
-	whenFinished = []
-})();
+globalThis.cacheVersion = '1.0.3.0';
+globalThis.cacheFull = cacheName + '.v.' + cacheVersion;
 
 self.addEventListener('install', (e) => {
 	console.log('installed')
@@ -22,8 +18,6 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
 	console.log('activated');
 	e.waitUntil((async () => {
-		if (!globalThis.cacheFull) await new Promise(r =>whenFinished.push(r));
-		
 		//clean up old caches
 		var keys = await caches.keys();
 		await Promise.all(keys.map((key) => {
@@ -38,7 +32,6 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
 	e.respondWith((async () => {
-		if (!globalThis.cacheFull) await new Promise(r =>whenFinished.push(r));
 		var bareUrl = new URL(e.request.url.match(/^[^#?]+/));
 		
 		var cache = await caches.open(globalThis.cacheFull);
@@ -58,7 +51,6 @@ self.addEventListener('fetch', (e) => {
 onmessage = async (e) => {
 	var client = e.source;
 	var sub = e.data[0];
-	if (!globalThis.cacheFull) await new Promise(r =>whenFinished.push(r));
 	var cache = await caches.open(globalThis.cacheFull);
 	
 	if (sub === 'assets') return cacheAssets(e, client, cache);

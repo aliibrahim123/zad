@@ -5,8 +5,26 @@
 
 html, body { 
 	min-height: 100%;
-	--font-size: 25px;
-	direction: rtl
+	direction: rtl;
+	
+	--font-size: 1.5rem;
+	--vumult: 1;
+	--vu: calc(max(1vw, 1vh) * var(--vumult));
+	--main-margin-mult: 4;
+	--border-mult: 1;
+	--shadow: 0px 0px calc(var(--vu) * 3.5) calc(var(--vu) * 0.75) black;
+	
+	--main-theme-back: radial-gradient(rgb(0 0 0 / 83%), rgb(0 0 0 / 74%), rgb(0 0 0 / 62%));
+	--main-theme-color: white;
+	--main-theme-but-col: rgba(0,0,0,0.4);
+	--main-theme-but-hov-col: rgba(0,0,0,0.7);
+	--main-theme-but-act-col: black;
+	
+	--viewer-theme-back: radial-gradient(rgb(0 0 0), rgb(0 0 0 / 95%));
+	--viewer-theme-color: white;
+	--viewer-theme-butcol: rgba(0,0,0,0.4);
+	--viewer-theme-but-hov-col: rgba(0,0,0,0.7);
+	--viewer-theme-but-act-col: black;
 }
 
 .hide {
@@ -15,21 +33,21 @@ html, body {
 
 .button {
 	transition: background 0.3s;
-	padding: 5px;
-	margin: 3px;
-	border: black solid 2px;
-	border-radius: 15px;
-	background: rgba(0,0,0,0.4);
+	padding: calc(var(--vu) * 0.5);
+	margin: calc(var(--vu) * 0.3);
+	border: black solid calc(var(--vu) * 0.2 * var(--border-mult));
+	border-radius: calc(var(--vu) * 1.5);
+	background: var(--main-theme-but-col);
 	display: inline-block;
 	text-align: center
 }
 
 .button:hover {
-	background: rgba(0,0,0,0.7)
+	background: var(--main-theme-but-hov-col)
 }
 
 .button:active {
-	background: black
+	background: var(--main-theme-but-act-col)
 }
 
 .popup {
@@ -38,12 +56,12 @@ html, body {
 	top: 65%;
 	transform: translateX(-50%);
 	background-color: rgba(0,0,0,75%);
-	border: black 3px solid;
-	border-radius: 30px;
-	box-shadow: 0px 0px 16px 3px black;
-	color: white;
+	border: black calc(var(--vu) * 0.3 * var(--border-mult)) solid;
+	border-radius: calc(var(--vu) * 3);
+	box-shadow: 0px 0px calc(var(--vu) * 1.6) calc(var(--vu) * 0.3) black;
+	color: var(--main-theme-color);
 	font-size: var(--font-size);
-	padding: 10px;
+	padding: calc(var(--vu) * 1);
 	text-align: center;
 }
 
@@ -53,12 +71,12 @@ html, body {
 	top: 20%;
 	transform: translateX(-50%);
 	background-color: rgba(0,0,0,75%);
-	border: black 3px solid;
-	border-radius: 30px;
-	box-shadow: 0px 0px 35px 7.5px black;
-	color: white;
+	border: black calc(var(--vu) * 0.3 * var(--border-mult)) solid;
+	border-radius: calc(var(--vu) * 3);
+	box-shadow: 0px 0px calc(var(--vu) * 3.5) calc(var(--vu) * 0.7) black;
+	color: var(--main-theme-color);
 	font-size: var(--font-size);
-	padding: 10px;
+	padding: calc(var(--vu) * 1);
 	text-align: center;
 }
 
@@ -68,17 +86,17 @@ html, body {
 	left: 0px;
 	right: 0px;
 	bottom: 0;
-	margin: min(7%, 40px);
-	padding: 10px;
-	background-color: rgba(0,0,0,75%);
-	border: black 12px double;
-	border-radius: 42px;
-	box-shadow: 0px 0px 35px 7.5px black;
-	color: white
+	margin: calc(var(--vu) * var(--main-margin-mult));
+	padding: calc(var(--vu) * 1);
+	background: var(--main-theme-back);
+	border: black calc(var(--vu) * 1.2 * var(--border-mult)) double;
+	border-radius: calc(var(--vu) * 4.2);
+	box-shadow: var(--shadow);
+	color: var(--main-theme-color)
 }
 
 #filler {
-	padding-top: 5px;
+	padding-top: calc(var(--vu) * 0.5);
 	overflow-y: auto;
 	height: 100%;
 	font-size: var(--font-size)

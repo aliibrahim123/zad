@@ -42,7 +42,7 @@ globalThis.globalObjects = {
 	'المفضلة': JSON.parse(localStorage.getItem('z-favorite') || `{
 		"$name": "المفضلة", 
 		"$ind": 0, 
-		"خذف": { "$isButton": true, "name": "delete" }}`
+		"حذف": { "$isButton": true, "name": "delete" }}`
 	),
 	
 	vdata: {
@@ -110,6 +110,8 @@ var cats = [
 	'قرآن', 'مواضيع القرآن الكريم', 'أحكام التجويد', 'تفسير', 'أدعية', 'زيارات', 'قسم الصلاة', 'اعمال الساعات', 'اعمال الأسبوع', 'اعمال الأشهر',
 	'مناسبات', 'سيرة أهل البيت', 'حكم الإمام علي', 'أقوال قصيرة', 'ديوان', 'خطب', 'كتب أهل البيت', 'نهج البلاغة'
 ]
+
+cats.forEach(cat => globalObjects[cat]['بحث'] = { ind:0, $hidden: true })
 
 globalObjects.names = names;
 globalObjects.nameMap = nameMap;

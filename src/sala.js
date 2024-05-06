@@ -3,7 +3,7 @@
 
 export var getSalaTiming = async (date = new Date()) => {
 	//case offline, return empty
-	if (!navigator.onLine) return {		
+	if (!navigator.onLine || !setting.sala.enable) return {		
 		'الفجر': '00:00',
 		'الشروق': '00:00',
 		'الظهر': '00:00',

@@ -18,8 +18,8 @@ var comp = createComp(() => {
 		var title = useRef('title')[0];
 		title.classList.remove('centered');
 		title.style.background = 'rgba(0,0,0,0.55)';
-		title.style.border = 'solid black 3px';
-		title.style.borderRadius = '24px';
+		title.style.border = 'black solid calc(var(--vu) * 0.3 * var(--border-mult))';
+		title.style.borderRadius = 'calc(var(--vu) * 2.4)';
 		
 		//handle items enter animation
 		[].forEach.call(useRef('button-grid')[0].children, (item, i) => {
@@ -44,16 +44,16 @@ var comp = createComp(() => {
 		month = globalObjects.months[month -1];
 		store.date = `${day} ${month} ${year}`;
 		
-		//set sala
-		var timings = await getSalaTiming(date);
-		store.stime = Object.entries(timings).map(([name, time]) => `${name}: ${time}`).join('\n');
-		
 		//set monasabat
 		var monasabat = globalObjects.monasabatData[globalObjects['مناسبات'][month][`اليوم (${day})`]];
 		store.monasabat = monasabat ? monasabat + '\n\n' : '';
 		
 		//show month work
 		if (globalObjects['اعمال الأشهر'][month][`اليوم (${day})`]) mwork.classList.remove('hide');
+		
+		//set sala
+		var timings = await getSalaTiming(date);
+		store.stime = Object.entries(timings).map(([name, time]) => `${name}: ${time}`).join('\n');
 	})
 	setFun('showSubMenu', (el, menu) => {
 		var store = useStore();

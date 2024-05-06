@@ -4,9 +4,32 @@
 }
 
 #main {
-	background: rgba(0, 0, 0, 0.87)
+	background: var(--viewer-theme-back);
+	color: var(--viewer-theme-color)
 }
 
 #content {
-	padding-top: 5px
+	padding-top: calc(var(--vu) * 0.5)
+}
+
+.button {
+	background: var(--viewer-theme-but-col)
+}
+
+.button:hover {
+	background: var(--viewer-theme-but-hov-col);
+	color: white
+}
+
+.button:active {
+	background: var(--viewer-theme-but-act-col);
+	color: white
+}
+
+.item {
+	margin: calc(var(--vu) * 1);
+	background: rgba(0,0,0,0.2);
+	border: black solid calc(var(--vu) * 0.4 * var(--border-mult));
+	padding: calc(var(--vu) * 1);
+	border-radius: calc(var(--vu) * 2.4)
 }

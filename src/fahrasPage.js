@@ -1,6 +1,18 @@
 //fahras page component
 
-var { createComp, setFun, setSub, useCall, useSub, useRef } = $comp.func;
+var { createComp, setFun, setSub, useCall, useSub, useRef, useStore } = $comp.func;
+
+var search = (obj, name, founded, path) => {
+	for (let prop in obj) {
+		var value = obj[prop];
+		if (prop.includes(name)) founded[path.concat(prop).join('/')] = [value, prop];
+		if (typeof value === 'object' && !Array.isArray(value) && !value.$hidden) {
+			path.push(prop);
+			search(value, name, founded, path);
+			path.pop()
+		}
+	}
+}
 
 var comp = createComp(() => {
 	setFun('post-init', () => {
@@ -8,13 +20,37 @@ var comp = createComp(() => {
 	});
 	setFun('route', (url) => {
 		useCall('update', url)
-	})
+	});
+	setFun('search', async () => {
+		var { list: root, cat } = useStore();
+		
+		//prompt name
+		var name = await createPrompt('الإسم');
+		
+		//search
+		var list = { $name: `نتائج '${name}'` };
+		search(root, name, list, []);
+		
+		//put in search obj
+		var searchObj = globalObjects[cat]['بحث'];
+		var ind = searchObj.ind++;
+		if (ind === 7) searchObj.ind = 0;
+		searchObj[ind] = list;
+		
+		//route
+		var url = new URL(location);
+		url.hash = encodeURI(`${cat}/بحث/${ind}`);
+		$comp.router.go(url.toString())
+	});
+	
 	setFun('update', (url) => {
 		//get list
 		var path = decodeURI(url.hash).slice(1).split('/');
 		var cat = path[0];
 		var list = globalObjects.indexes[cat]?.[path[1]];
-		if(!list) list = path.reduce((obj, prop) => obj[prop], globalObjects);
+		if (!list) list = path.reduce((obj, prop) => obj[prop], globalObjects);
+		useStore().list = list;
+		useStore().cat = cat;
 		
 		document.title = 'زاد العباد ليوم المعاد: ' + cat;
 		var vname = globalObjects.vdata[cat]?.[0];
@@ -67,12 +103,27 @@ var comp = createComp(() => {
 	});
 	
 	setSub('item', {$isSub: true, fn: (view, type, item, name, cat, vname) => {
-		if (item.$isButton)
+		//hidden
+		if (item.$hidden) var el = $el('<div>')[0];
+		
+		//button
+		else if (item.$isButton)
 			var el = $el(`<div class='item hide' onclick='globalObjects.fahrasBtns["${cat}"]["${item.name}"]()'>${name}</div>`)[0];
-		else if (Array.isArray(item))
+		
+		//[link] link
+		else if (item?.length === 1)
 			var el = $el(`<div class='item hide'><a href='${item[0]}'>⦁ ${name}</a></div>`)[0];
+		
+		//[id, name]
+		else if (item?.length === 2) var el = $el(`<div class='item hide'>
+			<a href='./${vname}?cat=${cat}&id=${item[0]}&title=${globalObjects.nameMap[item[1]]}'>⦁ ${name}</a>
+		</div>`)[0];
+		
+		//group
 		else if (typeof item === 'object') 
 			var el = $el(`<div class='item cat hide'><a href='#${cat}/${item.$ind}'>${name}</a></div>`)[0];
+		
+		//item
 		else var el = $el(`<div class='item hide'>
 			<a href='./${vname}?cat=${cat}&id=${item}&title=${globalObjects.nameMap[name]}'>⦁ ${name}</a>
 		</div>`)[0];

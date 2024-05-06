@@ -1,46 +1,52 @@
+* {
+	transition: background 0.2s, background-color 0.2s, color 0.2s, font-size 0.2s, margin 0.2s, 
+		border 0.2s, border-raduis 0.2s, padding 0.2s, height 0.2s, width 0.2s;
+}
+
 .item {
-	padding: 5px
+	padding: calc(var(--vu) * 0.5)
 }
 
 .box {
 	transition: background 0.3s;
-	padding-inline: 5px;
-	margin-bottom: 5px;
-	border: black solid 3px;
-	border-radius: 15px;
-	background: rgba(0,0,0,0.6);
+	padding-inline: calc(var(--vu) * 0.5);
+	margin-bottom: calc(var(--vu) * 0.5);
+	border: black solid calc(var(--vu) * 0.3 * var(--border-mult));
+	border-radius: calc(var(--vu) * 1.5);
+	background: var(--main-theme-but-col);
 	display: inline-block;
 }
 
 .box:hover {
-	background: rgba(0,0,0,0.8)
+	background: var(--main-theme-but-hov-col)
 }
 
 .box:active {
-	background: black
+	background: var(--main-theme-but-act-color)
 }
 
 #main {
-	background: rgba(0, 0, 0, 0.87)
+	background: var(--main-theme-back)
 }
 
 .cat {
-	background: rgba(0,0,0,0.45);
-	border: 5px double black;
-	border-radius: 15px;
-	padding: 10px;
+	margin-block: calc(var(--vu) * 0.5);
+	background: rgba(0,0,0,0.2);
+	border: calc(var(--vu) * 0.5 * var(--border-mult)) double black;
+	border-radius: calc(var(--vu) * 1.5);
+	padding: calc(var(--vu) * 1);
 }
 
 .inp {
 	transition: background 0.3s;
-	border: black solid 3px;
-	border-radius: 15px;
-	background: rgba(0,0,0,0.4);
+	border: black solid calc(var(--vu) * 0.3 * var(--border-mult));
+	border-radius: calc(var(--vu) * 1.5);
+	background: var(--main-theme-but-col);
 	display: inline-block;
-	color: white;
-	font-size: calc(var(--font-size)* 0.8);
+	color: inherit;
+	font-size: var(--font-size);
 }
 
 .inp:hover {
-	background: rgba(0,0,0,0.7)
+	background: var(--main-theme-but-hov-col)
 }

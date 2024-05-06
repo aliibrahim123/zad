@@ -16,30 +16,66 @@
 
 <div id=main comp-name='lazy:setting' is-root path='../'>
 	<div id=filler>
-		<div class=item>حجم الخط: 
-			<span class=box r:on on(click):call='["decSize"]'><-</span>
-			<span class=box r:on on(click):call='["incSize"]'>-></span>
-		</div>
-		<div class=item>نوع الخط: 
-			<span class=box r:on on(click):call='["incType"]'><-</span>
-			<span class=box r:on on(click):call='["incType"]'>-></span>
-		</div>
-		<div class=item>لون الخلفية:
-			<span class=box r:on on(click):call='["setBack", "black"]'>أسود</span>
-			<span class=box r:on on(click):call='["setBack", "tblack"]'>أسود شفاف</span>
-		</div>
-		<div class=cat>أوقات الصلاة:
+		<details class=cat><summary>تصميم:</summary>
+			<div class=item>حجم الخط: 
+				<span class=box r:on on(click):call='["decSize"]'><-</span>
+				<span class=box r:on on(click):call='["incSize"]'>-></span>
+			</div>
+			<div class=item>نوع الخط: 
+				<span class=box r:on on(click):call='["incType"]'><-</span>
+				<span class=box r:on on(click):call='["incType"]'>-></span>
+			</div>
+			<div class=item onclick='styleMan.changeTheme()'>السمة الرئيسية:
+				<span class=box r:on on(click):call='["set", "style.mainTheme", "black"]'>أسود</span>
+				<span class=box r:on on(click):call='["set", "style.mainTheme", "tblack"]'>أسود شفاف</span>
+				<span class=box r:on on(click):call='["set", "style.mainTheme", "fblack"]'>أسود غامق</span>
+				<span class=box r:on on(click):call='["set", "style.mainTheme", "page"]'>صفحة 1</span>
+				<span class=box r:on on(click):call='["set", "style.mainTheme", "page2"]'>أصفحة 2</span>
+			</div>
+			<div class=item onclick='styleMan.changeTheme()'>سمة المحتوى:
+				<span class=box r:on on(click):call='["set", "style.viewerTheme", "black"]'>أسود</span>
+				<span class=box r:on on(click):call='["set", "style.viewerTheme", "tblack"]'>أسود شفاف</span>
+				<span class=box r:on on(click):call='["set", "style.viewerTheme", "fblack"]'>أسود غامق</span>
+				<span class=box r:on on(click):call='["set", "style.viewerTheme", "page"]'>صفحة 1</span>
+				<span class=box r:on on(click):call='["set", "style.viewerTheme", "page2"]'>أصفحة 2</span>
+			</div>
+			<div class=item>الحجم العام:
+				<input type=number class=inp min=0.1 step=0.025 r:on prop='style.vumult' on(change):call='["fromInp"]' 
+					comp:ref='inp' on(input):call='["updateTheme", "changeVUMult"]'>
+			</div>
+			<div class=item>صورة الخلفية:
+				<input type=number class=inp map placeholder='0 = عشوائي' min=0 step=1 max=39 r:on prop='style.backImage' 
+					on(change):call='["fromInp"]' comp:ref='inp' on(input):call='["updateTheme", "changeBack"]'>
+			</div>
+			<div class=item>الهامش الرئيسي:
+				<input type=number class=inp min=0.1 step=0.025 r:on prop='style.mainMarginMult' on(change):call='["fromInp"]'
+					comp:ref='inp' on(input):call='["updateTheme", "changeMainMargin"]'>
+			</div>
+			<div class=item>حجم الحدود:
+				<input type=number class=inp min=0.1 step=0.025 r:on prop='style.borderMult' on(change):call='["fromInp"]'
+					comp:ref='inp' on(input):call='["updateTheme", "changeBolderMult"]'>
+			</div>
+			<div class=item>الظل:
+				<select id=shadow map class=inp r:on prop='style.shadowSize' on(change):call='["fromInp"]'
+					comp:ref='inp' on(input):call='["updateTheme", "changeShadow"]'></select>
+			</div>
+		</details>
+		
+		<details class=cat><summary>أوقات الصلاة:</summary>
+			<div class=item>تفعيل:
+				<select id=senable map class=inp r:on prop='sala.enable' on(change):call='["fromInp"]' comp:ref='inp'></select>
+			</div>
 			<div class=item>طريقة الحساب:
-				<input type=select list=smethods map class=inp r:on prop='sala.method' on(change):call='["fromInp"]' comp:ref='inp'>
+				<select id=smethods map class=inp r:on prop='sala.method' on(change):call='["fromInp"]' comp:ref='inp'></select>
 			</div>
 			<div class=item>وضع منتصف الليل:
-				<input type=select list=midnmode map class=inp r:on prop='sala.midnightMode' on(change):call='["fromInp"]' comp:ref='inp'>
+				<select id=midnmode map class=inp r:on prop='sala.midnightMode' on(change):call='["fromInp"]' comp:ref='inp'></select>
 			</div>
 			<div class=item>طريقة ضبط خط العرض:
-				<input type=select list=lat-adj-mode map class=inp r:on prop='sala.latitudeAdjustmentMethod' on(change):call='["fromInp"]' comp:ref='inp'>
+				<select id=lat-adj-mode map class=inp r:on prop='sala.latitudeAdjustmentMethod' on(change):call='["fromInp"]' comp:ref='inp'></select>
 			</div>
 			<div class=item>الشفق:
-				<input type=select list=shafaq class=inp map r:on prop='sala.shafaq' on(change):call='["fromInp"]' comp:ref='inp'>
+				<select id=shafaq class=inp map r:on prop='sala.shafaq' on(change):call='["fromInp"]' comp:ref='inp'></select>
 			</div>
 			<div class=item>تصحيح التاريخ:
 				<input type=number class=inp placeholder='بالأيام' r:on prop='dateAdjustment' on(change):call='["fromInp"]' comp:ref='inp'>
@@ -71,11 +107,6 @@
 			<div class=item>تصحيح منتصف الليل:
 				<input type=number class=inp placeholder='بالدقائق' r:on prop='sala.tune.8' on(change):call='["fromInp"]' comp:ref='inp'>
 			</div>
-			
-			<datalist id=smethods r:on comp:ref=smethods></datalist>
-			<datalist id=midnmode r:on comp:ref=midnmode></datalist>
-			<datalist id=lat-adj-mode r:on comp:ref=lat-adj-mode></datalist>
-			<datalist id=shafaq r:on comp:ref=shafaq></datalist>
-		</div>
+		</details>
 	</div>
 </div>

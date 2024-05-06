@@ -1,7 +1,22 @@
 #content {
-	padding-top: 5px
+	padding-top: calc(var(--vu) * 0.5)
 }
 
 #main {
-	background: rgba(0, 0, 0, 0.87)
+	background: var(--viewer-theme-back);
+	color: var(--viewer-theme-color)
+}
+
+.button {
+	background: var(--viewer-theme-but-col)
+}
+
+.button:hover {
+	background: var(--viewer-theme-but-hov-col);
+	color: white
+}
+
+.button:active {
+	background: var(--viewer-theme-but-act-col);
+	color: white
 }

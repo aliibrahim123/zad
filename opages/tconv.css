@@ -1,41 +1,56 @@
 .button {
 	transition: background 0.3s;
-	padding: 5px;
-	margin-bottom: 5px;
-	border: black solid 3px;
-	border-radius: 15px;
-	background: rgba(0,0,0,0.6);
+	padding: calc(var(--vu) * 0.5);
+	margin-bottom: calc(var(--vu) * 0.5);
+	border: black solid calc(var(--vu) * 0.3 * var(--border-mult));
+	border-radius: calc(var(--vu) * 1.5);
+	background: var(--main-theme-but-col);
 	display: inline-block;
 }
 
 .button:hover {
-	background: rgba(0,0,0,0.8)
+	background: var(--main-theme-but-hov-col)
 }
 
 .button:active {
-	background: black
+	background: var(--main-theme-but-act-col)
 }
 
 #out {
-	padding: 7px;
-	border: black solid 3px;
-	border-radius: 15px;
+	padding: calc(var(--vu) * 0.7);
+	border: black solid calc(var(--vu) * 0.3 * var(--border-mult));
+	border-radius: calc(var(--vu) * 1.5);
 	background: rgba(0,0,0,0.6);
 	width: fit-content;
 }
 
 #title {
 	background: rgba(0,0,0,0.35);
-	border: solid black 3px;
-	border-radius: 24px;
+	border: solid black calc(var(--vu) * 0.3 * var(--border-mult));
+	border-radius: calc(var(--vu) * 2.4);
 	text-align: center;
     font-size: calc(var(--font-size) * 1.8);
 }
 
 #item {
-    margin-top: 10px;
+    margin-top: calc(var(--vu) * 1);
 }
 
 #main {
-	background: rgba(0, 0, 0, 0.87)
+	background: var(--viewer-theme-back);
+	color: var(--viewer-theme-color);
+}
+
+.button {
+	background: var(--viewer-theme-but-col);
+}
+
+.button:hover {
+	background: var(--viewer-theme-but-hov-col);
+	color: white
+}
+
+.button:active {
+	background: var(--viewer-theme-but-act-col);
+	color: white
 }

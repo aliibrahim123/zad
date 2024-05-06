@@ -3,8 +3,8 @@
 var { createComp, setFun, useComp, useCall, useStore, useRef } = $comp.func;
 
 //split content of multiple item into pages
-var maxLen = 3000;
-var maxNb = 20;
+var maxLen = 7000;
+var maxNb = 25;
 var splitContent = (content) => content.reduce((obj, cur, i) => {
 	if (i === 0) obj.arrs.push(obj.curArr);
 	obj.curArr.push(cur);
@@ -84,8 +84,17 @@ var comp = createComp(() => {
 		
 		//handle new
 		var newEl = $el('div')[0];
-		if (contentType === 'html' || contentType === 'ihtml') newEl.innerHTML = content;
-		else newEl.innerText = content;
+		if (Array.isArray(content)) newEl.append(...content.map(item => {
+			var el = $el(`<div class=item>`)[0];
+			if (contentType === 'html' || contentType === 'ihtml') el.innerHTML = item;
+			else el.innerText = item;
+			return el
+		}));
+		
+		else {
+			if (contentType === 'html' || contentType === 'ihtml') newEl.innerHTML = content;
+			else newEl.innerText = content;
+		}
 		contentEl.append(newEl);
 		newEl.animate([{ opacity: 0 }, { opacity: 1 }], {duration: 400});
 	})
@@ -96,7 +105,7 @@ var comp = createComp(() => {
 		
 		store.content = store.allContent[store.ind].map(
 			item => item[0] + (item[1] ? '\nمصدر: ' + item[1] : '')
-		).join('\n----------------------\n\n');
+		);
 		
 		useCall('update')
 	});
