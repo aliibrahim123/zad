@@ -1,11 +1,6 @@
 {
 	"name": "zad",
-	"version": "0.0.0",
-	"description": "",
-	"author": "",
+	"version": "2.0.0",
 	"license": "MIT",
-	"dependencies": {
-		"@simplyjs/lib": "^0.0.2"
-	},
 	"type": "module"
 }
