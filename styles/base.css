@@ -1,0 +1,89 @@
+html, body, #back-inner {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+/* background */
+.back-fill {
+	background-size: 100% 100%;
+}
+.back-crop {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.back-fit {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.back-blur {
+	backdrop-filter: blur(0.4vmax);
+}
+
+/* main container */
+main {
+	--padding-mod: 0;
+	--margin-mod: 1;
+	--margin-x-mod: 1;
+	--trans-mod: 0.5;
+	--border-width: 1;
+	--min-padding: 0.5vmax;
+
+	position: absolute;
+	top: 0;	left: 0; right: 0; bottom: 0;
+
+	padding: calc(var(--padding-mod) * 1vmax + var(--min-padding));
+}
+main.overlay {
+	margin: calc(var(--margin-mod) * 5.5vh);
+	margin-inline: calc(var(--margin-x-mod) * var(--margin-mod) * 7vw);
+
+	border-radius: 7vh;
+	border: calc(var(--border-width) * 1.5vmax) transparent solid;
+
+	box-shadow: 0 0 5vmax 0.1vmax rgba(0, 0, 0, 0.5),
+				inset 0 0 3.5vmax 0.05vmax rgba(0, 0, 0, 0.28);
+}
+main.overlay.transparent {
+	background: radial-gradient(
+		rgba(0, 0, 0, var(--trans-mod)),
+		rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.3, var(--trans-mod) * 0.35)))
+	);
+}
+main.overlay.blur {
+	backdrop-filter: blur(0.7vmax);
+	background: radial-gradient(
+		rgba(0, 0, 0, var(--trans-mod)),
+		rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.3, var(--trans-mod) * 0.35)))
+	);
+	background-clip: padding-box;
+}
+
+/* overlay-border */
+#overlay-border {
+	--margin-mod: 1;
+	--margin-x-mod: 1;
+	--border-width: 1.5;
+	--trans-mod: 0.5;
+
+	pointer-events: none;
+}
+#overlay-border.enable {
+	position: absolute;
+	z-index: 1;
+	top: 0; bottom: 0; left: 0; right: 0;
+
+	margin: calc(var(--margin-mod) * 5.5vh);
+	margin-inline: calc(var(--margin-x-mod) * var(--margin-mod) * 7vw);
+
+	border-radius: 7vh;
+	border: calc(var(--border-width) * 1.5vmax) transparent solid;
+
+	background: rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.07, 0.2)));
+	backdrop-filter: blur(0.5vmax);
+
+	--mask-fill: linear-gradient(white, white);
+	mask: var(--mask-fill) padding-box exclude, var(--mask-fill);
+}

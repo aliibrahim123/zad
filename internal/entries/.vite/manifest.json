@@ -1,0 +1,14 @@
+{
+  "src/base.ts": {
+    "file": "base.js",
+    "name": "base",
+    "src": "src/base.ts",
+    "isEntry": true
+  },
+  "src/libs.ts": {
+    "file": "libs.js",
+    "name": "libs",
+    "src": "src/libs.ts",
+    "isEntry": true
+  }
+}

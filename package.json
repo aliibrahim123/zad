@@ -2,5 +2,19 @@
 	"name": "zad",
 	"version": "2.0.0",
 	"license": "MIT",
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@neocomp/full": "^0.1.0"
+	},
+	"scripts": {
+		"start": "vite .",
+		"build": "vite build",
+		"generate-js-source": "node scripts/generateJSSource.js",
+		"redirect-entry-to-src": "node scripts/redirectEntryToSrc.js"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.5",
+		"vite": "^5.4.11",
+		"vite-plugin-directory-index": "^3.0.1"
+	}
 }
