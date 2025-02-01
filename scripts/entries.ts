@@ -1,7 +1,8 @@
 type EntryMap = { [key: string]: EntryMap | ''};
 const entryMap: EntryMap = {
 	libs: '',
-	base: ''
+	base: '',
+	root: ''
 }
 
 //as straight path, without src/ or .ts

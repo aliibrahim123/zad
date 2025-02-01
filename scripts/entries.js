@@ -1,6 +1,7 @@
 const entryMap = {
   libs: "",
-  base: ""
+  base: "",
+  root: ""
 };
 const entries = [];
 function flatternEntry(entry, path = "") {

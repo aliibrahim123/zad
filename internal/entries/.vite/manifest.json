@@ -1,4 +1,8 @@
 {
+  "_node-CEhKUo8A.js": {
+    "file": "chunks/node-CEhKUo8A.js",
+    "name": "node"
+  },
   "src/base.ts": {
     "file": "base.js",
     "name": "base",
@@ -9,6 +13,18 @@
     "file": "libs.js",
     "name": "libs",
     "src": "src/libs.ts",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_node-CEhKUo8A.js"
+    ]
+  },
+  "src/root.ts": {
+    "file": "root.js",
+    "name": "root",
+    "src": "src/root.ts",
+    "isEntry": true,
+    "imports": [
+      "_node-CEhKUo8A.js"
+    ]
   }
 }

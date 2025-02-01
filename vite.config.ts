@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import type { Plugin } from 'vite';
 import directoryPlugin from 'vite-plugin-directory-index';
+import { neoTempPlugin } from './node_modules/@neocomp/full/src/build/plugin';
 import { entries, entriesFull, entriesFullSet } from './scripts/entries.ts';
 import { resolve } from 'node:path'
 
@@ -31,7 +32,7 @@ export default defineConfig({
 	esbuild: {
 		keepNames: true
 	},
-	plugins: [directoryPlugin(), tsToJsImports]
+	plugins: [directoryPlugin(), neoTempPlugin(), tsToJsImports()]
 });
 
 //vite dont change extention to .js
@@ -42,7 +43,7 @@ function tsToJsImports (): Plugin { return {
 			const entry = bundle[name];
 			if (entry.type === 'asset') continue;
 
-			entry.code = entry.code.replaceAll(/from\s*['"]([^'"]+)['"]/g, 
+			entry.code = entry.code.replaceAll(/from\s*['"]([^'"]+\.ts)['"]/g, 
 				(match, path)=> `from'${path.slice(0, -3)}.js'`
 			);
 		}

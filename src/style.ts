@@ -1,8 +1,8 @@
 import { query } from "./libs.ts";
 import { lowRes, meduimRes, highRes, pages } from './data/backgrounds.ts';
-import { randomInt } from "./utils.ts";
+import { isMobile, randomInt } from "./utils.ts";
 
-export type StyleGroup = 'base' | 'viewer' | 'root';
+export type StyleGroup = 'base' | 'root' | 'viewer' | 'fahras' | 'tools';
 export interface StyleUnit {
 	base: StyleGroup,
 	layout: 'full-page' | 'overlay',
@@ -16,14 +16,18 @@ export interface StyleUnit {
 
 	margin: number,
 	marginX: number,
-	padding: number
+	padding: number,
 }
 export interface StyleCore {
 	backRes: 'low' | 'meduim' | 'high',
-	transition: false | 'fade'
+	animationSpeed: number,
+
+	fontSize: number,
+	titleSize: number,
+	borderSize: number,
 }
 
-export function setupStyle () {
+export function setupStyle (soft = false) {
 	//get style unit
 	const group = query('#root')[0].getAttribute('style-group') as StyleGroup;
 	var style = settings.style[group] as StyleUnit;
@@ -36,9 +40,23 @@ export function setupStyle () {
 	const backInner = query('#back-inner')[0] as HTMLElement;
 	const overlayBorder = query('#overlay-border')[0] as HTMLElement;
 	
+	//font
+	body.style.setProperty('--font-size', String(core.fontSize));
+	if (style.layout === 'overlay' && 
+		(style.overlayBack === 'blur' || style.overlayBack === 'transparent')
+	) body.style.setProperty('--font-color', 'white')
+	else body.style.setProperty('--font-color', 'black');
+
+	//size modifiers
+	body.style.setProperty('--title-size', String(core.titleSize));
+	body.style.setProperty('--border-size', String(core.borderSize));
+
 	//background
-	if (style.layout === 'full-page') setBack(getBack(pages, style.background), 'crop');
-	else {
+	if (soft) {}
+	else if (style.layout === 'full-page') {
+		setBack(getBack(pages, style.background), 'crop');
+		main.style.backgroundImage = '';
+	} else {
 		const images = 
 		  core.backRes === 'high' ? highRes :
 		  core.backRes === 'meduim' ? meduimRes :
@@ -73,8 +91,9 @@ export function setupStyle () {
 		overlayBorder.style.setProperty('--border-width', String(style.borderWidth));
 		
 		//background
-		main.classList.remove('transparent', 'blur', 'back-crop');
 		main.style.setProperty('--trans-mod', String(style.overlayTransMod));
+		if (soft) return;
+		main.classList.remove('transparent', 'blur', 'back-crop');
 		
 		main.style.backgroundClip = '';
 		if (style.overlayBack === 'transparent') main.classList.add('transparent');

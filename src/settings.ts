@@ -11,8 +11,11 @@ export interface Settings {
 const defaultSettings: Settings = {
 	style: {
 		core: {
-			transition: 'fade',
+			animationSpeed: 1,
 			backRes: 'meduim',
+			fontSize: 1,
+			titleSize: 1,
+			borderSize: 1
 		},
 		base: {
 			base: 'base',
@@ -24,16 +27,21 @@ const defaultSettings: Settings = {
 			marginX: 1,
 			borderWidth: 1,
 			overlayTransMod: 0.5,
-			padding: 0
+			padding: 0.5
 		},
 		root: { base: 'base' },
-		viewer: { base: 'base' }
+		viewer: { base: 'base' },
+		fahras: { base: 'base' },
+		tools: { base: 'base' }
 	}
 }
 
 if (!isMobile()) {
 	defaultSettings.style.base.layout = 'overlay';
 	defaultSettings.style.viewer.overlayBack = 'random';
+}
+else {
+	defaultSettings.style.base.padding = 1;
 }
 
 declare global {

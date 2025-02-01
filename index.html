@@ -4,12 +4,14 @@
 	<title>زاد العباد ليوم المعاد</title>
 	<script id=lib-script type=module src="./internal/entries/libs.js"></script>
 	<script id=base-script type=module src="./internal/entries/base.js"></script>
+	<script id=root-script type=module src="./internal/entries/root.js"></script>
 	<link preserve-on-route rel="stylesheet" id=base-style href="./styles/base.css">
+	<link rel="stylesheet" id=root-style href="./styles/root.css">
 </head>
 <body>
   <div id="back-inner">
 	<div id="overlay-border"></div>
-	<main id=root style-group="root">
+	<main id=root comp:name='@lazy:root' style-group="root">
 		
 	</main>
   </div>

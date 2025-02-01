@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"type": "module",
 	"dependencies": {
-		"@neocomp/full": "^0.1.0"
+		"@neocomp/full": "^0.1.8"
 	},
 	"scripts": {
 		"start": "vite .",

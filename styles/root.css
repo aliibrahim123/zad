@@ -1,0 +1,91 @@
+#title {
+	--base-size: calc(3 * var(--title-size));
+	font-size: calc(var(--base-size) * 1em);
+	text-align: center;
+
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	padding: calc(0.05em * var(--base-size));
+
+	border: solid black calc(0.02em * var(--base-size) * var(--border-size));
+	border-radius: calc(0.16em * var(--base-size));
+}
+
+main {
+	overflow-y: hidden;
+}
+
+#sections-grid {
+	--item-size: 2em;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(calc(var(--item-size) * 6), 1fr));
+}
+#sections-grid > * {
+	display: flex;
+	align-items: center;
+	margin: calc(var(--item-size) * 0.1);
+	height: var(--item-size);
+	font-size: calc(var(--item-size) * 0.6);
+	background: radial-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.2));
+	border-radius: calc(var(--item-size) * 0.3);
+	border: solid calc(var(--item-size) * 0.05 * var(--border-size)) black;
+}
+#sections-grid > * > span {
+	display: inline-block;
+	text-align: center;
+	flex-grow: 1;
+}
+#sections-grid > * > svg {
+	padding: calc(var(--item-size) * 0.075);
+	height: calc(var(--item-size) * 0.85);
+	width: calc(var(--item-size) * 0.85);
+	fill: var(--font-color)
+}
+
+.section {
+	display: none;
+	height: 100%;
+	width: 100%;
+	overflow-y: hidden;
+}
+.section.current {
+	display: block;
+}
+.section.exiting {
+	display: block;
+	position: absolute;
+	top: var(--padding);
+	width: calc(100% - var(--padding) * 2);
+    height: calc(100% - var(--padding) * 2);
+	z-index: 10;
+}
+
+.mini-title {
+	--base-size: calc(2 * var(--title-size));
+	font-size: calc(var(--base-size) * 1em);
+	text-align: center;
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	padding: calc(0.08em * var(--base-size));
+	border: solid black calc(0.04em * var(--base-size) * var(--border-size));
+	border-radius: calc(0.25em * var(--base-size));
+}
+
+.group {
+	margin-top: 1vmax;
+	margin-inline: 1vmax;
+	padding: 0.5em;
+	background: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+	border: solid black calc(0.15em * var(--border-size));
+	border-radius: calc(1.2em);
+}
+.group-title {
+	--base-size: calc(1.5 * var(--title-size));
+	font-size: calc(var(--base-size) * 1em);
+	text-decoration: underline;
+	text-underline-offset: 0.175em;
+}
+.group ul {
+	margin: 0;
+	margin-top: 0.45em;
+	padding: 0;
+	padding-right: 1.5em;
+}

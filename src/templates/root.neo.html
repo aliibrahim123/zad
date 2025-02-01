@@ -1,0 +1,74 @@
+<neo:template id="root">
+	<div id='main-section' class="section" @ref="section-main">
+		<div id="title">زاد العباد ليوم المعاد</div>
+		<div id="about-day-but"></div>
+		<div id="sections-grid">
+		  <div id="quran-but" @on(click)="router.go('#quran')">
+			<svg _src="./assets/icons/quran.svg#svg"></svg>
+			<span>القرآن الكريم</span>
+		  </div>
+		  <div id="amal-but" @on(click)="router.go('#amal')">
+			<svg _src="./assets/icons/doaa.svg"></svg>
+			<span>أعمال وعبادات</span> 
+		  </div>
+		  <div id="ahdath-but" @on(click)="router.go('#ahdath')">
+			<svg _src="./assets/icons/events.svg"></svg>
+			<span>أحداث</span> 
+		  </div>
+		  <div id="ahkam-but" @on(click)="router.go('#ahkam')">
+			<svg _src="./assets/icons/ahkam.svg"></svg>
+			<span>أحكام وفقه</span>
+		  </div> 
+		  <div id="imam-trath-but" @on(click)="router.go('#imam-trath')">
+			<svg _src="./assets/icons/books.svg"></svg>
+			<span>تراث الأئمة</span>
+		  </div>
+		  <div id="aalem-turath-but" @on(click)="router.go('#aalem-turath')">
+			<svg _src="./assets/icons/books.svg"></svg>
+			<span>تراث العلماء</span>
+		  </div>
+		  <div id="tools-but" @on(click)="router.go('#tools')"> 
+			<svg _src="./assets/icons/tools.svg"></svg>
+			<span>أدوات</span>
+		  </div>
+		  <div id="others-but" @on(click)="router.go('#others')">
+			<svg _src="./assets/icons/other.svg"></svg>
+			<span>أخرى</span>
+		  </div>
+		</div>
+	</div>
+	<div id="quran-section" class="section" @ref="section-quran">
+		<div class="mini-title">قسم القرآن الكريم</div>
+		<div class="group">
+			<div class="group-title">القرآن الكريم</div>
+			<ul>
+			  <li>حسب السور</li>
+			  <li>حسب الصفحات</li>
+			  <li>حسب الأجزاء</li>
+			  <li>حسب الاحزاب</li>
+			  <li>علاماتي</li>
+			</ul>
+		</div>
+	</div>
+	<div id="amal-section" class="section" @ref="section-amal">
+		<div class="mini-title">أعمال وعبادات</div>
+	</div>
+	<div id="ahdath-section" class="section" @ref="section-ahdath"> 
+		<div class="mini-title">أحداث</div>
+	</div>
+	<div id="ahkam-section" class="section" @ref="section-ahkam">
+		<div class="mini-title">أحكام وفقه</div>
+	</div>
+	<div id="imam-trath-section" class="section" @ref="section-imam-trath">
+		<div class="mini-title">تراث الأئمة</div>
+	</div>
+	<div id="aalem-turath-section" class="section" @ref="section-aalem-turath">
+		<div class="mini-title">تراث العلماء</div>
+	</div>
+	<div id="tools-section" class="section" @ref="section-tools">
+		<div class="mini-title">أدوات</div>
+	</div>
+	<div id="others-section" class="section" @ref="section-others">
+		<div class="mini-title">أخرى</div>
+	</div>
+</neo:template>
