@@ -1,0 +1,12 @@
+<neo:template id="fahras">
+  <div class="container">
+	<div id="title" @ref="title" :text>@{title}</div>
+	<div id="path" @ref="path"></div>
+	<div id="toolbar" @ref="toolbar">
+		<span id="search-btn" @ref='search-btn' @on(click)="comp.search()">بحث</span>
+		<span id="download-btn" @ref="download-btn" @on(click)="comp.download()">تحميل</span>
+		<span id="favorite-btn" @ref="favorite-btn" @on(click)="comp.addToFavorite()">أضافة إلى المفضلة</span>
+	</div>
+	<ul id="list" @ref="list"></ul>
+  </div>
+</neo:template>

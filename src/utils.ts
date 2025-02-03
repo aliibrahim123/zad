@@ -26,3 +26,7 @@ export function loadSvgs () {
 export function defer (fn: (...args: any[]) => void) {
 	setTimeout(fn, 0)
 }
+
+export function $is <T> (value: any): value is T {
+	return true
+}

@@ -34,6 +34,7 @@ class Root extends Component<TypeMap> {
 		this.store.add('lastSection', { value: section });
 
 		loadSvgs();
+		router.attachToDom();
 
 		this.fireInit();
 	}

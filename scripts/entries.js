@@ -1,7 +1,11 @@
 const entryMap = {
   libs: "",
   base: "",
-  root: ""
+  root: "",
+  fahras: "",
+  sections: {
+    quran: ""
+  }
 };
 const entries = [];
 function flatternEntry(entry, path = "") {

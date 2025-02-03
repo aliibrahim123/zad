@@ -1,5 +1,5 @@
 import { query } from "./libs.ts";
-import { lowRes, meduimRes, highRes, pages } from './data/backgrounds.ts';
+import { lowRes, meduimRes, highRes, pages } from './backgrounds.ts';
 import { isMobile, randomInt } from "./utils.ts";
 
 export type StyleGroup = 'base' | 'root' | 'viewer' | 'fahras' | 'tools';

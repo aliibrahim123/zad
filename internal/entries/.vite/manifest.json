@@ -9,6 +9,15 @@
     "src": "src/base.ts",
     "isEntry": true
   },
+  "src/fahras.ts": {
+    "file": "fahras.js",
+    "name": "fahras",
+    "src": "src/fahras.ts",
+    "isEntry": true,
+    "imports": [
+      "_node-CEhKUo8A.js"
+    ]
+  },
   "src/libs.ts": {
     "file": "libs.js",
     "name": "libs",
@@ -26,5 +35,11 @@
     "imports": [
       "_node-CEhKUo8A.js"
     ]
+  },
+  "src/sections/quran.ts": {
+    "file": "sections/quran.js",
+    "name": "sections/quran",
+    "src": "src/sections/quran.ts",
+    "isEntry": true
   }
 }

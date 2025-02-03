@@ -2,7 +2,11 @@ type EntryMap = { [key: string]: EntryMap | ''};
 const entryMap: EntryMap = {
 	libs: '',
 	base: '',
-	root: ''
+	root: '',
+	fahras: '',
+	sections: {
+		quran: ''
+	}
 }
 
 //as straight path, without src/ or .ts

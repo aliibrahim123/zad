@@ -104,6 +104,9 @@ main.overlay.blur {
 }
 
 /* utils */
+.hide {
+	display: none;
+}
 .fs-1 {
 	font-size: 1em;
 }
@@ -118,4 +121,8 @@ main.overlay.blur {
 }
 .fs-3 {
 	font-size: 3em;
+}
+a {
+	text-decoration: none;
+	color: inherit
 }

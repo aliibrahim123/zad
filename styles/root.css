@@ -22,9 +22,12 @@ main {
 #sections-grid > * {
 	display: flex;
 	align-items: center;
-	margin: calc(var(--item-size) * 0.1);
+	
 	height: var(--item-size);
+	margin: calc(var(--item-size) * 0.1);
+
 	font-size: calc(var(--item-size) * 0.6);
+	
 	background: radial-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.2));
 	border-radius: calc(var(--item-size) * 0.3);
 	border: solid calc(var(--item-size) * 0.05 * var(--border-size)) black;
@@ -53,18 +56,21 @@ main {
 .section.exiting {
 	display: block;
 	position: absolute;
+	z-index: 10;
+
 	top: var(--padding);
 	width: calc(100% - var(--padding) * 2);
     height: calc(100% - var(--padding) * 2);
-	z-index: 10;
 }
 
 .mini-title {
 	--base-size: calc(2 * var(--title-size));
+	padding: calc(0.08em * var(--base-size));
+	
 	font-size: calc(var(--base-size) * 1em);
 	text-align: center;
+	
 	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	padding: calc(0.08em * var(--base-size));
 	border: solid black calc(0.04em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.25em * var(--base-size));
 }
@@ -73,6 +79,7 @@ main {
 	margin-top: 1vmax;
 	margin-inline: 1vmax;
 	padding: 0.5em;
+	
 	background: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
 	border: solid black calc(0.15em * var(--border-size));
 	border-radius: calc(1.2em);
