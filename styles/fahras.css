@@ -1,9 +1,6 @@
-main {
-	overflow-y: hidden;
-}
+/* containers */
 .container {
 	height: 100%;
-	overflow-y: auto;
 }
 .container.oldShadow {
 	position: absolute;
@@ -13,18 +10,21 @@ main {
     bottom: var(--padding);
 }
 
+/* title */
 #title {
 	--base-size: calc(2.25 * var(--title-size));
 	font-size: calc(var(--base-size) * 1em);
 	text-align: center;
+	padding: calc(0.05em * var(--base-size));
 
 	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	padding: calc(0.05em * var(--base-size));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, 0.6);
 
 	border: solid black calc(0.03em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.225em * var(--base-size));
 }
 
+/* path */
 #path {
 	margin-inline: 1em;
 	margin-block: 0.25em;
@@ -37,6 +37,7 @@ main {
 	text-underline-offset: 0.25em;
 }
 
+/* toolbar */
 #toolbar {
 	display: inline-block;
 	font-size: 1.1em;
@@ -44,7 +45,9 @@ main {
 	margin-top: 0.25em;
 	margin-inline: 0.2em;
 
-	background: radial-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.075));
+	background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+
 	border: solid black calc(0.1em * var(--border-size));
 	border-radius: calc(0.7em);
 }
@@ -53,6 +56,7 @@ main {
 	padding-inline: 0.25em;
 }
 
+/* list */
 #list {
 	padding: 0;
 	margin: 0;

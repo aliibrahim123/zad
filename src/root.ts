@@ -3,7 +3,7 @@
 import { Component, registry, View } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/root.neo.html';
-import { defer, loadSvgs } from "./base.ts";
+import { defer, loadSvgs, searchHistory } from "./base.ts";
 
 type Section = 
   'main' | 'quran' | 'amal' | 'ahdath' | 'ahkam' |
@@ -22,7 +22,8 @@ class Root extends Component<TypeMap> {
 		...Component.defaults,
 		view: { 
 			template: template.root,
-			insertMode: View.insertMode.atBottom
+			insertMode: View.insertMode.into,
+			into: '#inner-container'
 		}
 	};
 	override init() {
@@ -37,6 +38,10 @@ class Root extends Component<TypeMap> {
 		router.attachToDom();
 
 		this.fireInit();
+
+		//clean search history
+		for (const entry of searchHistory) entry[1].delete(entry[0]);
+		searchHistory.splice(0);
 	}
 	async onRoute (url: URL) {
 		const lastSection = this.get('lastSection');

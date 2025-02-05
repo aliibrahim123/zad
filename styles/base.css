@@ -46,10 +46,15 @@ main {
 	top: 0;	left: 0; right: 0; bottom: 0;
 
 	--padding: calc(var(--padding-mod) * 1vmax + var(--min-padding));
-	padding: var(--padding);
-
+	
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+#inner-container {
+	height: calc(100% - var(--padding)*2);
 	overflow-y: auto;
 	overflow-x: hidden;
+	padding: var(--padding);
 }
 main.overlay {
 	margin: calc(var(--margin-mod) * 5.5vh);
@@ -58,7 +63,7 @@ main.overlay {
 	border-radius: 7vh;
 	border: calc(var(--border-width) * var(--border-size) * 1.5vmax) transparent solid;
 
-	box-shadow: 0 0 5vmax 0.1vmax rgba(0, 0, 0, 0.5),
+	box-shadow: 0 0 7vmax 0.5vmax rgba(0, 0, 0, 0.7),
 				inset 0 0 3.5vmax 0.05vmax rgba(0, 0, 0, 0.28);
 }
 main.overlay.transparent {
@@ -103,9 +108,59 @@ main.overlay.blur {
 	mask: var(--mask-fill) padding-box exclude, var(--mask-fill);
 }
 
+/* propmt */
+.prompt {
+	position: absolute;
+	top: 0; right: 0; left: 0; bottom: 0;
+
+	display: grid;
+	place-content: center;
+
+	backdrop-filter: blur(0.3vmax);
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+}
+.prompt > * {
+	padding: 0.5em;
+	text-align: center;
+
+	background: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.05));
+	box-shadow: 0 0 5vmax 0.1vmax rgba(0, 0, 0, 0.3);
+
+	border: solid rgba(0, 0, 0, 0.573) calc(0.15em * var(--border-size));
+	border-radius: calc(0.7em);
+}
+.prompt button {
+	color: inherit;
+	font-size: 1em;
+	
+	padding-block: 0.1em;
+	padding-inline: 0.3em;
+	margin-top: 0.3em;
+	
+	background: rgba(0, 0, 0, 0.2);
+	border: black outset 0.12em;
+	border-radius: 0.4em;
+}
+.alert {
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: 0.5em;
+	
+	text-align: center;
+	
+	backdrop-filter: blur(0.3vmax);
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	box-shadow: 0 0 5vmax 0.2vmax rgba(0, 0, 0, 0.5);
+
+	border: solid rgba(0, 0, 0, 0.573) calc(0.15em * var(--border-size));
+	border-radius: calc(0.7em);
+}
+
 /* utils */
 .hide {
-	display: none;
+	display: none !important;
 }
 .fs-1 {
 	font-size: 1em;

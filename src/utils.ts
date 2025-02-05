@@ -30,3 +30,15 @@ export function defer (fn: (...args: any[]) => void) {
 export function $is <T> (value: any): value is T {
 	return true
 }
+
+export function deepCopy <T> (value: T): T {
+	if (Array.isArray(value)) return value.map(item => deepCopy(item)) as T;
+	else if (typeof(value) !== 'object' || value === null) return value;
+	const cloned = {} as T;
+	for (const prop in value) cloned[prop] = deepCopy(value[prop]);
+	return cloned
+}
+
+export function delay (ms: number) {
+	return new Promise(resolve => setTimeout(resolve, ms))
+}

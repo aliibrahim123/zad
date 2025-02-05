@@ -1,10 +1,15 @@
-export type Sections = 'quran';
+export type Sections = 'quran' | 'favorite';
 export interface SectionOptions {
-	viewer: 'viewer' | 'quranViewer',
+	viewer: 'viewer' | 'quranViewer' | '',
 	dataFolder: string,
 	searchable?: boolean,
 	contentPack: string,
-	favoritable?: boolean
+	favoritable?: boolean,
+	fahrasBattons?: ({
+		name: string,
+		show: (section: Sections, bab: Bab) => boolean,
+		handle: (section: Sections, bab: Bab) => void
+	})[]
 }
 export type ProtoBab = {
 	$ind: number,
@@ -13,7 +18,7 @@ export type ProtoBab = {
 		downloadble?: boolean,
 		favoritable?: boolean
 	} & Record<string, any>,
-} & { [K in string]: ProtoBab | number | string | { link: string } }
+} & { [K in string]: ProtoBab | number | string | { link: string } | ((bab: Bab) => void) | any }
 export type Bab = {
 	$ind: number,
 	$meta?: {
@@ -23,17 +28,27 @@ export type Bab = {
 	},
 	$name: string,
 	$parent: Bab,
-} & { [K in string]: Bab | number | string | { link: string } }
+} & { [K in string]: Bab | number | string | { link: string } | ((bab: Bab) => void) | object }
 
 export const sections: Record<Sections, SectionOptions> = {
 	quran: {
 		viewer: 'quranViewer',
 		dataFolder: 'quran',
 		contentPack: 'quran'
+	},
+	favorite: {
+		contentPack: '',
+		dataFolder: '',
+		viewer: '',
+		favoritable: false,
+		searchable: false,
 	}
 }
 
 const fahrases = new Map<Sections, Map<number, Bab>>();
+export function addFahras (name: Sections, babs: Map<number, Bab>) { 
+	fahrases.set(name, babs) 
+}
 export async function getFahras (section: Sections) {
 	//return if cached
 	if (fahrases.has(section)) return fahrases.get(section) as Map<number, Bab>;
@@ -66,4 +81,9 @@ export function collectProtos (root: ProtoBab, section: string) {
 	walk(undefined as any, section, root)
 
 	return items
+}
+export function getRandomInd (fahras: Map<number, Bab>) {
+	let randomId = Math.ceil(Math.random() * 1000000);
+	while (fahras.has(randomId)) randomId = Math.ceil(Math.random() * 1000000);
+	return randomId
 }

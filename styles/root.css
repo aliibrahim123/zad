@@ -2,16 +2,13 @@
 	--base-size: calc(3 * var(--title-size));
 	font-size: calc(var(--base-size) * 1em);
 	text-align: center;
-
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
 	padding: calc(0.05em * var(--base-size));
+
+	background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+	box-shadow: 0 0 5vmax 0.7vmax rgba(0, 0, 0, 0.5);
 
 	border: solid black calc(0.02em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.16em * var(--base-size));
-}
-
-main {
-	overflow-y: hidden;
 }
 
 #sections-grid {
@@ -28,7 +25,9 @@ main {
 
 	font-size: calc(var(--item-size) * 0.6);
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.2));
+	background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
+	box-shadow: 0 0 2vmax 0.2vmax rgba(0, 0, 0, 0.2);
+
 	border-radius: calc(var(--item-size) * 0.3);
 	border: solid calc(var(--item-size) * 0.05 * var(--border-size)) black;
 }
@@ -48,7 +47,6 @@ main {
 	display: none;
 	height: 100%;
 	width: 100%;
-	overflow-y: hidden;
 }
 .section.current {
 	display: block;
@@ -70,7 +68,9 @@ main {
 	font-size: calc(var(--base-size) * 1em);
 	text-align: center;
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, 0.6);
+
 	border: solid black calc(0.04em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.25em * var(--base-size));
 }
@@ -80,7 +80,9 @@ main {
 	margin-inline: 1vmax;
 	padding: 0.5em;
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+	background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+	box-shadow: 0 0 3vmax 0.3vmax rgba(0, 0, 0, 0.4);
+
 	border: solid black calc(0.15em * var(--border-size));
 	border-radius: calc(1.2em);
 }

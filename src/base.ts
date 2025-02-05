@@ -1,8 +1,10 @@
 import { query, registry, ZRORouter } from "./libs.ts";
 import * as libs from './libs.ts';
+import { alert, prompt } from "./prompt.ts";
 import { getFahras } from "./sections.ts";
 import './settings.ts';
 import { setupStyle } from "./style.ts";
+import * as globalState from './globalState.ts';
 
 //router
 declare global {
@@ -34,8 +36,14 @@ declare global {
 globalThis.test = { 
 	setupStyle,
 	getFahras,
+	prompt, alert,
+	globalState: {...globalState},
 	libs: { ...libs }
 }
  
+export * from './globalState.ts';
 export * from './utils.ts';
 export * from './sections.ts';
+export * from './style.ts';
+export * from './prompt.ts';
+export * from './favorite.ts';
