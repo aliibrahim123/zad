@@ -10,6 +10,7 @@ body {
 	--font-color: black;
 	--title-size: 1;
 	--border-size: 1;
+	--masbaha-size: 1;
 	font-size: calc(22px * var(--font-size));
 	color: var(--font-color);
 	direction: rtl;
@@ -177,7 +178,26 @@ main.overlay.blur {
 .fs-3 {
 	font-size: 3em;
 }
+.no-pad {
+	padding: 0 !important;
+}
+.inline {
+	display: inline !important;
+}
+.inline.hide {
+	display: none !important;
+}
 a {
 	text-decoration: none;
 	color: inherit
+}
+@property --back-color-1 {
+	syntax: '<color>';
+	initial-value: black;
+	inherits: false;
+}
+@property --back-color-2 {
+	syntax: '<color>';
+	initial-value: white;
+	inherits: false;
 }

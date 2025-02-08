@@ -1,7 +1,7 @@
 import { create } from "./libs.ts";
 import { delay } from "./utils.ts";
 
-export async function prompt (msg: string) {
+export async function prompt (msg: string, fn?: (el: HTMLElement, input: HTMLInputElement) => void) {
 	let resolve: (response: string) => void;
 
 	//create container
@@ -15,6 +15,7 @@ export async function prompt (msg: string) {
 	  )
 	);
 	document.body.append(container);
+	if (fn) fn(container, input);
 
 	//start animation
 	const animationSpeed = settings.style.core.animationSpeed;

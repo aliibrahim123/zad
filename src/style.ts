@@ -25,6 +25,7 @@ export interface StyleCore {
 	fontSize: number,
 	titleSize: number,
 	borderSize: number,
+	masbahaSize: number,
 }
 
 export function setupStyle (soft = false) {
@@ -50,6 +51,7 @@ export function setupStyle (soft = false) {
 	//size modifiers
 	body.style.setProperty('--title-size', String(core.titleSize));
 	body.style.setProperty('--border-size', String(core.borderSize));
+	body.style.setProperty('--masbaha-size', String(core.masbahaSize));
 
 	//background
 	if (soft) {}
@@ -131,4 +133,16 @@ export function setupStyle (soft = false) {
 			backInner.classList.add('back-fit');
 		}
 	}
+}
+
+export function updateFade (el: HTMLElement, dur: number) {
+	const animationSpeed = settings.style.core.animationSpeed;
+	const oldEl = el.cloneNode(true) as HTMLElement;
+	oldEl.style.position = 'absolute';
+	el.before(oldEl);
+	//animate
+	oldEl.animate({ opacity: [1, 0] }, { duration: dur * animationSpeed })
+	  .finished.then(() => oldEl.remove());
+
+	el.animate({ opacity: [0, 1] }, { duration: dur * animationSpeed });
 }

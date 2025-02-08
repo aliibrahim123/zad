@@ -4,6 +4,8 @@ const entryMap: EntryMap = {
 	base: '',
 	root: '',
 	fahras: '',
+	viewer: '',
+	quranViewer: '',
 	sections: {
 		quran: ''
 	}

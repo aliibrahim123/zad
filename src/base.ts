@@ -42,6 +42,7 @@ globalThis.test = {
 }
  
 export * from './globalState.ts';
+export * from './settings.ts';
 export * from './utils.ts';
 export * from './sections.ts';
 export * from './style.ts';

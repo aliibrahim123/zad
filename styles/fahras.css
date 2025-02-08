@@ -40,11 +40,13 @@
 /* toolbar */
 #toolbar {
 	display: inline-block;
-	font-size: 1.1em;
 	padding: 0.25em;
 	margin-top: 0.25em;
 	margin-inline: 0.2em;
-
+	
+	font-size: 1.1em;
+	user-select: none;
+	
 	background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
 	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
 
@@ -65,9 +67,10 @@
 }
 #list > * {
 	padding-block: 0.02em;
+	margin-bottom: 0.075em;
 }
 .bab-item, .link-item {
 	text-decoration: underline;
 	text-underline-offset: 0.15em;
-	margin-bottom: 0.15em;
+	margin-bottom: 0.2em !important;
 }

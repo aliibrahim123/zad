@@ -5,7 +5,11 @@ export interface Settings {
 	style: {
 		core: StyleCore,
 		base: StyleUnit,
-	} & Record<StyleGroup, Partial<StyleUnit>>
+	} & Record<StyleGroup, Partial<StyleUnit>>,
+	viewer: {
+		maxContentPerPage: number,
+		maxUnitPerPage: number,
+	}
 }
 
 const defaultSettings: Settings = {
@@ -15,7 +19,8 @@ const defaultSettings: Settings = {
 			backRes: 'meduim',
 			fontSize: 1,
 			titleSize: 1,
-			borderSize: 1
+			borderSize: 1,
+			masbahaSize: 1
 		},
 		base: {
 			base: 'base',
@@ -33,12 +38,16 @@ const defaultSettings: Settings = {
 		viewer: { base: 'base' },
 		fahras: { base: 'base' },
 		tools: { base: 'base' }
+	},
+	viewer: {
+		maxContentPerPage: 8000,
+		maxUnitPerPage: 30
 	}
 }
 
 if (!isMobile()) {
 	defaultSettings.style.base.layout = 'overlay';
-	defaultSettings.style.viewer.overlayBack = 'random';
+	//defaultSettings.style.viewer.overlayBack = 'random';
 }
 else {
 	defaultSettings.style.base.padding = 1;

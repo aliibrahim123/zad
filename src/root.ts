@@ -3,7 +3,7 @@
 import { Component, registry, View } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/root.neo.html';
-import { defer, loadSvgs, searchHistory } from "./base.ts";
+import { defer, loadSvgs, currentSearches } from "./base.ts";
 
 type Section = 
   'main' | 'quran' | 'amal' | 'ahdath' | 'ahkam' |
@@ -16,13 +16,13 @@ type TypeMap = Satisfies<BaseMap, {
 	refs: {
 	} & Record<`section-${Section}`, HTMLElement>
 }>; 
-
+ 
 class Root extends Component<TypeMap> {
 	static override defaults: CompOptions = {
 		...Component.defaults,
 		view: { 
 			template: template.root,
-			insertMode: View.insertMode.into,
+			insertMode: 'into',
 			into: '#inner-container'
 		}
 	};
@@ -40,8 +40,8 @@ class Root extends Component<TypeMap> {
 		this.fireInit();
 
 		//clean search history
-		for (const entry of searchHistory) entry[1].delete(entry[0]);
-		searchHistory.splice(0);
+		for (const entry of currentSearches) entry[1].delete(entry[0]);
+		currentSearches.splice(0);
 	}
 	async onRoute (url: URL) {
 		const lastSection = this.get('lastSection');

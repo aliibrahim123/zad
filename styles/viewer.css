@@ -1,0 +1,128 @@
+/* title */
+#title {
+	--base-size: calc(2.25 * var(--title-size));
+	font-size: calc(var(--base-size) * 1em);
+	text-align: center;
+	padding: calc(0.05em * var(--base-size));
+
+	background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, 0.6);
+
+	border: solid black calc(0.03em * var(--base-size) * var(--border-size));
+	border-radius: calc(0.225em * var(--base-size));
+}
+
+/* info */
+#info {
+	display: inline-block;
+	font-size: 1.1em;
+	padding: 0.2em;
+	margin-top: 0.5em;
+	margin-right: 0.5em;
+	margin-left: 0.3em;
+
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+
+	border: solid black calc(0.1em * var(--border-size));
+	border-radius: calc(0.7em);
+}
+#info > * {
+	display: inline-block;
+	padding-inline: 0.25em;
+}
+
+/* toolbar */
+.toolbar {
+	display: inline-block;
+	padding: 0.25em;
+	margin-top: 0.2em;
+	margin-inline: 0.2em;
+	
+	font-size: 1.1em;
+	user-select: none;
+
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+
+	border: solid black calc(0.1em * var(--border-size));
+	border-radius: calc(0.7em);
+}
+.toolbar * {
+	display: inline-block;
+	padding-inline: 0.25em;
+}
+#second-toolbar {
+	margin-right: 0.3em;
+}
+
+/* content */
+#content {
+	margin-top: 0.4em;
+	padding-inline: 0.3em;
+}
+.unit {
+	margin-right: 0.3em;
+	margin-bottom: 0.85em;
+	padding-bottom: 0.4em;
+	border-bottom: 0.075em solid var(--font-color);
+}
+.unit-title {
+	font-weight: bold;
+	font-size: 1.2em;
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+	margin-bottom: 0.3em;
+	margin-right: 0.25em;
+}
+.unit-source {
+	font-size: 1.05em;
+	margin-right: 0.6em;
+	margin-top: 0.1em;
+}
+#last-filler {
+	height: 15vh;
+}
+
+/* adjust font */
+#adjust-font {
+	display: flex;
+	align-items: center;
+
+	position: absolute;
+	bottom: 5%;
+	right: 0;
+	left: 0;
+	
+	font-family: monospace;
+	
+	margin-inline: 20%;
+	padding-inline: 1.5vmax;
+	padding-block: 0.25vmax;
+	
+	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	border: solid rgba(0, 0, 0, 0.5) calc(0.125em * var(--border-size));
+	border-radius: calc(0.7em);
+}
+#adjust-font > input {
+	width: 100%;
+	margin-right: 0.5vmax;
+}
+
+/* masbaha */
+#masbaha {
+	display: inline-block;
+	position: absolute;
+	bottom: calc(var(--masbaha-size) * 5.5vmax);
+	right: calc(var(--masbaha-size) * 5.5vmax);
+	
+	transform: translateX(50%) translateY(50%);
+	padding: calc(0.3em * var(--masbaha-size));
+	
+	user-select: none;
+	font-size: calc(1.5em * var(--masbaha-size));
+	
+	background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+	border: solid rgba(0, 0, 0, 0.5) calc(0.125em * var(--border-size));
+	border-radius: calc(0.7em * pow(var(--masbaha-size), 0.5));
+}

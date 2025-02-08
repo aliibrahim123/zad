@@ -1,6 +1,7 @@
-export type Sections = 'quran' | 'favorite';
+export type Sections = 'quran' | 'favorite' | 'test';
 export interface SectionOptions {
 	viewer: 'viewer' | 'quranViewer' | '',
+	arabicName: string,
 	dataFolder: string,
 	searchable?: boolean,
 	contentPack: string,
@@ -33,6 +34,7 @@ export type Bab = {
 export const sections: Record<Sections, SectionOptions> = {
 	quran: {
 		viewer: 'quranViewer',
+		arabicName: 'القرآن الكريم',
 		dataFolder: 'quran',
 		contentPack: 'quran'
 	},
@@ -40,8 +42,15 @@ export const sections: Record<Sections, SectionOptions> = {
 		contentPack: '',
 		dataFolder: '',
 		viewer: '',
+		arabicName: '',
 		favoritable: false,
 		searchable: false,
+	},
+	test: {
+		viewer: 'viewer',
+		arabicName: 'تجربة',
+		contentPack: '',
+		dataFolder: 'test'
 	}
 }
 

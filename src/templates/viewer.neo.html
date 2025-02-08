@@ -1,0 +1,67 @@
+<neo:template id="viewer">
+	<div id="title" :text>@{title}</div>
+	<div id="info" @ref="info"></div>
+	<div id="main-toolbar" class="toolbar" @ref="main-toolbar">
+		<span @ref="page-control" class="no-pad inline"
+		  @effect(isMultiPage)="el.classList.toggle('hide', !isMultiPage)"
+		>
+		  <span @on(click)="comp.changePage(-1)">الصفحة السابقة</span>
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.changePage(+1)">الصفحة التالية</span>
+		  <span class="sep">|</span>
+		</span>
+		<span 
+		  @effect(show2ndToolbar)="el.classList.toggle('hide', show2ndToolbar)"
+		  @on(click)="comp.set('show2ndToolbar', true)"
+		>مدد</span>
+		<span 
+		  @effect(show2ndToolbar)="el.classList.toggle('hide', !show2ndToolbar)"
+		  @on(click)="comp.set('show2ndToolbar', false)"
+		>قلص</span>
+	</div><br>
+	<div id="second-toolbar" class='toolbar hide' @ref="second-toolbar">
+		<span @on(click)="comp.adjustFont()">عدل الخط</span>
+		<span @ref="add-favorite" class="no-pad inline">
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.addToFavorites()">اضف الى المفضلة</span>
+		</span>
+		<span ref="download" class="no-pad inline" 
+		  @effect(options)="el.classList.toggle('hide', options?.contentPack === '')"
+		>
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.download()">تنزيل</span>
+		</span>
+		<span @ref="filter" class="no-pad inline" 
+		  @effect(isMultiPage)="el.classList.toggle('hide', !isMultiPage)"
+		>
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.filter()">فلترة</span>
+		</span>
+		<span class="sep">|</span>
+		<span @on(click)="comp.set('showMasbaha', !comp.get('showMasbaha'))">مسبحة</span>
+		<span @ref="masbaha-options" class="no-pad inline"
+		  @effect(showMasbaha)="el.classList.toggle('hide', !showMasbaha)"
+		>
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.adjustMasbaha()">تعديل المسبحة</span>
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.loadMasbaha()">تحميل مسبحة</span>
+		  <span class="sep">|</span>
+		  <span @on(click)="comp.saveMasbaha()">حفظ المسبحة</span>
+		</span>
+	</div>
+	<div @ref="second-toolbar-filler"></div>
+	<div id="content" @ref="content"></div>
+	<div id="last-filler"></div>
+	<div id="masbaha" :text @on(click)="comp.masbahaCount.value++" 
+	  @effect(showMasbaha)="el.classList.toggle('hide', !showMasbaha)"
+	>@{masbahaCount}</div>
+	<div id="adjust-font" @ref="adjust-font" class="hide">
+		<span :text>@(fontSize){String(fontSize).padStart(4, '0')}</span>
+		<input 
+		  type="range" min="0.2" max="5" step="0.01" :value="${fontSize}"
+		  @on(input)="comp.updateFont(el.valueAsNumber)"
+		  @on(change)="comp.saveSettings()"
+		>
+	</div>
+</neo:template>

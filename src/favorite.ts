@@ -1,3 +1,4 @@
+import { create } from "./libs.ts";
 import { prompt, alert } from "./prompt.ts";
 import type { Bab, ProtoBab, SectionOptions } from "./sections";
 import { addFahras, collectProtos, getRandomInd, sections } from './sections'
@@ -8,7 +9,13 @@ let fahras = collectProtos(deepCopy(favorites), 'مفضلاتي');
 
 export async function addToFavorites (link: string) {
 	//ask for name
-	let name = (await prompt('الإسم:')).trim();
+	let name = (await prompt('الإسم:', (container, input) => {
+		const datalist = create('datalist', '#all-favorites', 
+		  ...allFavorites().map(name => create('option', { value: name }))
+		);
+		input.setAttribute('list', datalist.id);
+		container.append(datalist);
+	})).trim();
 	if (name === '') return;
 
 	//loop through path
@@ -19,8 +26,8 @@ export async function addToFavorites (link: string) {
 		//case group added before
 		if (curProtoBab[name]) {
 			const curItem = curProtoBab[name];
-			//if not group, is link
-			if ($is<Bab>(curItem) && !curItem.$name) alert('إنك تضيف مفضلة موجودة');
+			//if is link
+			if ($is<{link:string}>(curItem) && curItem.link) alert('إنك تضيف مفضلة مكان مجموعة');
 
 			curProtoBab = curItem as ProtoBab;
 			curBab = curBab[name] as Bab;
@@ -40,9 +47,8 @@ export async function addToFavorites (link: string) {
 		curBab = bab;
 	}
 	
-	//add link if not added before
+	//add link
 	name = path.at(-1) as string;
-	if (curProtoBab[name]) alert('إنك تضيف مفضلة موجودة');
 	curProtoBab[name] = { link };
 	curBab[name] = { link };
 
@@ -93,5 +99,23 @@ sections.favorite.fahrasBattons = [{
 		router.go('#favorite/' + ind);
 	}
 }];
+
+export function allFavorites () {
+	const names: string[] = [], path: string[] = [];
+	function handle (bab: ProtoBab) {
+	  for (const item in bab) if (!item.startsWith('$')) {
+		//case link
+		if ($is<{link:string}>(bab[item]) && bab[item].link) {
+			names.push(path.concat(item).join('/'));
+			continue;
+		}
+		path.push(item);
+		handle(bab[item]);
+		path.pop();
+	  }
+	}
+	handle(favorites);
+	return names
+}
 
 addFahras('favorite', fahras);

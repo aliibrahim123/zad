@@ -42,3 +42,33 @@ export function deepCopy <T> (value: T): T {
 export function delay (ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+export function getHeight (el: HTMLElement) {
+	const styles = window.getComputedStyle(el);
+	return el.offsetHeight + Number.parseFloat(styles.marginTop) + Number.parseFloat(styles.marginBottom);
+}
+
+export function prepareForSearch(str: string) {
+	//remove harakat and normalize hamza
+	return str
+		.trim()
+		.replaceAll(/[\u0617-\u061A\u064B-\u0652]/g, '')
+		.replaceAll(/[ئءؤإأآ]/g, 'ا')
+		.split(' ');
+}
+export function testString(string: string, match: string[]) {
+	//prepare text
+	const text = prepareForSearch(string);
+
+	//loop through text
+	let matchInd = 0, curPart = match[0];
+	for (const word of text) {
+		//if matches
+		if (word.includes(curPart)) {
+			matchInd++;
+			curPart = match[matchInd];
+			if (matchInd === match.length) return true;
+		}
+	}
+	return false;
+}
