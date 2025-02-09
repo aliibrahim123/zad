@@ -26,6 +26,11 @@ function update () {
 }
 router.onAftrerUpdate.on(update); 
 router.onRoute.on((_, url) => {
+	//force reload between viewers
+	if (url.pathname.endsWith('viewer.html') && router.lastURL.pathname.endsWith('viewer.html')) 
+		router.lastURL = new URL('./force-reload', location.origin);
+	
+	//dispatch on route event on root comp
 	if (url.pathname === router.lastURL.pathname) (registry.root as any)?.onRoute?.(url);
 })
 update();

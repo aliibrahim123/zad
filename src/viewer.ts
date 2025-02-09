@@ -3,14 +3,11 @@ import type { Satisfies, BaseMap, CompOptions, Signal } from "./libs.ts";
 import template from './templates/viewer.neo.html';
 import { 
 	addToFavorites, getHeight, prepareForSearch, prompt, sections, setupStyle, testString,
-	updateFade, type SectionOptions, type Sections, saveSettings, 
-	masbahat,
-	saveMasbahat,
-	searchHistory,
-	addSearchEntry
+	updateFade, type SectionOptions, type Sections, saveSettings, masbahat,
+	saveMasbahat, searchHistory, addSearchEntry, delay
 } from "./base.ts";
 
-type TypeMap = Satisfies<BaseMap, {
+export type TypeMap = Satisfies<BaseMap, {
 	childmap: {},
 	props: {
 		data: Data,
@@ -22,9 +19,11 @@ type TypeMap = Satisfies<BaseMap, {
 		show2ndToolbar: boolean,
 		showFontAdjust: boolean,
 		fontSize: number,
+		showMasbaha: string,
 		masbahaCount: number
 	},
 	refs: {
+		title: HTMLElement,
 		info: HTMLElement;
 		'main-toolbar': HTMLElement;
 		'page-control': HTMLElement;
@@ -35,10 +34,11 @@ type TypeMap = Satisfies<BaseMap, {
 		'second-toolbar-filler': HTMLElement;
 		content: HTMLElement;
 		'adjust-font': HTMLElement;
+		masbaha: HTMLElement;
 	}
 }>; 
 
-interface Data {
+export interface Data {
 	title: string,
 	type: 'text' | 'html',
 	source?: string,
@@ -47,14 +47,14 @@ interface Data {
 	meta?: Record<string, any>,
 	data: string | Unit[]
 }
-interface Unit {
+export interface Unit {
 	miniTitle?: string,
 	text: string,
 	source?: string,
 	meta?: Record<string, any>
 }
 
-class Viewer extends Component<TypeMap> {
+export class Viewer extends Component<TypeMap> {
 	static override defaults: CompOptions = {
 		...Component.defaults,
 		view: { 
@@ -72,7 +72,8 @@ class Viewer extends Component<TypeMap> {
 		this.store.set('showFontAdjust', false);
 		this.masbahaCount = this.signal('masbahaCount', 0);
 		this.pages = this.signal('pages', []);
-		this.effect(['show2ndToolbar'], this.animate2ndToolbar.bind(this));
+		this.effect(['show2ndToolbar'], this.togglw2ndToolbar.bind(this));
+		this.effect(['showMasbaha'], this.toggleMasbaha.bind(this));
 
 		this.initDom();
 
@@ -92,8 +93,9 @@ class Viewer extends Component<TypeMap> {
 		this.sectionOptions = this.signal('options', options);
 
 		//load data
-		const data = await (await fetch(`./data/${options.dataFolder}/${id}.json`)).json() as Data;
+		const data: Data = await (await fetch(`./data/${options.dataFolder}/${id}.json`)).json();
 		this.set('title', data.title);
+		document.title = `زاد العباد ليوم المعاد: ${options.arabicName}`;
 		this.data = this.signal('data', data);
 		
 		//handle pages
@@ -102,11 +104,27 @@ class Viewer extends Component<TypeMap> {
 		this.set('isMultiPage', isMultiPage);
 		if (isMultiPage) this.collectPages(data.data as Unit[]);
 		
+		this.updateInfo();
+		
+		//set content
+		const contentEl = this.refs['content'][0];
+		if (typeof(data.data) === 'string') this.setContent(contentEl, data.data);
+		else if (isMultiPage) this.updatePage(this.pages.value[0]);
+		else this.updatePage(data.data);
+
+		//set style
+		if (options.viewerStyle) {
+			if (options.viewerStyle.includes('quran')) contentEl.classList.add('quran')
+		}
+	}
+	updateInfo () {
 		//collect info
+		const data = this.data.value;
 		const info: Record<string, string> = {};
 		if (data.source) info['مصدر'] = data.source;
-		if (isMultiPage) info['صفحة'] = '0';
+		if (this.get('isMultiPage')) info['صفحة'] = '0';
 		if (data.info) Object.assign(info, data.info);
+
 		//reconstruct
 		const infoEl = this.refs['info'][0];
 		infoEl.replaceChildren();
@@ -116,14 +134,10 @@ class Viewer extends Component<TypeMap> {
 		);
 		//remove last separator
 		infoEl.lastChild?.remove();
+
 		//toggle visibility
-		infoEl.classList.toggle('hide', Object.keys(info).length === 0);
-		
-		//set content
-		const contentEl = this.refs['content'][0];
-		if (typeof(data.data) === 'string') this.setContent(contentEl, data.data);
-		else if (isMultiPage) this.updatePage(this.pages.value[0]);
-		else this.updatePage(data.data);
+		const isEmpty = Object.keys(info).length === 0;
+		infoEl.classList.toggle('hide', isEmpty);
 	}
 	setContent (el: HTMLElement, content: string) {
 		if (this.data.value.type === 'text') el.innerText = content;
@@ -155,21 +169,24 @@ class Viewer extends Component<TypeMap> {
 	}
 	updatePage (page: Unit[]) {
 		const contentEl = this.refs['content'][0];
+		const infoEl = this.refs['info'][0];
 		const type = this.data.value.type;
 		const animationSpeed = settings.style.core.animationSpeed;
-		const pageEl = this.query('.info-item[prop="صفحة"]')[0];
 		
 		//animate page changing
 		const isFirstTime = contentEl.childNodes.length === 0;
 		if (!isFirstTime && animationSpeed) {
-			updateFade(pageEl, 250);
 			updateFade(contentEl, 300);
+			updateFade(infoEl, 300)
 		}
 		
 		contentEl.replaceChildren();
 		
-		//update page
-		pageEl.innerText = 		
+		//update pageh
+		this.updateInfo();
+		const pageEl = this.query('.info-item[prop="صفحة"]')
+			.filter(el => !el.parentElement?.classList.contains('old'))[0];
+		if (pageEl) pageEl.innerText = 
 		  `صفحة: ${this.page.value +1} / ${this.pages.value.length}`;
 		let ind = 0;
 		for (const unit of page) {
@@ -192,9 +209,11 @@ class Viewer extends Component<TypeMap> {
 			  delay: (100 + Math.min(ind++, 15) * 100) * animationSpeed, 
 			})
 		}
+		//remove border from last element 
+		(contentEl.lastChild as HTMLElement).classList.add('no-border');
 	}
 
-	animate2ndToolbar () {
+	togglw2ndToolbar () {
 		const show = this.get('show2ndToolbar');
 		const animationSpeed = settings.style.core.animationSpeed;
 		const toolbar = this.refs['second-toolbar'][0];
@@ -281,6 +300,19 @@ class Viewer extends Component<TypeMap> {
 		saveSettings()
 	}
 
+	toggleMasbaha () {
+		const show = this.get('showMasbaha');
+		const animationSpeed = settings.style.core.animationSpeed;
+		const container = this.refs['masbaha'][0];
+
+		//if no animation
+		if (!animationSpeed) return container.classList.toggle('hide', !show);
+
+		//fade in/out
+		container.classList.remove('hide');
+		container.animate({ opacity: show ? [0, 1] : [1, 0] }, { duration: 400 * animationSpeed })
+		  .finished.then(() => { if (!show) container.classList.add('hide') });
+	}
 	async adjustMasbaha () {
 		const value = await prompt('العدد: ', (_, input) => {
 			input.value = String(this.masbahaCount.value)

@@ -169,17 +169,12 @@ const ahzab = [
 ];
 for (let ind = 0; ind < 60; ind++) ahzabBab[`حزب (${ind + 1})`] = ahzab[ind];
 
-const markers = JSON.parse(localStorage.getItem('quran-markers') as string) || new Array(14).fill(1);
-const markerBab: ProtoBab = { $ind: 5 };
-for (let ind = 0; ind < 14; ind++) markerBab[`علامة (${ind + 1})`] = markers[ind];
-
 const fahras: ProtoBab = {
 	$ind: 0,
 	'حسب السور': sorBab,
 	'حسب الصفحات': pageBab,
 	'حسب الأجراء': partBab,
-	'حسب الاحزاب': ahzabBab,
-	'علاماتي': markerBab,
+	'حسب الاحزاب': ahzabBab
 }
 
 export default collectProtos(fahras, 'القران الكريم')

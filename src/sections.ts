@@ -10,7 +10,8 @@ export interface SectionOptions {
 		name: string,
 		show: (section: Sections, bab: Bab) => boolean,
 		handle: (section: Sections, bab: Bab) => void
-	})[]
+	})[],
+	viewerStyle?: ('quran')[]
 }
 export type ProtoBab = {
 	$ind: number,
@@ -36,7 +37,8 @@ export const sections: Record<Sections, SectionOptions> = {
 		viewer: 'quranViewer',
 		arabicName: 'القرآن الكريم',
 		dataFolder: 'quran',
-		contentPack: 'quran'
+		contentPack: 'quran',
+		viewerStyle: ['quran']
 	},
 	favorite: {
 		contentPack: '',

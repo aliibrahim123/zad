@@ -61,6 +61,15 @@
 	margin-top: 0.4em;
 	padding-inline: 0.3em;
 }
+#content.quran {
+	font-family: 'quran';
+	line-height: 1.5;
+}
+@font-face {
+	font-family: 'quran';
+	src: url('../assets/fonts/quran.ttf');
+}
+
 .unit {
 	margin-right: 0.3em;
 	margin-bottom: 0.85em;

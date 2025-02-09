@@ -138,6 +138,7 @@ export function setupStyle (soft = false) {
 export function updateFade (el: HTMLElement, dur: number) {
 	const animationSpeed = settings.style.core.animationSpeed;
 	const oldEl = el.cloneNode(true) as HTMLElement;
+	oldEl.classList.add('old');
 	oldEl.style.position = 'absolute';
 	el.before(oldEl);
 	//animate

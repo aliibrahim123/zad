@@ -1,5 +1,5 @@
 <neo:template id="viewer">
-	<div id="title" :text>@{title}</div>
+	<div id="title" :text @ref="title">@{title}</div>
 	<div id="info" @ref="info"></div>
 	<div id="main-toolbar" class="toolbar" @ref="main-toolbar">
 		<span @ref="page-control" class="no-pad inline"
@@ -53,8 +53,8 @@
 	<div @ref="second-toolbar-filler"></div>
 	<div id="content" @ref="content"></div>
 	<div id="last-filler"></div>
-	<div id="masbaha" :text @on(click)="comp.masbahaCount.value++" 
-	  @effect(showMasbaha)="el.classList.toggle('hide', !showMasbaha)"
+	<div 
+	  id="masbaha" :text @on(click)="comp.masbahaCount.value++" class=hide @ref="masbaha"
 	>@{masbahaCount}</div>
 	<div id="adjust-font" @ref="adjust-font" class="hide">
 		<span :text>@(fontSize){String(fontSize).padStart(4, '0')}</span>
