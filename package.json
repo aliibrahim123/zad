@@ -10,7 +10,8 @@
 		"start": "vite .",
 		"build": "vite build",
 		"generate-js-source": "node scripts/generateJSSource.js",
-		"redirect-entry-to-src": "node scripts/redirectEntryToSrc.js"
+		"redirect-entry-to-src": "node scripts/redirectEntryToSrc.js",
+		"generate-packs": "node scripts/generatePacks.js"
 	},
 	"devDependencies": {
 		"@types/node": "^22.10.5",

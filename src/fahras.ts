@@ -3,7 +3,7 @@ import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
 import type { SectionOptions, Sections, Bab } from './base.ts';
 import { $is, addToFavorites, getFahras, getRandomInd, prompt, currentSearches, sections, searchHistory, addSearchEntry } from "./base.ts";
 import template from './templates/fahras.neo.html';
-import { prepareForSearch, testString } from "./utils.ts";
+import { prepareForSearch, testString } from "./base.ts";
 
 type TypeMap = Satisfies<BaseMap, {
 	childmap: {},

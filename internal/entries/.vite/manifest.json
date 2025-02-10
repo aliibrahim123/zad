@@ -3,26 +3,11 @@
     "file": "chunks/node-CEhKUo8A.js",
     "name": "node"
   },
-  "_settings-r4iQbflK.js": {
-    "file": "chunks/settings-r4iQbflK.js",
-    "name": "settings",
-    "imports": [
-      "_utils-kpe3xU72.js"
-    ]
-  },
-  "_utils-kpe3xU72.js": {
-    "file": "chunks/utils-kpe3xU72.js",
-    "name": "utils"
-  },
   "src/base.ts": {
     "file": "base.js",
     "name": "base",
     "src": "src/base.ts",
-    "isEntry": true,
-    "imports": [
-      "_utils-kpe3xU72.js",
-      "_settings-r4iQbflK.js"
-    ]
+    "isEntry": true
   },
   "src/fahras.ts": {
     "file": "fahras.js",
@@ -30,8 +15,7 @@
     "src": "src/fahras.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js",
-      "_utils-kpe3xU72.js"
+      "_node-CEhKUo8A.js"
     ]
   },
   "src/libs.ts": {
@@ -70,9 +54,7 @@
     "src": "src/viewer.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js",
-      "_settings-r4iQbflK.js",
-      "_utils-kpe3xU72.js"
+      "_node-CEhKUo8A.js"
     ]
   }
 }
