@@ -4,6 +4,7 @@ import directoryPlugin from 'vite-plugin-directory-index';
 import { neoTempPlugin } from './node_modules/@neocomp/full/src/build/plugin';
 import { entries, entriesFull, entriesFullSet } from './scripts/entries.ts';
 import { resolve } from 'node:path'
+import { rename } from 'node:fs/promises';
 
 //config
 export default defineConfig({
@@ -27,6 +28,9 @@ export default defineConfig({
 				//mark external if module import from entry
 				return !!(parentPath && entriesFullSet.has(path.slice(path.indexOf('src/'))));
 			},
+		},
+		dynamicImportVarsOptions: {
+			include: ['']
 		}
 	},
 	esbuild: {
@@ -47,6 +51,9 @@ function tsToJsImports (): Plugin { return {
 				(match, path)=> `from'${path.slice(0, -3)}.js'`
 			);
 		}
+	},
+	writeBundle(_, bundle) {
+		rename('./internal/entries/sw.js', './sw.js');
 	}
 }
 }

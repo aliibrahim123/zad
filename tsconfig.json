@@ -13,6 +13,6 @@
 		"noImplicitOverride": true,	
 		"module": "preserve",
 		"noEmit": true,
-		"lib": ["esnext", "dom", "dom.iterable", "decorators"],
+		"lib": ["esnext", "dom", "dom.iterable", "decorators", "WebWorker"],
 	}
 }

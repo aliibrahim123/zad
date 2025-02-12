@@ -7,7 +7,7 @@ const packs = {
     type: "unpacked",
     version: "0.0.0",
     files: {
-      ".": /[.]html/,
+      ".": /([.]html)|(manifest[.]json)/,
       "./styles": "all",
       "./internal/entries": "all",
       "./internal/entries/chunks": "all",

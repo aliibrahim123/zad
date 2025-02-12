@@ -5,6 +5,7 @@ const entryMap = {
   fahras: "",
   viewer: "",
   quranViewer: "",
+  sw: "",
   sections: {
     quran: ""
   }

@@ -3,6 +3,7 @@ import * as libs from './libs.ts';
 import { alert, prompt } from "./prompt.ts";
 import { getFahras } from "./sections.ts";
 import './settings.ts';
+import './swInterface.ts';
 import { setupStyle } from "./style.ts";
 import * as globalState from './globalState.ts';
 
@@ -53,3 +54,4 @@ export * from './sections.ts';
 export * from './style.ts';
 export * from './prompt.ts';
 export * from './favorite.ts';
+export * from './swInterface.ts';

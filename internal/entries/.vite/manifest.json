@@ -48,6 +48,12 @@
     "src": "src/sections/quran.ts",
     "isEntry": true
   },
+  "src/sw.ts": {
+    "file": "sw.js",
+    "name": "sw",
+    "src": "src/sw.ts",
+    "isEntry": true
+  },
   "src/viewer.ts": {
     "file": "viewer.js",
     "name": "viewer",

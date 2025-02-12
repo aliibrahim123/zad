@@ -26,7 +26,7 @@ const packs = {
 		type: 'unpacked',
 		version: '0.0.0',
 		files: {
-			'.': /[.]html/,
+			'.': /([.]html)|(manifest[.]json)/,
 			'./styles': 'all',
 			'./internal/entries': 'all',
 			'./internal/entries/chunks': 'all',
@@ -64,7 +64,7 @@ const packs = {
 		}
 	}
 } satisfies Record<string, Pack>
-export type ContentPacks = keyof typeof packs | '';
+export type ContentPack = keyof typeof packs | '';
 
 const info: Record<string, { size: number, version: string, chunks?: number }> = {};
 
@@ -95,7 +95,7 @@ for (const name in packs) {
 	
 	//write file
 	await writeFile(`./internal/contentPacks/${name}.json`, JSON.stringify(files));
-	
+
 	if (pack.type === 'unpacked') {
 		//get size
 		const size = (await Promise.all(

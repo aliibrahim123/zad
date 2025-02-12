@@ -1,5 +1,4 @@
 import { registry } from "./libs.ts";
-import { updateFade } from "./base.ts";
 import { Viewer, type Data, type Unit } from "./viewer.ts";
 
 class QuranViewer extends Viewer {
