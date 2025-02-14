@@ -18,6 +18,7 @@ const UTF8Encoder = new TextEncoder();
 interface Pack {
 	type: 'packed' | 'unpacked',
 	version: string,
+	arabicName: string,
 	files: Record<string, RegExp | 'all' | string[] | ((files: string[]) => string[])>,
 }
 
@@ -25,6 +26,7 @@ const packs = {
 	base: {
 		type: 'unpacked',
 		version: '0.0.0',
+		arabicName: 'أساس',
 		files: {
 			'.': /([.]html)|(manifest[.]json)/,
 			'./styles': 'all',
@@ -36,6 +38,7 @@ const packs = {
 	},
 	backLow: {
 		type: 'unpacked',
+		arabicName: 'خلفيات جودة منخفضة',
 		version: '0.0.0',
 		files: {
 			'./assets/background': lowRes
@@ -44,6 +47,7 @@ const packs = {
 	backMed: {
 		type: 'unpacked',
 		version: '0.0.0',
+		arabicName: 'خلفيات جودة متوسطة',
 		files: {
 			'./assets/background': meduimRes
 		}
@@ -51,6 +55,7 @@ const packs = {
 	backHigh: {
 		type: 'unpacked',
 		version: '0.0.0',
+		arabicName: 'خلفيات جودة عالية',
 		files: {
 			'./assets/background': highRes
 		}
@@ -58,6 +63,7 @@ const packs = {
 	quran: {
 		type: 'packed',
 		version: '0.0.0',
+		arabicName: 'قرآن',
 		files: {
 			'./internal/entries/sections': ['quran.js'],
 			'./data/quran': 'all'
@@ -66,7 +72,7 @@ const packs = {
 } satisfies Record<string, Pack>
 export type ContentPack = keyof typeof packs | '';
 
-const info: Record<string, { size: number, version: string, chunks?: number }> = {};
+const info: Record<string, { size: number, version: string, arabicName: string, chunks?: number }> = {};
 
 //reset folder
 await rm('./internal/contentPacks', { force: true, recursive: true });
@@ -102,7 +108,7 @@ for (const name in packs) {
 		  files.map(async file => (await stat(file)).size)
 		)).reduce((a, b) => a + b);
 		//add info
-		info[name] = { version: pack.version, size };
+		info[name] = { version: pack.version, size, arabicName: pack.arabicName };
 	}
 	
 	//packed
@@ -172,7 +178,7 @@ for (const name in packs) {
 			await writeFile(`./internal/contentPacks/${name}_${chunkInd++}.txt`, finalBuffer);
 		}
 		//add info
-		info[name] = { version: pack.version, size, chunks: chunks.length };
+		info[name] = { version: pack.version, size, arabicName: pack.arabicName, chunks: chunks.length };
 	}
 }
 //write info file

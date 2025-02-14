@@ -70,14 +70,14 @@ main.overlay {
 main.overlay.transparent {
 	background: radial-gradient(
 		rgba(0, 0, 0, var(--trans-mod)),
-		rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.3, var(--trans-mod) * 0.35)))
+		rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.3, var(--trans-mod) * 0.5)))
 	);
 }
 main.overlay.blur {
 	backdrop-filter: blur(0.7vmax);
 	background: radial-gradient(
 		rgba(0, 0, 0, var(--trans-mod)),
-		rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.3, var(--trans-mod) * 0.35)))
+		rgba(0, 0, 0, calc(max(var(--trans-mod) - 0.3, var(--trans-mod) * 0.5)))
 	);
 	background-clip: padding-box;
 }

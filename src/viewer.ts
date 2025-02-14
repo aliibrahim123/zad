@@ -1,4 +1,4 @@
-import { Component, create, query, registry, View } from "./libs.ts";
+import { Component, create, query, registry } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions, Signal } from "./libs.ts";
 import template from './templates/viewer.neo.html';
 import { 

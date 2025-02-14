@@ -1,0 +1,31 @@
+<neo:template id="download">
+	<div id="title">مركز التنزيل</div>
+	<div id="no-internet" @do="el.classList.toggle('hide', navigator.onLine)">لا يوجد اتصال بالإنترنت</div>
+	<div id="container">
+	  <div id="status-bar" @ref="status-bar">
+		<div id="primary" :text>@(status){status?.primary}</div>
+		<div id="secondary" :text>@(status){status?.secondary}</div>
+	  </div>
+	  <div id="list" @ref="list"></div>
+	</div>
+</neo:template>
+<neo:template id="item">
+	<span class="info">
+	  <span class="name" :text>@(pack){pack?.arabicName}</span>
+	  <span class="sep">|</span>
+	  <span class="size" :text>حجم: @(pack){(pack?.size / 1000000).toFixed(2)} ميجا بايت</span>
+	  <span class="sep">|</span>
+	  <span class="version" :text>آخر اصدار: @(pack){pack?.version}</span>
+	  
+	  <span class="current-version" class="no-pad"
+	    @effect(installedVersion)='el.classList.toggle("hide", !installedVersion)'
+	  ><span class="sep">|</span><span :text>الإصدار الموجود: @{installedVersion}</span></span>
+	</span>
+	<span class="buttons">
+	  <button @on(click)="comp.parent.download(comp.get('packName'))">تنزيل</button>
+	  <button 
+	    @effect(installedVersion)='el.classList.toggle("hide", !installedVersion)' 
+	    @on(click)="comp.parent.delete(comp.get('packName'))"
+	  >حذف</button>
+	</span>
+</neo:template>

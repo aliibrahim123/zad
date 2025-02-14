@@ -6,6 +6,7 @@ const packs = {
   base: {
     type: "unpacked",
     version: "0.0.0",
+    arabicName: "\u0623\u0633\u0627\u0633",
     files: {
       ".": /([.]html)|(manifest[.]json)/,
       "./styles": "all",
@@ -17,6 +18,7 @@ const packs = {
   },
   backLow: {
     type: "unpacked",
+    arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0645\u0646\u062E\u0641\u0636\u0629",
     version: "0.0.0",
     files: {
       "./assets/background": lowRes
@@ -25,6 +27,7 @@ const packs = {
   backMed: {
     type: "unpacked",
     version: "0.0.0",
+    arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0645\u062A\u0648\u0633\u0637\u0629",
     files: {
       "./assets/background": meduimRes
     }
@@ -32,6 +35,7 @@ const packs = {
   backHigh: {
     type: "unpacked",
     version: "0.0.0",
+    arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0639\u0627\u0644\u064A\u0629",
     files: {
       "./assets/background": highRes
     }
@@ -39,6 +43,7 @@ const packs = {
   quran: {
     type: "packed",
     version: "0.0.0",
+    arabicName: "\u0642\u0631\u0622\u0646",
     files: {
       "./internal/entries/sections": ["quran.js"],
       "./data/quran": "all"
@@ -66,7 +71,7 @@ for (const name in packs) {
     const size = (await Promise.all(
       files.map(async (file) => (await stat(file)).size)
     )).reduce((a, b) => a + b);
-    info[name] = { version: pack.version, size };
+    info[name] = { version: pack.version, size, arabicName: pack.arabicName };
   } else {
     const content = await Promise.all(
       files.map(async (file) => [file, await readFile(file)])
@@ -113,7 +118,7 @@ for (const name in packs) {
       size += finalBuffer.length;
       await writeFile(`./internal/contentPacks/${name}_${chunkInd++}.txt`, finalBuffer);
     }
-    info[name] = { version: pack.version, size, chunks: chunks.length };
+    info[name] = { version: pack.version, size, arabicName: pack.arabicName, chunks: chunks.length };
   }
 }
 await writeFile("./internal/contentPacks/info.json", JSON.stringify(info));

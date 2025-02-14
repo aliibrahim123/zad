@@ -30,7 +30,7 @@ export interface StyleCore {
 
 export function setupStyle (soft = false) {
 	//get style unit
-	const group = query('#root')[0].getAttribute('style-group') as StyleGroup;
+	const group = query('main')[0].getAttribute('style-group') as StyleGroup;
 	var style = settings.style[group] as StyleUnit;
 	if (group !== 'base') style = { ...settings.style.base, ...style };
 	const core = settings.style.core;

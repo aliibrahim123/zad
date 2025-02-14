@@ -6,6 +6,7 @@ const entryMap = {
   viewer: "",
   quranViewer: "",
   sw: "",
+  download: "",
   sections: {
     quran: ""
   }

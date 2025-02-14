@@ -72,3 +72,5 @@ export function testString(string: string, match: string[]) {
 	}
 	return false;
 }
+
+export const any = undefined as any;

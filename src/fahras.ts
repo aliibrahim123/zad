@@ -1,4 +1,4 @@
-import { Component, create, query, registry, View } from "./libs.ts";
+import { Component, create, query, registry } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
 import type { SectionOptions, Sections, Bab } from './base.ts';
 import { $is, addToFavorites, getFahras, getRandomInd, prompt, currentSearches, sections, searchHistory, addSearchEntry } from "./base.ts";

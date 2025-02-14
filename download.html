@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
-	<title>زاد العباد ليوم المعاد</title>
+	<title>زاد العباد ليوم المعاد: تنزيل</title>
 	<link rel="icon" href="./assets/icons/favicon.ico" sizes="48x48">
 	<link rel="icon" href="./assets/icons/favicon.svg" sizes="any" type="image/svg+xml">
 	<link rel="manifest" href="./manifest.json">
 	<script id=lib-script type=module src="./internal/entries/libs.js"></script>
 	<script id=base-script type=module src="./internal/entries/base.js"></script>
-	<script id=viewer-script type=module src="./internal/entries/viewer.js"></script>
+	<script id=download-script type=module src="./internal/entries/download.js"></script>
 	<link class='preserve-on-route' rel="stylesheet" id=base-style href="./styles/base.css">
-	<link rel="stylesheet" id=viewer-style href="./styles/viewer.css">
+	<link rel="stylesheet" id=download-style href="./styles/download.css">
 </head>
 <body>
   <div id="back-inner">
 	<div id="overlay-border"></div>
-	<main id=viewer comp:name='@lazy:viewer' style-group="viewer">
+		<main id=download comp:name='@lazy:download' style-group="tools">
 		<div id="inner-container"></div>
 	</main>
   </div>

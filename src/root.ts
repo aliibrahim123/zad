@@ -1,9 +1,9 @@
 //root page
 
-import { Component, registry, View } from "./libs.ts";
+import { Component, registry } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/root.neo.html';
-import { defer, loadSvgs, currentSearches } from "./base.ts";
+import { loadSvgs, currentSearches } from "./base.ts";
 
 type Section = 
   'main' | 'quran' | 'amal' | 'ahdath' | 'ahkam' |
