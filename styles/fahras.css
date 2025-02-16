@@ -17,8 +17,8 @@
 	text-align: center;
 	padding: calc(0.05em * var(--base-size));
 
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, 0.6);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.4 * var(--black-mod))), rgba(0, 0, 0, calc(0.3 * var(--black-mod))));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, calc(0.6 * var(--black-mod)));
 
 	border: solid black calc(0.03em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.225em * var(--base-size));
@@ -47,8 +47,8 @@
 	font-size: 1.1em;
 	user-select: none;
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
-	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.3 * var(--black-mod))), rgba(0, 0, 0, calc(0.15 * var(--black-mod))));
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 
 	border: solid black calc(0.1em * var(--border-size));
 	border-radius: calc(0.7em);

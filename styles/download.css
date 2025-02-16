@@ -5,18 +5,18 @@
 	text-align: center;
 	padding: calc(0.05em * var(--base-size));
 
-	background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
-	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, 0.6);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.5 * var(--black-mod))), rgba(0, 0, 0, calc(0.3 * var(--black-mod))));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, calc(0.6 * var(--black-mod)));
 
 	border: solid black calc(0.03em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.225em * var(--base-size));
 }
 
+/* status bar */
 #no-internet {
 	margin: 0.5em;
 	font-size: 1.2em;
 }
-
 #status-bar {
 	padding-inline: 0.7em;
 	margin-top: 0.25em;
@@ -25,8 +25,8 @@
 	
 	text-align: center;
 
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.25));
-	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.4 * var(--black-mod))), rgba(0, 0, 0, calc(0.25 * var(--black-mod))));
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 	
 	border: solid black calc(0.125em * var(--border-size));
 	border-radius: calc(0.7em);
@@ -38,6 +38,7 @@
 	font-size: 1.05em;
 }
 
+/* list */
 #list {
 	margin-top: 0.3em;
 	margin-inline: 0.3em;
@@ -50,12 +51,14 @@
 	
 	font-size: 1.05em;
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
-	box-shadow: 0 0 2vmax 0.3vmax rgba(0, 0, 0, 0.4);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.3 * var(--black-mod))), rgba(0, 0, 0, calc(0.2 * var(--black-mod))));
+	box-shadow: 0 0 2vmax 0.3vmax rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 	
 	border: solid black calc(0.125em * var(--border-size));
 	border-radius: calc(0.6em);
 }
+
+/* info */
 .info {
 	flex-grow: 1;
 	padding-block: 0.2em;
@@ -70,6 +73,8 @@
 	font-weight: bold;
 	font-size: 1.025em;
 }
+
+/* buttons */
 .buttons {
 	margin-block: auto;
 	display: flex;
@@ -82,15 +87,15 @@
 	padding-block: 0.2em;
 	padding-inline: 0.4em;
 	
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, calc(0.2 * var(--black-mod)));
 	border: black outset 0.12em;
 	border-radius: 0.4em;
 
 	transition: background 0.25s;
 }
 .buttons > *:hover {
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, calc(0.3 * var(--black-mod)));
 }
 .buttons > *:active {
-	background: rgba(0, 0, 0, 0.4);
+	background: rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 }

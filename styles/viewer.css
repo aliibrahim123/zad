@@ -5,8 +5,8 @@
 	text-align: center;
 	padding: calc(0.05em * var(--base-size));
 
-	background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
-	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, 0.6);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.5 * var(--black-mod))), rgba(0, 0, 0, calc(0.3 * var(--black-mod))));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, calc(0.6 * var(--black-mod)));
 
 	border: solid black calc(0.03em * var(--base-size) * var(--border-size));
 	border-radius: calc(0.225em * var(--base-size));
@@ -21,8 +21,8 @@
 	margin-right: 0.5em;
 	margin-left: 0.3em;
 
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.4 * var(--black-mod))), rgba(0, 0, 0, calc(0.2 * var(--black-mod))));
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 
 	border: solid black calc(0.1em * var(--border-size));
 	border-radius: calc(0.7em);
@@ -42,8 +42,11 @@
 	font-size: 1.1em;
 	user-select: none;
 
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, 0.4);
+	background: radial-gradient(
+	  rgba(0, 0, 0, calc(0.4 * var(--black-mod))), 
+	  rgba(0, 0, 0, calc(0.2 * var(--black-mod)))
+	);
+	box-shadow: 0 0 3vmax 0.5vmax rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 
 	border: solid black calc(0.1em * var(--border-size));
 	border-radius: calc(0.7em);
@@ -109,8 +112,11 @@
 	padding-inline: 1.5vmax;
 	padding-block: 0.25vmax;
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	border: solid rgba(0, 0, 0, 0.5) calc(0.125em * var(--border-size));
+	background: radial-gradient(
+	  rgba(0, 0, 0, calc(0.4 * var(--black-mod))), 
+	  rgba(0, 0, 0, calc(0.2 * var(--black-mod)))
+	);
+	border: solid rgba(0, 0, 0, calc(0.5 * var(--black-mod))) calc(0.125em * var(--border-size));
 	border-radius: calc(0.7em);
 }
 #adjust-font > input {
@@ -131,7 +137,12 @@
 	user-select: none;
 	font-size: calc(1.5em * var(--masbaha-size));
 	
-	background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
-	border: solid rgba(0, 0, 0, 0.5) calc(0.125em * var(--border-size));
+	background: radial-gradient(
+	  rgba(0, 0, 0, calc(0.6 * var(--black-mod))), 
+	  rgba(0, 0, 0, calc(0.4 * var(--black-mod)))
+	);
+	box-shadow: 0 0 3vmax calc(0.5vmax * var(--masbaha-size)) rgba(0, 0, 0, calc(0.5 * var(--black-mod)));
+
+	border: solid rgba(0, 0, 0, calc(0.5 * var(--black-mod))) calc(0.125em * var(--border-size));
 	border-radius: calc(0.7em * pow(var(--masbaha-size), 0.5));
 }

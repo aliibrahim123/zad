@@ -1,14 +1,8 @@
 import type { ContentPack } from "../scripts/generatePacks.ts";
 import { Component, create, registry } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
-import { addListener, removeListener, sendRequest, type SWResponse } from "./base.ts";
+import { addListener, getPacks, installedPacks, removeListener, saveInstalledPacks, sendRequest, type Pack, type SWResponse } from "./base.ts";
 import template from './templates/download.neo.html';
-
-interface Pack { 
-	version: string, 
-	size: number, 
-	arabicName: string 
-}
 
 type ItemTypeMap = Satisfies<BaseMap, {
 	childmap: {},
@@ -36,7 +30,6 @@ type TypeMap = Satisfies<BaseMap, {
 		status: { primary: string, secondary: string },
 		listner: ((res: SWResponse) => void) | null,
 		packs: Record<string, Pack>,
-		installedPacks: Partial<Record<string, string>>
 	},
 	refs: {
 		list: HTMLElement
@@ -56,7 +49,6 @@ class DownloadPage extends Component<TypeMap> {
 	Status = this.signal('status', { primary: 'متفرغ', secondary: '' });
 	listener = this.signal('listner', null);
 	packs = this.signal('packs', null as any);
-	installedPacks = this.signal('installedPacks', null as any);
 	override async init() {
 		this.initDom();
 		this.fireInit();
@@ -64,12 +56,8 @@ class DownloadPage extends Component<TypeMap> {
 		if (!navigator.onLine) return;
 
 		//prepare info
-		const packs = await (await fetch('./internal/contentPacks/info.json')).json() as 
-		  Record<string, Pack>;
+		const packs = await getPacks();
 		this.packs.value = packs;
-		const installedPacks: Partial<Record<string, string>> = 
-		  JSON.parse(localStorage.getItem('zad-installed-packs') as string) || {};
-		this.installedPacks.value = installedPacks;
 		
 		//add buttons
 		const list = this.refs['list'][0];
@@ -115,9 +103,8 @@ class DownloadPage extends Component<TypeMap> {
 
 		  //change current version
 		  const curVersion = res.action === 'download' ? this.packs.value[res.pack].version : undefined;
-		  const installedPacks = this.installedPacks.value;
 		  installedPacks[res.pack] = curVersion;
-		  localStorage.setItem('zad-installed-packs', JSON.stringify(installedPacks));
+		  saveInstalledPacks();
 
 		  //update child specilized in pack
 		  (this.children.find(child => child.get('packName') === res.pack) as Item)

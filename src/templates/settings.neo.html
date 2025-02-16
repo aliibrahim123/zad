@@ -1,0 +1,22 @@
+<neo:template id="settings">
+	<div id='main-section' class="section" @ref="section-main">
+		<div id="title">إعدادات</div>
+		<div id="sections-grid">
+		  <div id="style-button" @on(click)="router.go('#style')">مظهر</div>
+		  <div id="storage-button" @on(click)="router.go('#storage')">تخزين</div>
+		</div>
+	</div>
+	<div id="style-section" class="section" @ref="section-style">
+		<div class="mini-title">مظهر</div>
+		<div id="adjust-font" @ref="adjust-font" class="hide">
+			<span :text>@(fontSize){String(fontSize).padStart(4, '0')}</span>
+			<input 
+			  type="range" min="0.2" max="5" step="0.01" :value="${fontSize}"
+			  @on(input)="comp.updateFont(el.valueAsNumber)"
+			  @on(change)="comp.saveSettings()"
+			></div>
+	</div>
+	<div id="storage-section" class="section" @ref="section-storage">
+		<div class="mini-title">تخزين</div>
+	</div>
+</neo:template>

@@ -4,7 +4,6 @@ import { isMobile, randomInt } from "./utils.ts";
 
 export type StyleGroup = 'base' | 'root' | 'viewer' | 'fahras' | 'tools';
 export interface StyleUnit {
-	base: StyleGroup,
 	layout: 'full-page' | 'overlay',
 
 	background: number | 'random',
@@ -17,6 +16,8 @@ export interface StyleUnit {
 	margin: number,
 	marginX: number,
 	padding: number,
+
+	blackMod: number
 }
 export interface StyleCore {
 	backRes: 'low' | 'meduim' | 'high',
@@ -52,6 +53,9 @@ export function setupStyle (soft = false) {
 	body.style.setProperty('--title-size', String(core.titleSize));
 	body.style.setProperty('--border-size', String(core.borderSize));
 	body.style.setProperty('--masbaha-size', String(core.masbahaSize));
+
+	//color mods
+	body.style.setProperty('--black-mod', String(style.blackMod));
 
 	//background
 	if (soft) {}
@@ -97,7 +101,7 @@ export function setupStyle (soft = false) {
 		if (soft) return;
 		main.classList.remove('transparent', 'blur', 'back-crop');
 		
-		main.style.backgroundClip = '';
+		main.style.background = '';
 		if (style.overlayBack === 'transparent') main.classList.add('transparent');
 		else if (style.overlayBack === 'blur') main.classList.add('blur');
 		else {

@@ -3,10 +3,10 @@ import { cacheName } from "./sw.ts";
 
 declare var self: ServiceWorkerGlobalScope;
 
-export type SWCacheRequest = StatusReq | PackReq;
-interface StatusReq {
+export type SWCacheRequest = UniReq | PackReq;
+interface UniReq {
 	type: 'cache';
-	action: 'query-status';
+	action: 'query-status' | 'delete-all';
 }
 interface PackReq {
 	type: 'cache';
@@ -69,7 +69,7 @@ interface FinishedRes {
 }
 
 interface Action {
-	type: 'download' | 'delete';
+	type: 'download' | 'delete' | 'delete-all';
 	pack: ContentPack;
 }		
 const queue: Action[] = [];
@@ -82,6 +82,12 @@ export async function handleCache(request: SWCacheRequest, client: Client) {
 		packs: queue.length === 0 ? undefined : queue.map(action => action.pack)
 	} satisfies StatusRes);
 
+	//case delete all
+	else if (request.action === 'delete-all') {
+		if (queue.length === 0) startWork = true;
+		queue.push({ type: 'delete-all', pack: '' });
+	}
+
 	//case delete
 	else if (request.action === 'delete') {
 		if (queue.length === 0) startWork = true;
@@ -89,7 +95,7 @@ export async function handleCache(request: SWCacheRequest, client: Client) {
 	}
 
 	//case download
-	else {
+	else if (request.action === 'download') {
 		if (queue.length === 0) startWork = true;
 		queue.push({ type: 'download', pack: request.pack });
 	}
@@ -104,8 +110,13 @@ export async function handleCache(request: SWCacheRequest, client: Client) {
 		const action = queue[0];
 		const pack = action.pack;
 
+		//delete all
+		if (action.type === 'delete-all') {
+			for (const key of await cache.keys()) cache.delete(key)
+		}
+
 		//delete
-		if (action.type === 'delete') {
+		else if (action.type === 'delete') {
 			//start
 			client.postMessage({
 				type: 'cache', action: 'delete', status: 'deleting', pack,

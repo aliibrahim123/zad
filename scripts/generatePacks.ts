@@ -39,7 +39,7 @@ const packs = {
 	backLow: {
 		type: 'unpacked',
 		arabicName: 'خلفيات جودة منخفضة',
-		version: '0.0.0',
+		version: '0.0.1',
 		files: {
 			'./assets/background': lowRes
 		}

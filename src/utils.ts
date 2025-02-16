@@ -38,6 +38,15 @@ export function deepCopy <T> (value: T): T {
 	for (const prop in value) cloned[prop] = deepCopy(value[prop]);
 	return cloned
 }
+export function merge <T> (a: T, b: Partial<T>) {
+	const c = {} as T;
+	for (const prop in a) {
+		const aProp = a[prop], bProp = b[prop];
+		if (typeof(aProp) === 'object') c[prop] = merge(aProp, bProp || {})
+		else c[prop] = bProp || aProp
+	}
+	return c;
+}
 
 export function delay (ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms))

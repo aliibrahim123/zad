@@ -19,7 +19,7 @@ const packs = {
   backLow: {
     type: "unpacked",
     arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0645\u0646\u062E\u0641\u0636\u0629",
-    version: "0.0.0",
+    version: "0.0.1",
     files: {
       "./assets/background": lowRes
     }

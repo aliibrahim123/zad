@@ -1,18 +1,22 @@
 import type { StyleCore, StyleGroup, StyleUnit } from "./style.ts";
-import { isMobile } from "./utils.ts";
+import { isMobile, merge } from "./utils.ts";
 
 export interface Settings {
 	style: {
 		core: StyleCore,
 		base: StyleUnit,
 	} & Record<StyleGroup, Partial<StyleUnit>>,
-	viewer: {
+	content: {
 		maxContentPerPage: number,
 		maxUnitPerPage: number,
 	}
 }
+type PartialSettings = {
+	style: { [P in keyof Settings['style']]: Partial<Settings['style'][P]> },
+	content: Partial<Settings['content']>
+}
 
-const defaultSettings: Settings = {
+export const defaultSettings: Settings = {
 	style: {
 		core: {
 			animationSpeed: 1,
@@ -23,7 +27,6 @@ const defaultSettings: Settings = {
 			masbahaSize: 1
 		},
 		base: {
-			base: 'base',
 			layout: 'full-page',
 			background: 'random',
 			backFill: 'fit',
@@ -32,14 +35,12 @@ const defaultSettings: Settings = {
 			marginX: 1,
 			borderWidth: 1,
 			overlayTransMod: 0.5,
-			padding: 0.5
+			padding: 0.5,
+			blackMod: 1
 		},
-		root: { base: 'base' },
-		viewer: { base: 'base' },
-		fahras: { base: 'base' },
-		tools: { base: 'base' }
+		root: { }, viewer: { }, fahras: { }, tools: { }
 	},
-	viewer: {
+	content: {
 		maxContentPerPage: 8000,
 		maxUnitPerPage: 30
 	}
@@ -51,13 +52,21 @@ if (!isMobile()) {
 }
 else {
 	defaultSettings.style.base.padding = 1;
+	defaultSettings.style.base.blackMod = 0.4;
+	//defaultSettings.style.core.fontSize = 1.75;
 }
 
 declare global {
-	var settings: Settings;
+	var settings: Settings & { overwritten: PartialSettings };
 }
-globalThis.settings = JSON.parse(localStorage.getItem('zad-settings') as string) || defaultSettings;
+const overwritten: PartialSettings = JSON.parse(localStorage.getItem('zad-settings') as string) 
+  || {
+	style: { base: {}, core: {}, fahras: {}, root: {}, tools: {}, viewer: {} },
+	content: {}
+};
+globalThis.settings = merge(defaultSettings, overwritten as Settings) as any;
+globalThis.settings.overwritten = overwritten;
 
 export function saveSettings () {
-	localStorage.setItem('zad-settings', JSON.stringify(settings));
+	localStorage.setItem('zad-settings', JSON.stringify(settings.overwritten));
 }

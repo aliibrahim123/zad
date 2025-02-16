@@ -9,6 +9,15 @@
     "src": "src/base.ts",
     "isEntry": true
   },
+  "src/download.ts": {
+    "file": "download.js",
+    "name": "download",
+    "src": "src/download.ts",
+    "isEntry": true,
+    "imports": [
+      "_node-CEhKUo8A.js"
+    ]
+  },
   "src/fahras.ts": {
     "file": "fahras.js",
     "name": "fahras",
@@ -47,6 +56,15 @@
     "name": "sections/quran",
     "src": "src/sections/quran.ts",
     "isEntry": true
+  },
+  "src/settingsPage.ts": {
+    "file": "settingsPage.js",
+    "name": "settingsPage",
+    "src": "src/settingsPage.ts",
+    "isEntry": true,
+    "imports": [
+      "_node-CEhKUo8A.js"
+    ]
   },
   "src/sw.ts": {
     "file": "sw.js",

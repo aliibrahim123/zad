@@ -11,6 +11,7 @@ body {
 	--title-size: 1;
 	--border-size: 1;
 	--masbaha-size: 1;
+	--black-mod: 1;
 	font-size: calc(22px * var(--font-size));
 	color: var(--font-color);
 	direction: rtl;
@@ -118,16 +119,22 @@ main.overlay.blur {
 	place-content: center;
 
 	backdrop-filter: blur(0.3vmax);
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+	background: radial-gradient(
+	  rgba(0, 0, 0, calc(0.4 * var(--black-mod))), 
+	  rgba(0, 0, 0, calc(0.2 * var(--black-mod)))
+	);
 }
 .prompt > * {
 	padding: 0.5em;
 	text-align: center;
 
-	background: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.05));
-	box-shadow: 0 0 5vmax 0.1vmax rgba(0, 0, 0, 0.3);
+	background: radial-gradient(
+	  rgba(0, 0, 0, calc(0.2 * var(--black-mod))), 
+	  rgba(0, 0, 0, calc(0.05 * var(--black-mod)))
+	);
+	box-shadow: 0 0 5vmax 0.1vmax rgba(0, 0, 0, calc(0.3 * var(--black-mod)));
 
-	border: solid rgba(0, 0, 0, 0.573) calc(0.15em * var(--border-size));
+	border: solid rgba(0, 0, 0, calc(0.573 * var(--black-mod))) calc(0.15em * var(--border-size));
 	border-radius: calc(0.7em);
 }
 .prompt button {
@@ -138,9 +145,15 @@ main.overlay.blur {
 	padding-inline: 0.3em;
 	margin-top: 0.3em;
 	
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, calc(0.2 * var(--black-mod)));
 	border: black outset 0.12em;
 	border-radius: 0.4em;
+}
+.prompt button:hover {
+	background: rgba(0, 0, 0, calc(0.3 * var(--black-mod)));
+}
+.prompt button:active {
+	background: rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
 }
 .alert {
 	position: absolute;
@@ -152,10 +165,10 @@ main.overlay.blur {
 	text-align: center;
 	
 	backdrop-filter: blur(0.3vmax);
-	background: radial-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-	box-shadow: 0 0 5vmax 0.2vmax rgba(0, 0, 0, 0.5);
+	background: radial-gradient(rgba(0, 0, 0, calc(0.4 * var(--black-mod))), rgba(0, 0, 0, calc(0.2 * var(--black-mod))));
+	box-shadow: 0 0 5vmax 0.2vmax rgba(0, 0, 0, calc(0.5 * var(--black-mod)));
 
-	border: solid rgba(0, 0, 0, 0.573) calc(0.15em * var(--border-size));
+	border: solid rgba(0, 0, 0, calc(0.573 * var(--black-mod))) calc(0.15em * var(--border-size));
 	border-radius: calc(0.7em);
 }
 

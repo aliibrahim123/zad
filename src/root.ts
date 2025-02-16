@@ -3,7 +3,7 @@
 import { Component, registry } from "./libs.ts";
 import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/root.neo.html';
-import { loadSvgs, currentSearches } from "./base.ts";
+import { loadSvgs, currentSearches, installedPacks, getPacks } from "./base.ts";
 
 type Section = 
   'main' | 'quran' | 'amal' | 'ahdath' | 'ahkam' |
@@ -14,6 +14,7 @@ type TypeMap = Satisfies<BaseMap, {
 		lastSection: HTMLElement,
 	},
 	refs: {
+		'new-pack-avalable': HTMLElement
 	} & Record<`section-${Section}`, HTMLElement>
 }>; 
  
@@ -42,6 +43,15 @@ class Root extends Component<TypeMap> {
 		//clean search history
 		for (const entry of currentSearches) entry[1].delete(entry[0]);
 		currentSearches.splice(0);
+
+		//show new update alerter
+		(async () => {
+			const packs = await getPacks();
+			for (const pack in installedPacks) 
+			  if (installedPacks[pack] !== packs[pack].version)
+				return this.refs['new-pack-avalable'][0].classList.remove('hide')
+		})()
+		
 	}
 	async onRoute (url: URL) {
 		const lastSection = this.get('lastSection');

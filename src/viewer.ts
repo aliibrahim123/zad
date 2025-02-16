@@ -145,7 +145,7 @@ export class Viewer extends Component<TypeMap> {
 	}
 
 	collectPages (units: Unit[]) {
-		const { maxContentPerPage: maxLength, maxUnitPerPage: maxUnits } = settings.viewer;
+		const { maxContentPerPage: maxLength, maxUnitPerPage: maxUnits } = settings.content;
 		let curLength = 0, curPage: Unit[] = [], pages = [curPage];
 
 		for (const unit of units) {
@@ -293,6 +293,7 @@ export class Viewer extends Component<TypeMap> {
 	}
 	updateFont (size: number) {
 		settings.style.core.fontSize = size;
+		settings.overwritten.style.core.fontSize = size;
 		this.set('fontSize', size);
 		setupStyle(true);
 	}
