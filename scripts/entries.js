@@ -9,7 +9,8 @@ const entryMap = {
   settingsPage: "",
   download: "",
   sections: {
-    quran: ""
+    quran: "",
+    saaat: ""
   }
 };
 const entries = [];

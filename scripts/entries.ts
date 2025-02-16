@@ -10,7 +10,8 @@ const entryMap: EntryMap = {
 	settingsPage: '',
 	download: '',
 	sections: {
-		quran: ''
+		quran: '',
+		saaat: '',
 	}
 }
 

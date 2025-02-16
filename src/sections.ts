@@ -1,10 +1,12 @@
-export type Sections = 'quran' | 'favorite' | 'test';
+import type { ContentPack } from "../scripts/generatePacks.ts";
+
+export type Sections = keyof typeof sections;
 export interface SectionOptions {
 	viewer: 'viewer' | 'quranViewer' | '',
 	arabicName: string,
 	dataFolder: string,
 	searchable?: boolean,
-	contentPack: string,
+	contentPack: ContentPack,
 	favoritable?: boolean,
 	fahrasBattons?: ({
 		name: string,
@@ -32,13 +34,19 @@ export type Bab = {
 	$parent: Bab,
 } & { [K in string]: Bab | number | string | { link: string } | ((bab: Bab) => void) | object }
 
-export const sections: Record<Sections, SectionOptions> = {
+export const sections = {
 	quran: {
 		viewer: 'quranViewer',
 		arabicName: 'القرآن الكريم',
 		dataFolder: 'quran',
 		contentPack: 'quran',
 		viewerStyle: ['quran']
+	},
+	saaat: {
+		viewer: "viewer",
+		arabicName: 'أعمال الساعات',
+		contentPack: '',
+		dataFolder: 'saaat'
 	},
 	favorite: {
 		contentPack: '',
@@ -54,7 +62,7 @@ export const sections: Record<Sections, SectionOptions> = {
 		contentPack: '',
 		dataFolder: 'test'
 	}
-}
+} satisfies Record<string, SectionOptions>
 
 const fahrases = new Map<Sections, Map<number, Bab>>();
 export function addFahras (name: Sections, babs: Map<number, Bab>) { 
