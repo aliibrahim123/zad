@@ -89,7 +89,7 @@ export class Viewer extends Component<TypeMap> {
 
 	async update (path: string) {
 		const [section, id] = path.split('/') as [Sections, string];
-		const options = sections[section];
+		const options = sections[section] as SectionOptions;
 		this.sectionOptions = this.signal('options', options);
 
 		//load data
@@ -157,7 +157,8 @@ export class Viewer extends Component<TypeMap> {
 				curLength = 0;
 			}
 		}
-
+		if (pages.at(-1)?.length === 0) pages.pop();
+		
 		this.pages.value = pages;
 	}
 	changePage (offset: number) {

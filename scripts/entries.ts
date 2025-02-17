@@ -12,6 +12,8 @@ const entryMap: EntryMap = {
 	sections: {
 		quran: '',
 		saaat: '',
+		osboa: '',
+		months: '',
 	}
 }
 

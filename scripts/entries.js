@@ -10,7 +10,9 @@ const entryMap = {
   download: "",
   sections: {
     quran: "",
-    saaat: ""
+    saaat: "",
+    osboa: "",
+    months: ""
   }
 };
 const entries = [];

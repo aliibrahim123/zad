@@ -48,6 +48,18 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'saaat'
 	},
+	osboa: {
+		viewer: "viewer",
+		arabicName: 'أعمال الأسبوع',
+		contentPack: '',
+		dataFolder: 'osboa'
+	},
+	months: {
+		viewer: "viewer",
+		arabicName: 'أعمال الأشهر',
+		contentPack: '',
+		dataFolder: 'months'
+	},
 	favorite: {
 		contentPack: '',
 		dataFolder: '',
