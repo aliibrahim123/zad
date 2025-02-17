@@ -60,6 +60,12 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'months'
 	},
+	ziara: {
+		viewer: "viewer",
+		arabicName: 'قسم زيارات',
+		contentPack: '',
+		dataFolder: 'ziara'
+	},
 	favorite: {
 		contentPack: '',
 		dataFolder: '',

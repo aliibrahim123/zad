@@ -14,6 +14,7 @@ const entryMap: EntryMap = {
 		saaat: '',
 		osboa: '',
 		months: '',
+		ziara: '',
 	}
 }
 

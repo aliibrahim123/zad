@@ -12,7 +12,8 @@ const entryMap = {
     quran: "",
     saaat: "",
     osboa: "",
-    months: ""
+    months: "",
+    ziara: ""
   }
 };
 const entries = [];
