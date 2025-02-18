@@ -13,7 +13,8 @@ const entryMap = {
     saaat: "",
     osboa: "",
     months: "",
-    ziara: ""
+    ziara: "",
+    mobeen: ""
   }
 };
 const entries = [];

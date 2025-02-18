@@ -66,6 +66,12 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'ziara'
 	},
+	mobeen: {
+		viewer: "viewer",
+		arabicName: 'تفسير المبين',
+		contentPack: '',
+		dataFolder: 'mobeen'
+	},
 	favorite: {
 		contentPack: '',
 		dataFolder: '',
