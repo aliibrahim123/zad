@@ -72,6 +72,12 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'mobeen'
 	},
+	monasabat: {
+		viewer: "viewer",
+		arabicName: 'مناسبات دينية',
+		contentPack: '',
+		dataFolder: 'monasabat'
+	},
 	favorite: {
 		contentPack: '',
 		dataFolder: '',

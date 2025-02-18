@@ -51,10 +51,46 @@
       "_node-CEhKUo8A.js"
     ]
   },
+  "src/sections/mobeen.ts": {
+    "file": "sections/mobeen.js",
+    "name": "sections/mobeen",
+    "src": "src/sections/mobeen.ts",
+    "isEntry": true
+  },
+  "src/sections/monasabat.ts": {
+    "file": "sections/monasabat.js",
+    "name": "sections/monasabat",
+    "src": "src/sections/monasabat.ts",
+    "isEntry": true
+  },
+  "src/sections/months.ts": {
+    "file": "sections/months.js",
+    "name": "sections/months",
+    "src": "src/sections/months.ts",
+    "isEntry": true
+  },
+  "src/sections/osboa.ts": {
+    "file": "sections/osboa.js",
+    "name": "sections/osboa",
+    "src": "src/sections/osboa.ts",
+    "isEntry": true
+  },
   "src/sections/quran.ts": {
     "file": "sections/quran.js",
     "name": "sections/quran",
     "src": "src/sections/quran.ts",
+    "isEntry": true
+  },
+  "src/sections/saaat.ts": {
+    "file": "sections/saaat.js",
+    "name": "sections/saaat",
+    "src": "src/sections/saaat.ts",
+    "isEntry": true
+  },
+  "src/sections/ziara.ts": {
+    "file": "sections/ziara.js",
+    "name": "sections/ziara",
+    "src": "src/sections/ziara.ts",
     "isEntry": true
   },
   "src/settingsPage.ts": {

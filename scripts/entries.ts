@@ -16,6 +16,7 @@ const entryMap: EntryMap = {
 		months: '',
 		ziara: '',
 		mobeen: '',
+		monasabat: '',
 	}
 }
 
