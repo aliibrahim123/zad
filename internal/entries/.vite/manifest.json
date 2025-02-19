@@ -51,6 +51,24 @@
       "_node-CEhKUo8A.js"
     ]
   },
+  "src/sections/aliWord.ts": {
+    "file": "sections/aliWord.js",
+    "name": "sections/aliWord",
+    "src": "src/sections/aliWord.ts",
+    "isEntry": true
+  },
+  "src/sections/dewan.ts": {
+    "file": "sections/dewan.js",
+    "name": "sections/dewan",
+    "src": "src/sections/dewan.ts",
+    "isEntry": true
+  },
+  "src/sections/ibooks.ts": {
+    "file": "sections/ibooks.js",
+    "name": "sections/ibooks",
+    "src": "src/sections/ibooks.ts",
+    "isEntry": true
+  },
   "src/sections/mobeen.ts": {
     "file": "sections/mobeen.js",
     "name": "sections/mobeen",
@@ -69,6 +87,12 @@
     "src": "src/sections/months.ts",
     "isEntry": true
   },
+  "src/sections/nahij.ts": {
+    "file": "sections/nahij.js",
+    "name": "sections/nahij",
+    "src": "src/sections/nahij.ts",
+    "isEntry": true
+  },
   "src/sections/osboa.ts": {
     "file": "sections/osboa.js",
     "name": "sections/osboa",
@@ -81,10 +105,34 @@
     "src": "src/sections/quran.ts",
     "isEntry": true
   },
+  "src/sections/quranTopics.ts": {
+    "file": "sections/quranTopics.js",
+    "name": "sections/quranTopics",
+    "src": "src/sections/quranTopics.ts",
+    "isEntry": true
+  },
   "src/sections/saaat.ts": {
     "file": "sections/saaat.js",
     "name": "sections/saaat",
     "src": "src/sections/saaat.ts",
+    "isEntry": true
+  },
+  "src/sections/sala.ts": {
+    "file": "sections/sala.js",
+    "name": "sections/sala",
+    "src": "src/sections/sala.ts",
+    "isEntry": true
+  },
+  "src/sections/sera.ts": {
+    "file": "sections/sera.js",
+    "name": "sections/sera",
+    "src": "src/sections/sera.ts",
+    "isEntry": true
+  },
+  "src/sections/shorts.ts": {
+    "file": "sections/shorts.js",
+    "name": "sections/shorts",
+    "src": "src/sections/shorts.ts",
     "isEntry": true
   },
   "src/sections/ziara.ts": {

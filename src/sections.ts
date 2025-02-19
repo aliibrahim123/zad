@@ -42,6 +42,12 @@ export const sections = {
 		contentPack: 'quran',
 		viewerStyle: ['quran']
 	},
+	doaa: {
+		viewer: "viewer",
+		arabicName: 'قسم الدعاء',
+		contentPack: '',
+		dataFolder: 'doaa'
+	},
 	saaat: {
 		viewer: "viewer",
 		arabicName: 'أعمال الساعات',

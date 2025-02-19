@@ -10,6 +10,7 @@ const entryMap = {
   download: "",
   sections: {
     quran: "",
+    doaa: "",
     saaat: "",
     osboa: "",
     months: "",
