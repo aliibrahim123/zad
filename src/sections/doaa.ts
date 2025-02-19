@@ -936,6 +936,7 @@ const fahras: ProtoBab = {
 		'جزأ (15)': 709,
 		'جزأ (16)': 710
 	},
+	"أدعية قرآنية": { link: "./viewer.html#quranInfo/225" },
 	$ind: 0
 }
 

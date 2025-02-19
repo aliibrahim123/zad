@@ -127,6 +127,12 @@ export const sections = {
 		dataFolder: 'quranTopics',
 		viewerStyle: ['quran']
 	},
+	quranInfo: {
+		viewer: "viewer",
+		arabicName: 'مقتطفات قرآنية',
+		contentPack: '',
+		dataFolder: 'quranInfo'
+	},
 	monasabat: {
 		viewer: "viewer",
 		arabicName: 'مناسبات دينية',

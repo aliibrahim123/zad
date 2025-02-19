@@ -1,0 +1,1 @@
+export * from '../../src/sections/quranInfo.ts'

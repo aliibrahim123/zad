@@ -20,6 +20,7 @@ const entryMap = {
     sera: "",
     sala: "",
     quranTopics: "",
+    quranInfo: "",
     shorts: "",
     aliWord: "",
     dewan: "",

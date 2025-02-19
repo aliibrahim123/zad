@@ -21,6 +21,7 @@ const entryMap: EntryMap = {
 		sera: '',
 		sala: '',
 		quranTopics: '',
+		quranInfo: '',
 		shorts: '',
 		aliWord: '',
 		dewan: '',
