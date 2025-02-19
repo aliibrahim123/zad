@@ -15,7 +15,10 @@ const entryMap = {
     months: "",
     ziara: "",
     mobeen: "",
-    monasabat: ""
+    monasabat: "",
+    sera: "",
+    sala: "",
+    quranTopics: ""
   }
 };
 const entries = [];

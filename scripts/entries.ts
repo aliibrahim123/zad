@@ -17,6 +17,9 @@ const entryMap: EntryMap = {
 		ziara: '',
 		mobeen: '',
 		monasabat: '',
+		sera: '',
+		sala: '',
+		quranTopics: '',
 	}
 }
 

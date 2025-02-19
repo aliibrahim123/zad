@@ -72,6 +72,25 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'mobeen'
 	},
+	sera: {
+		viewer: "viewer",
+		arabicName: 'سيرة أهل البيت (ع)',
+		contentPack: '',
+		dataFolder: 'sera'
+	},
+	sala: {
+		viewer: "viewer",
+		arabicName: 'قسم الصلاة',
+		contentPack: '',
+		dataFolder: 'sala'
+	},
+	quranTopics: {
+		viewer: "viewer",
+		arabicName: 'موضوعات القران الكريم',
+		contentPack: '',
+		dataFolder: 'quranTopics',
+		viewerStyle: ['quran']
+	},
 	monasabat: {
 		viewer: "viewer",
 		arabicName: 'مناسبات دينية',

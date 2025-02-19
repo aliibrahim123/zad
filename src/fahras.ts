@@ -121,7 +121,7 @@ class Fahras extends Component<TypeMap> {
 			if ($is<Bab>(item) && item.$name)
 				el = create('li', '.bab-item', create('a', name, { href: `#${section}/${item.$ind}` }));
 			//link
-			else if ($is<{link: string}>(item) && item.link)
+			else if ($is<{link: string}>(item) && item.link && typeof(item.link) === 'string')
 				el = create('li', '.link-item', create('a', name, { href: item.link }));
 			//scripted
 			else if (typeof(item) === 'function') 
