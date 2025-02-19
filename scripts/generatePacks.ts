@@ -1,4 +1,4 @@
-import { highRes, lowRes, meduimRes } from "../src/backgrounds.js";
+import { highRes, lowRes, meduimRes, pages } from "../src/backgrounds.js";
 import { mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 
 /* pack format
@@ -25,28 +25,38 @@ interface Pack {
 const packs = {
 	base: {
 		type: 'unpacked',
-		version: '0.0.0',
+		version: '1.0.0',
 		arabicName: 'أساس',
 		files: {
 			'.': /([.]html)|(manifest[.]json)/,
 			'./styles': 'all',
 			'./internal/entries': 'all',
 			'./internal/entries/chunks': 'all',
+			'./internal/entries/sections': ['monasabat.js'],
 			'./assets/fonts': 'all',
-			'./assets/icons': 'all'
+			'./assets/icons': 'all',
+			'./data/monasabat': 'all'
+		}
+	},
+	backPage: {
+		type: 'unpacked',
+		arabicName: 'خلفيات ورقية',
+		version: '1.0.0',
+		files: {
+			'./assets/background': pages
 		}
 	},
 	backLow: {
 		type: 'unpacked',
 		arabicName: 'خلفيات جودة منخفضة',
-		version: '0.0.1',
+		version: '1.0.0',
 		files: {
 			'./assets/background': lowRes
 		}
 	},
 	backMed: {
 		type: 'unpacked',
-		version: '0.0.0',
+		version: '1.0.0',
 		arabicName: 'خلفيات جودة متوسطة',
 		files: {
 			'./assets/background': meduimRes
@@ -54,7 +64,7 @@ const packs = {
 	},
 	backHigh: {
 		type: 'unpacked',
-		version: '0.0.0',
+		version: '1.0.0',
 		arabicName: 'خلفيات جودة عالية',
 		files: {
 			'./assets/background': highRes
@@ -62,11 +72,98 @@ const packs = {
 	},
 	quran: {
 		type: 'packed',
-		version: '0.0.0',
+		version: '1.0.0',
 		arabicName: 'قرآن',
 		files: {
 			'./internal/entries/sections': ['quran.js'],
 			'./data/quran': 'all'
+		}
+	},
+	tafseer: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'تفسير',
+		files: {
+			'./internal/entries/sections': ['mobeen.js'],
+			'./data/mobeen': 'all'
+		}
+	},
+	quranTopics: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'موضوعات القران الكريم',
+		files: {
+			'./internal/entries/sections': ['quranTopics.js'],
+			'./data/quranTopics': 'all'
+		}
+	},
+	quranInfo: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'مقتطفات قرآنية',
+		files: {
+			'./internal/entries/sections': ['quranInfo.js'],
+			'./data/quranInfo': 'all'
+		}
+	},
+	amal: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'قسم الأعمال',
+		files: {
+			'./internal/entries/sections': ['saaat.js', 'osboa.js', 'months.js'],
+			'./data/months': 'all',
+			'./data/osboa': 'all',
+			'./data/saaat': 'all',
+		}
+	},
+	doaa: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'قسم الدعاء',
+		files: {
+			'./internal/entries/sections': ['doaa.js', 'sala.js'],
+			'./data/doaa': 'all',
+			'./data/sala': 'all'
+		}
+	},
+	ziara: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'قسم الزيارات',
+		files: {
+			'./internal/entries/sections': ['ziara.js'],
+			'./data/ziara': 'all'
+		}
+	},
+	sera: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'سيرة أهل البيت',
+		files: {
+			'./internal/entries/sections': ['sera.js'],
+			'./data/sera': 'all'
+		}
+	},
+	aqwal: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'حكم وديوان',
+		files: {
+			'./internal/entries/sections': ['aliWord.js', 'shorts.js', 'dewan.js'],
+			'./data/aliWord': 'all',
+			'./data/shorts': 'all',
+			'./data/dewan': 'all'
+		}
+	},
+	ibooks: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'كتب اهل البيت',
+		files: {
+			'./internal/entries/sections': ['ibooks.js', 'nahij.js'],
+			'./data/ibooks': 'all',
+			'./data/nahij': 'all',
 		}
 	}
 } satisfies Record<string, Pack>
@@ -113,6 +210,7 @@ for (const name in packs) {
 	
 	//packed
 	else {
+		console.log('packing ', name);
 		//load files
 		const content: [string, Uint8Array][] = await Promise.all(
 			files.map(async file => [file, await readFile(file)])

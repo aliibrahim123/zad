@@ -2,7 +2,7 @@ import type { ContentPack } from "../scripts/generatePacks.ts";
 import type { SWCacheRequest, SWCacheResponse } from "./swCache.ts";
 
 //install service worker
-if (false && 'serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.register(
 	  './sw.js', 
 	  { scope: './', type: 'module' }

@@ -36,6 +36,15 @@
       "_node-CEhKUo8A.js"
     ]
   },
+  "src/masbaha.ts": {
+    "file": "masbaha.js",
+    "name": "masbaha",
+    "src": "src/masbaha.ts",
+    "isEntry": true,
+    "imports": [
+      "_node-CEhKUo8A.js"
+    ]
+  },
   "src/quranViewer.ts": {
     "file": "quranViewer.js",
     "name": "quranViewer",
@@ -61,6 +70,12 @@
     "file": "sections/dewan.js",
     "name": "sections/dewan",
     "src": "src/sections/dewan.ts",
+    "isEntry": true
+  },
+  "src/sections/doaa.ts": {
+    "file": "sections/doaa.js",
+    "name": "sections/doaa",
+    "src": "src/sections/doaa.ts",
     "isEntry": true
   },
   "src/sections/ibooks.ts": {
@@ -103,6 +118,12 @@
     "file": "sections/quran.js",
     "name": "sections/quran",
     "src": "src/sections/quran.ts",
+    "isEntry": true
+  },
+  "src/sections/quranInfo.ts": {
+    "file": "sections/quranInfo.js",
+    "name": "sections/quranInfo",
+    "src": "src/sections/quranInfo.ts",
     "isEntry": true
   },
   "src/sections/quranTopics.ts": {
