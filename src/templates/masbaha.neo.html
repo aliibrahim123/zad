@@ -1,0 +1,16 @@
+<neo:template id="download">
+	<div id="title">مسبحة</div>
+	<button class="button" @on(click)="comp.add()">أضف</button>
+	<div id="list" @ref="list"></div>
+</neo:template>
+<neo:template id="item">
+	<span class="info" @on(click)="comp.count.value++">
+	  <span class="name" :text>@{name}: </span>
+	  <span class="count" :text>@{count}</span>
+	</span>
+	<span class="buttons">
+	  <button class=button @on(click)="comp.count.value = Math.max(0, comp.count.value-1)">نقص</button>
+	  <button class=button @on(click)="comp.change()">عدل</button>
+	  <button class=button @on(click)="comp.delete()">حذف</button>
+	</span>
+</neo:template>

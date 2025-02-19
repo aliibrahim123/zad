@@ -8,6 +8,7 @@ const entryMap = {
   sw: "",
   settingsPage: "",
   download: "",
+  masbaha: "",
   sections: {
     quran: "",
     doaa: "",

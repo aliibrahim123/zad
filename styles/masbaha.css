@@ -1,0 +1,78 @@
+/* title */
+#title {
+	--base-size: calc(2.25 * var(--title-size));
+	font-size: calc(var(--base-size) * 1em);
+	text-align: center;
+	padding: calc(0.05em * var(--base-size));
+	margin-bottom: calc(0.05em * var(--base-size));;
+
+	background: radial-gradient(rgba(0, 0, 0, calc(0.5 * var(--black-mod))), rgba(0, 0, 0, calc(0.3 * var(--black-mod))));
+	box-shadow: 0 0 5vmax 0.5vmax rgba(0, 0, 0, calc(0.6 * var(--black-mod)));
+
+	border: solid black calc(0.03em * var(--base-size) * var(--border-size));
+	border-radius: calc(0.225em * var(--base-size));
+}
+
+/* list */
+#list {
+	margin-top: 0.3em;
+	margin-inline: 0.3em;
+}
+.item {
+	display: flex;
+	padding-inline: 0.5em;
+	margin-bottom: 0.25em;
+	padding-block: 0.2em;
+	
+	font-size: 1.05em;
+	
+	background: radial-gradient(rgba(0, 0, 0, calc(0.3 * var(--black-mod))), rgba(0, 0, 0, calc(0.2 * var(--black-mod))));
+	box-shadow: 0 0 2vmax 0.3vmax rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
+	
+	border: solid black calc(0.125em * var(--border-size));
+	border-radius: calc(0.6em);
+}
+
+/* info */
+.info {
+	flex-grow: 1;
+	padding-block: 0.2em;
+	vertical-align: middle;
+}
+.info * {
+	display: inline-block;
+	padding-left: 0.4em;
+}
+.name {
+	font-weight: bold;
+	font-size: 1.025em;
+}
+.count {
+	font-size: 1.2em;
+}
+
+/* buttons */
+.buttons {
+	margin-block: auto;
+	display: flex;
+	gap: 0.2em
+}
+.button {
+	color: inherit;
+	font-size: 1em;
+	
+	padding-block: 0.2em;
+	padding-inline: 0.4em;
+	
+	background: rgba(0, 0, 0, calc(0.2 * var(--black-mod)));
+	border: black outset 0.12em;
+	border-radius: 0.4em;
+
+	transition: background 0.25s;
+}
+.button:hover {
+	background: rgba(0, 0, 0, calc(0.3 * var(--black-mod)));
+}
+.button:active {
+	background: rgba(0, 0, 0, calc(0.4 * var(--black-mod)));
+}
