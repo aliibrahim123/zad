@@ -17,7 +17,7 @@ export function saveInstalledPacks () {
 export function addSearchEntry (name: string) {
 	if (searchHistory.includes(name)) return;
 	searchHistory.unshift(name);
-	if (searchHistory.length > 30) searchHistory.pop();
+	if (searchHistory.length > 75) searchHistory.pop();
 	localStorage.setItem('search-history', JSON.stringify(searchHistory));
 }
 export async function getPacks () {

@@ -84,6 +84,36 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'sala'
 	},
+	shorts: {
+		viewer: "viewer",
+		arabicName: 'حكم وأقوال  قصيرة',
+		contentPack: '',
+		dataFolder: 'shorts'
+	},
+	aliWord: {
+		viewer: "viewer",
+		arabicName: 'حكم الإمام علي (ع)',
+		contentPack: '',
+		dataFolder: 'aliWord'
+	},
+	dewan: {
+		viewer: "viewer",
+		arabicName: 'ديوان أهل البيت',
+		contentPack: '',
+		dataFolder: 'dewan'
+	},
+	nahij: {
+		viewer: "viewer",
+		arabicName: 'نهج البلاغة',
+		contentPack: '',
+		dataFolder: 'nahij'
+	},
+	ibooks: {
+		viewer: "viewer",
+		arabicName: 'كتب اهل البيت',
+		contentPack: '',
+		dataFolder: 'ibooks'
+	},
 	quranTopics: {
 		viewer: "viewer",
 		arabicName: 'موضوعات القران الكريم',
@@ -101,7 +131,7 @@ export const sections = {
 		contentPack: '',
 		dataFolder: '',
 		viewer: '',
-		arabicName: '',
+		arabicName: 'مفضلة',
 		favoritable: false,
 		searchable: false,
 	},

@@ -18,7 +18,12 @@ const entryMap = {
     monasabat: "",
     sera: "",
     sala: "",
-    quranTopics: ""
+    quranTopics: "",
+    shorts: "",
+    aliWord: "",
+    dewan: "",
+    nahij: "",
+    ibooks: ""
   }
 };
 const entries = [];
