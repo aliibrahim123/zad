@@ -1,5 +1,5 @@
 import { Component, create, query, registry } from "./libs.ts";
-import type { Satisfies, BaseMap, CompOptions, Signal } from "./libs.ts";
+import type { BaseMap, CompOptions, Signal } from "./libs.ts";
 import template from './templates/viewer.neo.html';
 import { 
 	addToFavorites, getHeight, prepareForSearch, prompt, sections, setupStyle, testString,
@@ -7,7 +7,7 @@ import {
 	saveMasbahat, searchHistory, addSearchEntry, delay
 } from "./base.ts";
 
-export type TypeMap = Satisfies<BaseMap, {
+export interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		data: Data,
@@ -36,7 +36,7 @@ export type TypeMap = Satisfies<BaseMap, {
 		'adjust-font': HTMLElement;
 		masbaha: HTMLElement;
 	}
-}>; 
+}; 
 
 export interface Data {
 	title: string,

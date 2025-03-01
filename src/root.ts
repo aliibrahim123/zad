@@ -1,14 +1,14 @@
 //root page
 
 import { Component, registry } from "./libs.ts";
-import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
+import type { BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/root.neo.html';
 import { loadSvgs, currentSearches, installedPacks, getPacks } from "./base.ts";
 
 type Section = 
   'main' | 'quran' | 'amal' | 'ahdath' | 'ahkam' |
   'imam-trath' | 'aalem-turath' | 'tools' | 'others';
-type TypeMap = Satisfies<BaseMap, {
+interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		lastSection: HTMLElement,
@@ -16,7 +16,7 @@ type TypeMap = Satisfies<BaseMap, {
 	refs: {
 		'new-pack-avalable': HTMLElement
 	} & Record<`section-${Section}`, HTMLElement>
-}>; 
+}; 
  
 class Root extends Component<TypeMap> {
 	static override defaults: CompOptions = {

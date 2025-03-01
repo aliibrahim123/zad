@@ -1,16 +1,16 @@
 import { Component, registry } from "./libs.ts";
-import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
+import type { BaseMap, CompOptions } from "./libs.ts";
 import { masbahat, prompt, saveMasbahat } from "./base.ts";
 import template from './templates/masbaha.neo.html';
 
-type ItemTypeMap = Satisfies<BaseMap, {
+interface ItemTypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		name: string,
 		count: number
 	},
 	refs: {}
-}>;
+};
 class Item extends Component<ItemTypeMap> {
 	static override defaults: CompOptions = {
 		...Component.defaults,
@@ -40,14 +40,14 @@ class Item extends Component<ItemTypeMap> {
 	}
 }
 
-type TypeMap = Satisfies<BaseMap, {
+interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 	},
 	refs: {
 		list: HTMLElement
 	}
-}>;
+};
  
 class Masbaha extends Component<TypeMap> {
 	static override defaults: CompOptions = {

@@ -25,7 +25,7 @@ function update () {
 	router.attachToDom(); 
 	setupStyle();
 }
-router.onAftrerUpdate.on(update); 
+router.onAfterUpdate.on(update); 
 router.onRoute.on((_, url) => {
 	//force reload between viewers
 	if (url.pathname.endsWith('viewer.html') && router.lastURL.pathname.endsWith('viewer.html')) 

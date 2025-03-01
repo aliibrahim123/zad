@@ -25,16 +25,23 @@ interface Pack {
 const packs = {
 	base: {
 		type: 'unpacked',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'أساس',
 		files: {
 			'.': /([.]html)|(manifest[.]json)/,
 			'./styles': 'all',
 			'./internal/entries': 'all',
 			'./internal/entries/chunks': 'all',
-			'./internal/entries/sections': ['monasabat.js'],
 			'./assets/fonts': 'all',
 			'./assets/icons': 'all',
+		}
+	},
+	monasabat: {
+		type: 'packed',
+		version: '1.0.0',
+		arabicName: 'مناسبات دينية',
+		files: {
+			'./internal/entries/sections': ['monasabat.js'],
 			'./data/monasabat': 'all'
 		}
 	},
@@ -72,7 +79,7 @@ const packs = {
 	},
 	quran: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'قرآن',
 		files: {
 			'./internal/entries/sections': ['quran.js'],

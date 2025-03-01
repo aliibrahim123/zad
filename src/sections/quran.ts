@@ -157,7 +157,7 @@ pageBab['صفحات (600) إلى (604)'] = {
 //construct part bab;
 const partBab: ProtoBab = { $ind: 3 };
 for (let ind = 0; ind < 30; ind++) partBab[`جزأ (${ind + 1})`] = 
-	ind === 0 ? 1 : ind * 20 + 1;
+	ind === 0 ? 1 : ind * 20 + 2;
 
 //construct ahzab bab
 const ahzabBab: ProtoBab = { $ind: 4 };

@@ -1,6 +1,6 @@
 {
-  "_node-CEhKUo8A.js": {
-    "file": "chunks/node-CEhKUo8A.js",
+  "_node-BKieyWgd.js": {
+    "file": "chunks/node-BKieyWgd.js",
     "name": "node"
   },
   "src/base.ts": {
@@ -15,7 +15,7 @@
     "src": "src/download.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   },
   "src/fahras.ts": {
@@ -24,7 +24,7 @@
     "src": "src/fahras.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   },
   "src/libs.ts": {
@@ -33,7 +33,7 @@
     "src": "src/libs.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   },
   "src/masbaha.ts": {
@@ -42,7 +42,7 @@
     "src": "src/masbaha.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   },
   "src/quranViewer.ts": {
@@ -57,7 +57,7 @@
     "src": "src/root.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   },
   "src/sections/aliWord.ts": {
@@ -168,7 +168,7 @@
     "src": "src/settingsPage.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   },
   "src/sw.ts": {
@@ -183,7 +183,7 @@
     "src": "src/viewer.ts",
     "isEntry": true,
     "imports": [
-      "_node-CEhKUo8A.js"
+      "_node-BKieyWgd.js"
     ]
   }
 }

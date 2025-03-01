@@ -29,9 +29,9 @@ export interface StyleCore {
 	masbahaSize: number,
 }
 
-export function setupStyle (soft = false) {
+export function setupStyle (soft = false, forceGroup?: StyleGroup) {
 	//get style unit
-	const group = query('main')[0].getAttribute('style-group') as StyleGroup;
+	const group = forceGroup || query('main')[0].getAttribute('style-group') as StyleGroup;
 	var style = settings.style[group] as StyleUnit;
 	if (group !== 'base') style = { ...settings.style.base, ...style };
 	const core = settings.style.core;
@@ -42,6 +42,10 @@ export function setupStyle (soft = false) {
 	const backInner = query('#back-inner')[0] as HTMLElement;
 	const overlayBorder = query('#overlay-border')[0] as HTMLElement;
 	
+	//viewport
+	if (!soft) (query('#viewport')[0] as HTMLMetaElement).content = 
+  	  `width=${screen.availWidth * devicePixelRatio}, initial-scale=${1/devicePixelRatio}`;
+
 	//font
 	body.style.setProperty('--font-size', String(core.fontSize));
 	if (style.layout === 'overlay' && 

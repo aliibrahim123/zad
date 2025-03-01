@@ -1,22 +1,24 @@
 import type { AttrsMap } from "@neocomp/full/rawdom/typebase.ts";
 import { Component, create, registry } from "./libs.ts";
-import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
+import type {BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/settings.neo.html';
-import { defaultSettings, saveSettings, sendRequest, setupStyle, type Settings } from "./base.ts";
+import { defaultSettings, saveSettings, sendRequest, setupStyle, type Settings, type StyleGroup } from "./base.ts";
+import type { StyleCore, StyleUnit } from "./style.ts";
 
 type Section = 'main' | 'style' | 'content' | 'storage';
-type TypeMap = Satisfies<BaseMap, {
+interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		lastSection: HTMLElement,
 		showFontAdjust: boolean,
 		fontSize: number,
+		styleGroup: StyleGroup
 	},
 	refs: {
 		'adjust-font': HTMLElement
 	} & Record<`section-${Section}`, HTMLElement>
-}>; 
- 
+};
+
 class SettingsPage extends Component<TypeMap> {
 	static override defaults: CompOptions = {
 		...Component.defaults,
@@ -25,11 +27,14 @@ class SettingsPage extends Component<TypeMap> {
 			insertMode: 'into',
 			into: '#inner-container'
 		},
-		store: { addUndefined: true }
+		store: { addUndefined: true },
+		
 	};
+	styleGroup = this.signal('styleGroup');
 	override init() {
 		this.set('fontSize', settings.style.core.fontSize);
 		this.set('showFontAdjust', false);
+		this.styleGroup = this.signal('styleGroup', 'tools');
 
 		this.initDom();
 

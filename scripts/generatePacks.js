@@ -5,16 +5,23 @@ const UTF8Encoder = new TextEncoder();
 const packs = {
   base: {
     type: "unpacked",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0623\u0633\u0627\u0633",
     files: {
       ".": /([.]html)|(manifest[.]json)/,
       "./styles": "all",
       "./internal/entries": "all",
       "./internal/entries/chunks": "all",
-      "./internal/entries/sections": ["monasabat.js"],
       "./assets/fonts": "all",
-      "./assets/icons": "all",
+      "./assets/icons": "all"
+    }
+  },
+  monasabat: {
+    type: "packed",
+    version: "1.0.0",
+    arabicName: "\u0645\u0646\u0627\u0633\u0628\u0627\u062A \u062F\u064A\u0646\u064A\u0629",
+    files: {
+      "./internal/entries/sections": ["monasabat.js"],
       "./data/monasabat": "all"
     }
   },
@@ -52,7 +59,7 @@ const packs = {
   },
   quran: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0642\u0631\u0622\u0646",
     files: {
       "./internal/entries/sections": ["quran.js"],

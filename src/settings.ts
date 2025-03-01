@@ -53,7 +53,7 @@ if (!isMobile()) {
 else {
 	defaultSettings.style.base.padding = 1;
 	defaultSettings.style.base.blackMod = 0.4;
-	defaultSettings.style.core.fontSize = 1.75;
+	defaultSettings.style.core.fontSize = 1.25;
 }
 
 declare global {

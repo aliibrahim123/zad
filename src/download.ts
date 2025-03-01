@@ -1,10 +1,10 @@
 import type { ContentPack } from "../scripts/generatePacks.ts";
 import { Component, create, registry } from "./libs.ts";
-import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
+import type { AnyComp, BaseMap, CompOptions } from "./libs.ts";
 import { addListener, getPacks, installedPacks, removeListener, saveInstalledPacks, sendRequest, type Pack, type SWResponse } from "./base.ts";
 import template from './templates/download.neo.html';
 
-type ItemTypeMap = Satisfies<BaseMap, {
+interface ItemTypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		packName: string,
@@ -12,7 +12,7 @@ type ItemTypeMap = Satisfies<BaseMap, {
 		installedVersion: string | undefined
 	},
 	refs: {}
-}>;
+};
 class Item extends Component<ItemTypeMap> {
 	static override defaults: CompOptions = {
 		...Component.defaults,
@@ -24,7 +24,7 @@ class Item extends Component<ItemTypeMap> {
 	override init(): void {}
 }
 
-type TypeMap = Satisfies<BaseMap, {
+interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		status: { primary: string, secondary: string },
@@ -34,7 +34,7 @@ type TypeMap = Satisfies<BaseMap, {
 	refs: {
 		list: HTMLElement
 	}
-}>;
+};
  
 class DownloadPage extends Component<TypeMap> {
 	static override defaults: CompOptions = {
@@ -107,7 +107,7 @@ class DownloadPage extends Component<TypeMap> {
 		  saveInstalledPacks();
 
 		  //update child specilized in pack
-		  (this.children.find(child => child.get('packName') === res.pack) as Item)
+		  (this.children.find(child => child.get('packName') === res.pack) as AnyComp as Item)
 			.set('installedVersion', curVersion);
 		  
 		  if (res.nowIdle) {

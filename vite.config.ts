@@ -10,7 +10,8 @@ import { rename } from 'node:fs/promises';
 export default defineConfig({
 	server: {
 		port: 8080,
-		open: true
+		open: true,
+		
 	},
 	publicDir: false,
 	build: {

@@ -1,6 +1,10 @@
 import type { ContentPack } from "../scripts/generatePacks.ts";
 
-export type Sections = keyof typeof sections;
+
+export type Sections = 
+  'quran' | 'doaa' | 'saaat' | 'osboa' | 'months' | 'ziara' | 'mobeen' | 'sera' | 'sala' | 'shorts' | 
+  'aliWord' | 'dewan' | 'nahij' | 'ibooks' | 'quranTopics' | 'quranInfo' | 'monasabat' | 'favorite' | 'test'
+;
 export interface SectionOptions {
 	viewer: 'viewer' | 'quranViewer' | '',
 	arabicName: string,
@@ -34,7 +38,7 @@ export type Bab = {
 	$parent: Bab,
 } & { [K in string]: Bab | number | string | { link: string } | ((bab: Bab) => void) | object }
 
-export const sections = {
+export const sections: Record<Sections, SectionOptions> = {
 	quran: {
 		viewer: 'quranViewer',
 		arabicName: 'القرآن الكريم',
@@ -153,7 +157,7 @@ export const sections = {
 		contentPack: '',
 		dataFolder: 'test'
 	}
-} satisfies Record<string, SectionOptions>
+}
 
 const fahrases = new Map<Sections, Map<number, Bab>>();
 export function addFahras (name: Sections, babs: Map<number, Bab>) { 

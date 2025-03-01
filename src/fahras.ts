@@ -1,11 +1,11 @@
 import { Component, create, query, registry } from "./libs.ts";
-import type { Satisfies, BaseMap, CompOptions } from "./libs.ts";
+import type { BaseMap, CompOptions } from "./libs.ts";
 import type { SectionOptions, Sections, Bab } from './base.ts';
 import { $is, addToFavorites, getFahras, getRandomInd, prompt, currentSearches, sections, searchHistory, addSearchEntry } from "./base.ts";
 import template from './templates/fahras.neo.html';
 import { prepareForSearch, testString } from "./base.ts";
 
-type TypeMap = Satisfies<BaseMap, {
+interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		title: string,
@@ -28,7 +28,7 @@ type TypeMap = Satisfies<BaseMap, {
 		'button-2': HTMLElement,
 		'button-3': HTMLElement,
 	}
-}>;
+};
 
 class Fahras extends Component<TypeMap> {
 	static override defaults: CompOptions = {
