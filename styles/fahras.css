@@ -56,6 +56,7 @@
 #toolbar > * {
 	display: inline-block;
 	padding-inline: 0.25em;
+	touch-action: manipulation;
 }
 
 /* list */

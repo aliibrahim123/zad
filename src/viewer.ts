@@ -4,7 +4,9 @@ import template from './templates/viewer.neo.html';
 import { 
 	addToFavorites, getHeight, prepareForSearch, prompt, sections, setupStyle, testString,
 	updateFade, type SectionOptions, type Sections, saveSettings, masbahat,
-	saveMasbahat, searchHistory, addSearchEntry, delay
+	saveMasbahat, searchHistory, addSearchEntry, delay,
+	scrollHistory,
+	setScrollEntry
 } from "./base.ts";
 
 export interface TypeMap extends BaseMap {
@@ -77,6 +79,12 @@ export class Viewer extends Component<TypeMap> {
 
 		this.initDom();
 
+		//add scroll listener
+		const innerContainer = this.query('#inner-container')[0];
+		innerContainer.addEventListener('scrollend', () => {
+			setScrollEntry(location.hash.slice(1), this.page.value, innerContainer.scrollTop);
+		});
+
 		this.update(location.hash.slice(1));
 
 		this.fireInit();
@@ -91,6 +99,7 @@ export class Viewer extends Component<TypeMap> {
 		const [section, id] = path.split('/') as [Sections, string];
 		const options = sections[section] as SectionOptions;
 		this.sectionOptions = this.signal('options', options);
+		const scrollPos = scrollHistory[path];
 
 		//load data
 		const data: Data = await (await fetch(`./data/${options.dataFolder}/${id}.json`)).json();
@@ -100,7 +109,7 @@ export class Viewer extends Component<TypeMap> {
 		
 		//handle pages
 		const isMultiPage = Array.isArray(data.data) && !data.singlePage;
-		this.page = this.signal('page', 0);
+		this.page = this.signal('page', scrollPos ? scrollPos[0] : 0);
 		this.set('isMultiPage', isMultiPage);
 		if (isMultiPage) this.collectPages(data.data as Unit[]);
 		
@@ -116,6 +125,9 @@ export class Viewer extends Component<TypeMap> {
 		if (options.viewerStyle) {
 			if (options.viewerStyle.includes('quran')) contentEl.classList.add('quran')
 		}
+
+		//scroll to last position
+		if (scrollPos) this.query('#inner-container')[0].scrollTop = scrollPos[1];
 	}
 	updateInfo () {
 		//collect info
@@ -171,7 +183,6 @@ export class Viewer extends Component<TypeMap> {
 	updatePage (page: Unit[]) {
 		const contentEl = this.refs['content'][0];
 		const infoEl = this.refs['info'][0];
-		const type = this.data.value.type;
 		const animationSpeed = settings.style.core.animationSpeed;
 		
 		//animate page changing
@@ -256,6 +267,10 @@ export class Viewer extends Component<TypeMap> {
 	}
 	addToFavorites () {
 		addToFavorites(`.${location.pathname}${location.hash}`)
+	}
+	copyText () {
+		const data = this.refs['content'][0].innerText;
+		navigator.clipboard.writeText(data);
 	}
 	async filter () {
 		//request text to be matched

@@ -4,12 +4,10 @@ import { masbahat, prompt, saveMasbahat } from "./base.ts";
 import template from './templates/masbaha.neo.html';
 
 interface ItemTypeMap extends BaseMap {
-	childmap: {},
 	props: {
 		name: string,
 		count: number
-	},
-	refs: {}
+	}
 };
 class Item extends Component<ItemTypeMap> {
 	static override defaults: CompOptions = {
@@ -41,9 +39,6 @@ class Item extends Component<ItemTypeMap> {
 }
 
 interface TypeMap extends BaseMap {
-	childmap: {},
-	props: {
-	},
 	refs: {
 		list: HTMLElement
 	}

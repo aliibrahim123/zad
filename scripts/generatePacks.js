@@ -1,6 +1,6 @@
 import { highRes, lowRes, meduimRes, pages } from "../src/backgrounds.js";
 import { mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
-const max_content_per_pack = 1e5;
+const max_content_per_pack = 25e4;
 const UTF8Encoder = new TextEncoder();
 const packs = {
   base: {

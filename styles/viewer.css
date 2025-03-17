@@ -135,6 +135,7 @@
 	padding: calc(0.3em * var(--masbaha-size));
 	
 	user-select: none;
+	touch-action: manipulation;
 	font-size: calc(1.5em * var(--masbaha-size));
 	
 	background: radial-gradient(

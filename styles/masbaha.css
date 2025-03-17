@@ -31,6 +31,8 @@
 	
 	border: solid black calc(0.125em * var(--border-size));
 	border-radius: calc(0.6em);
+
+	touch-action: manipulation;
 }
 
 /* info */

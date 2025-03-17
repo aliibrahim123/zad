@@ -7,12 +7,20 @@ export const searchHistory: string[] =
 	JSON.parse(localStorage.getItem('search-history') as string) || [];
 export const installedPacks: Partial<Record<string, string>> = 
 	JSON.parse(localStorage.getItem('zad-installed-packs') as string) || {};
+export const scrollHistory: Record<string, [page: number, offset: number]> =
+	JSON.parse(localStorage.getItem('scroll-history') as string) || {};
 	
 export function saveMasbahat () {
 	localStorage.setItem('masabahat', JSON.stringify(masbahat));
 }
 export function saveInstalledPacks () {
 	localStorage.setItem('zad-installed-packs', JSON.stringify(installedPacks));
+}
+export function setScrollEntry (name: string, page: number, offset: number) {
+	const keys = Object.keys(scrollHistory);
+	if (keys.length > 75) delete scrollHistory[keys[Math.round(Math.random() * keys.length)]];
+	scrollHistory[name] = [page, offset];
+	localStorage.setItem('scroll-history', JSON.stringify(scrollHistory));
 }
 export function addSearchEntry (name: string) {
 	if (searchHistory.includes(name)) return;

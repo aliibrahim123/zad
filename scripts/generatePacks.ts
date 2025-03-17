@@ -12,7 +12,7 @@ import { mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises"
 		- content: string
 */
 
-const max_content_per_pack = 100000;
+const max_content_per_pack = 250000;
 const UTF8Encoder = new TextEncoder();
 
 interface Pack {
@@ -308,4 +308,3 @@ function joinBuffers (buffers: Uint8Array[]) {
   
 	return result;
 }
-  

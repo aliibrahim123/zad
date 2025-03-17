@@ -25,6 +25,8 @@
 		  <span class="sep">|</span>
 		  <span @on(click)="comp.addToFavorites()">اضف الى المفضلة</span>
 		</span>
+		<span class="sep">|</span>
+		<span @on(click)="comp.copyText()">نسخ</span>
 		<span ref="download" class="no-pad inline" 
 		  @effect(options)="el.classList.toggle('hide', options?.contentPack === '')"
 		>

@@ -64,10 +64,21 @@ class DownloadPage extends Component<TypeMap> {
 		for (let name in packs) {
 			const item = new Item();
 			this.addChild(item);
+			item.el.id = `item-${name}`;
 			item.store.setMultiple({
 				packName: name, pack: packs[name], installedVersion: installedPacks[name]
-			});item.store
+			});
 			list.append(item.el);
+		}
+
+		//focus referenced item
+		if (location.hash !== '') {
+			const el = this.query(`#item-${location.hash.slice(1)}`)[0];
+			el.scrollIntoView({ block: 'center' });
+			el.animate(
+			  { transform: ['scale(1)', 'scale(1.025)', 'scale(1)'] }, 
+			  { duration: 500, delay: 300 }
+			);
 		}
 	}
 

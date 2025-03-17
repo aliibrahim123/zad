@@ -49,25 +49,25 @@ export const sections: Record<Sections, SectionOptions> = {
 	doaa: {
 		viewer: "viewer",
 		arabicName: 'قسم الدعاء',
-		contentPack: '',
+		contentPack: 'doaa',
 		dataFolder: 'doaa'
 	},
 	saaat: {
 		viewer: "viewer",
 		arabicName: 'أعمال الساعات',
-		contentPack: '',
+		contentPack: 'amal',
 		dataFolder: 'saaat'
 	},
 	osboa: {
 		viewer: "viewer",
 		arabicName: 'أعمال الأسبوع',
-		contentPack: '',
+		contentPack: 'amal',
 		dataFolder: 'osboa'
 	},
 	months: {
 		viewer: "viewer",
 		arabicName: 'أعمال الأشهر',
-		contentPack: '',
+		contentPack: 'amal',
 		dataFolder: 'months'
 	},
 	ziara: {
@@ -79,62 +79,62 @@ export const sections: Record<Sections, SectionOptions> = {
 	mobeen: {
 		viewer: "viewer",
 		arabicName: 'تفسير المبين',
-		contentPack: '',
+		contentPack: 'tafseer',
 		dataFolder: 'mobeen'
 	},
 	sera: {
 		viewer: "viewer",
 		arabicName: 'سيرة أهل البيت (ع)',
-		contentPack: '',
+		contentPack: 'sera',
 		dataFolder: 'sera'
 	},
 	sala: {
 		viewer: "viewer",
 		arabicName: 'قسم الصلاة',
-		contentPack: '',
+		contentPack: 'doaa',
 		dataFolder: 'sala'
 	},
 	shorts: {
 		viewer: "viewer",
 		arabicName: 'حكم وأقوال  قصيرة',
-		contentPack: '',
+		contentPack: 'aqwal',
 		dataFolder: 'shorts'
 	},
 	aliWord: {
 		viewer: "viewer",
 		arabicName: 'حكم الإمام علي (ع)',
-		contentPack: '',
+		contentPack: 'aqwal',
 		dataFolder: 'aliWord'
 	},
 	dewan: {
 		viewer: "viewer",
 		arabicName: 'ديوان أهل البيت',
-		contentPack: '',
+		contentPack: 'aqwal',
 		dataFolder: 'dewan'
 	},
 	nahij: {
 		viewer: "viewer",
 		arabicName: 'نهج البلاغة',
-		contentPack: '',
+		contentPack: 'ibooks',
 		dataFolder: 'nahij'
 	},
 	ibooks: {
 		viewer: "viewer",
 		arabicName: 'كتب اهل البيت',
-		contentPack: '',
+		contentPack: 'ibooks',
 		dataFolder: 'ibooks'
 	},
 	quranTopics: {
 		viewer: "viewer",
 		arabicName: 'موضوعات القران الكريم',
-		contentPack: '',
+		contentPack: 'quranTopics',
 		dataFolder: 'quranTopics',
 		viewerStyle: ['quran']
 	},
 	quranInfo: {
 		viewer: "viewer",
 		arabicName: 'مقتطفات قرآنية',
-		contentPack: '',
+		contentPack: 'quranInfo',
 		dataFolder: 'quranInfo'
 	},
 	monasabat: {
