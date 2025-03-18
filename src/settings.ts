@@ -10,10 +10,18 @@ export interface Settings {
 		maxContentPerPage: number,
 		maxUnitPerPage: number,
 	}
+	timings: {
+		adjustDate: number,
+		method: number,
+		safaq: 'general' | 'ahmer' | 'abyad',
+		midnightMode: number,
+		latitudeAdjust: number
+	}
 }
 type PartialSettings = {
 	style: { [P in keyof Settings['style']]: Partial<Settings['style'][P]> },
-	content: Partial<Settings['content']>
+	content: Partial<Settings['content']>,
+	timings: Partial<Settings['timings']>
 }
 
 export const defaultSettings: Settings = {
@@ -43,6 +51,13 @@ export const defaultSettings: Settings = {
 	content: {
 		maxContentPerPage: 8000,
 		maxUnitPerPage: 30
+	},
+	timings: {
+		adjustDate: 0,
+		method: 0,
+		safaq: 'general',
+		midnightMode: 0,
+		latitudeAdjust: 1
 	}
 }
 
@@ -62,7 +77,8 @@ declare global {
 const overwritten: PartialSettings = JSON.parse(localStorage.getItem('zad-settings') as string) 
   || {
 	style: { base: {}, core: {}, fahras: {}, root: {}, tools: {}, viewer: {} },
-	content: {}
+	content: {},
+	timings: {}
 };
 globalThis.settings = merge(defaultSettings, overwritten as Settings) as any;
 globalThis.settings.overwritten = overwritten;

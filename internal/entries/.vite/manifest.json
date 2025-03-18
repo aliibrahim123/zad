@@ -3,6 +3,15 @@
     "file": "chunks/node-BKieyWgd.js",
     "name": "node"
   },
+  "src/aboutDay.ts": {
+    "file": "aboutDay.js",
+    "name": "aboutDay",
+    "src": "src/aboutDay.ts",
+    "isEntry": true,
+    "imports": [
+      "_node-BKieyWgd.js"
+    ]
+  },
   "src/base.ts": {
     "file": "base.js",
     "name": "base",

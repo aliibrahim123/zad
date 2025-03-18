@@ -84,3 +84,21 @@ export function testString(string: string, match: string[]) {
 
 export const any = undefined as any;
 
+export function adjustedToday () {
+	const today = new Date();
+	today.setDate(today.getDate() + Number(settings.timings.adjustDate));
+	return today
+}
+export function toHijri (date: Date) {
+	const parts = (new Intl.DateTimeFormat(
+	  'ar-SA-islamic-umalqura', { day: 'numeric', month: 'numeric', year: 'numeric', numberingSystem: 'latn' }
+	)).formatToParts(date);
+	const result: Record<'month' | 'year' | 'day', number> = {} as any;
+	for (const { type, value } of parts) result[type as keyof typeof result] = Number(value);
+	return result
+}
+export function toHijriString (date: Date) {
+	return date.toLocaleDateString(
+	  'ar-SA-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }
+	);
+}

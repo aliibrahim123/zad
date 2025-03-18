@@ -25,7 +25,7 @@ interface Pack {
 const packs = {
 	base: {
 		type: 'unpacked',
-		version: '1.0.1',
+		version: '1.0.2',
 		arabicName: 'أساس',
 		files: {
 			'.': /([.]html)|(manifest[.]json)/,
@@ -38,7 +38,7 @@ const packs = {
 	},
 	monasabat: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'مناسبات دينية',
 		files: {
 			'./internal/entries/sections': ['monasabat.js'],
@@ -48,7 +48,7 @@ const packs = {
 	backPage: {
 		type: 'unpacked',
 		arabicName: 'خلفيات ورقية',
-		version: '1.0.0',
+		version: '1.0.1',
 		files: {
 			'./assets/background': pages
 		}
@@ -56,14 +56,14 @@ const packs = {
 	backLow: {
 		type: 'unpacked',
 		arabicName: 'خلفيات جودة منخفضة',
-		version: '1.0.0',
+		version: '1.0.1',
 		files: {
 			'./assets/background': lowRes
 		}
 	},
 	backMed: {
 		type: 'unpacked',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'خلفيات جودة متوسطة',
 		files: {
 			'./assets/background': meduimRes
@@ -71,7 +71,7 @@ const packs = {
 	},
 	backHigh: {
 		type: 'unpacked',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'خلفيات جودة عالية',
 		files: {
 			'./assets/background': highRes
@@ -79,7 +79,7 @@ const packs = {
 	},
 	quran: {
 		type: 'packed',
-		version: '1.0.1',
+		version: '1.0.2',
 		arabicName: 'قرآن',
 		files: {
 			'./internal/entries/sections': ['quran.js'],
@@ -88,7 +88,7 @@ const packs = {
 	},
 	tafseer: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'تفسير',
 		files: {
 			'./internal/entries/sections': ['mobeen.js'],
@@ -97,7 +97,7 @@ const packs = {
 	},
 	quranTopics: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'موضوعات القران الكريم',
 		files: {
 			'./internal/entries/sections': ['quranTopics.js'],
@@ -106,7 +106,7 @@ const packs = {
 	},
 	quranInfo: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'مقتطفات قرآنية',
 		files: {
 			'./internal/entries/sections': ['quranInfo.js'],
@@ -115,7 +115,7 @@ const packs = {
 	},
 	amal: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'قسم الأعمال',
 		files: {
 			'./internal/entries/sections': ['saaat.js', 'osboa.js', 'months.js'],
@@ -126,7 +126,7 @@ const packs = {
 	},
 	doaa: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'قسم الدعاء',
 		files: {
 			'./internal/entries/sections': ['doaa.js', 'sala.js'],
@@ -136,7 +136,7 @@ const packs = {
 	},
 	ziara: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'قسم الزيارات',
 		files: {
 			'./internal/entries/sections': ['ziara.js'],
@@ -145,7 +145,7 @@ const packs = {
 	},
 	sera: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'سيرة أهل البيت',
 		files: {
 			'./internal/entries/sections': ['sera.js'],
@@ -154,7 +154,7 @@ const packs = {
 	},
 	aqwal: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'حكم وديوان',
 		files: {
 			'./internal/entries/sections': ['aliWord.js', 'shorts.js', 'dewan.js'],
@@ -165,7 +165,7 @@ const packs = {
 	},
 	ibooks: {
 		type: 'packed',
-		version: '1.0.0',
+		version: '1.0.1',
 		arabicName: 'كتب اهل البيت',
 		files: {
 			'./internal/entries/sections': ['ibooks.js', 'nahij.js'],

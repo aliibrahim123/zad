@@ -3,9 +3,8 @@ import { Component, create, registry } from "./libs.ts";
 import type {BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/settings.neo.html';
 import { defaultSettings, saveSettings, sendRequest, setupStyle, type Settings, type StyleGroup } from "./base.ts";
-import type { StyleCore, StyleUnit } from "./style.ts";
 
-type Section = 'main' | 'style' | 'content' | 'storage';
+type Section = 'main' | 'style' | 'content' | 'storage' | 'timing';
 interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
@@ -45,6 +44,7 @@ class SettingsPage extends Component<TypeMap> {
 
 		this.addStyleSection();
 		this.addStorageSection();
+		this.addTimingSection();
 
 		this.fireInit();
 	}
@@ -153,7 +153,7 @@ class SettingsPage extends Component<TypeMap> {
 		);
 		
 		function handlerFor 
-		<O extends keyof Settings['style'], P extends keyof Settings['style'][O], T>
+		  <O extends keyof Settings['style'], P extends keyof Settings['style'][O], T>
 		(obj: O, prop: P, soft = true) { return {
 		  getter: () => settings.style[obj][prop] as T,
 		  setter (value: T) {
@@ -162,7 +162,6 @@ class SettingsPage extends Component<TypeMap> {
 			setupStyle(soft);
 		  },
 		  reset () {
-		    const value = defaultSettings.style[obj][prop];
 			settings.style[obj][prop] = defaultSettings.style[obj][prop];
 			delete settings.overwritten.style[obj][prop];
 			saveSettings();
@@ -181,6 +180,9 @@ class SettingsPage extends Component<TypeMap> {
 		this.addButton('storage', 'حذف المفضلة', 
 		  () => localStorage.removeItem('favorites')
 		);
+		this.addButton('storage', 'حذف سجل التنقل', 
+		  () => localStorage.removeItem('scroll-history')
+		);
 		this.addButton('storage', 'حذف التنزيلات', () => {
 			sendRequest({ type: 'cache', action: 'delete-all' });
 			localStorage.removeItem('zad-installed-packs')
@@ -190,11 +192,88 @@ class SettingsPage extends Component<TypeMap> {
 		);
 	}
 
+	addTimingSection () {
+		this.addInput('timing', 'تصحيح التاريخ', { type: 'number' }, handlerFor('adjustDate'));
+		this.addOptions('timing', 'طريقة الحساب', [
+			{ name: 'معهد ليفا، قم', value: '0' },
+			{ name: 'جامعة العلوم الإسلامية، كراتشي', value: '1' },
+			{ name: 'الجمعية الإسلامية لأمريكا الشمالية', value: '2' },
+			{ name: 'رابطة العالم الإسلامي', value: '3' },
+			{ name: 'جامعة أم القرى، مكة المكرمة', value: '4' },
+			{ name: 'الهيئة المصرية العامة للمساحة', value: '5' },
+			{ name: 'معهد الجيوفيزياء، جامعة طهران', value: '7' },
+			{ name: 'منطقة الخليج', value: '8' },
+			{ name: 'الكويت', value: '9' },
+			{ name: 'قطر', value: '10' },
+			{ name: 'مجلس أوغاما الإسلامي سنغافورة، سنغافورة', value: '11' },
+			{ name: 'الاتحاد المنظمات الإسلامية في فرنسا', value: '12' },
+			{ name: 'رئاسة الشؤون الدينية، تركيا', value: '13' },
+			{ name: 'الإدارة الروحية لمسلمي روسيا', value: '14' },
+			{ name: 'لجنة رؤية الهلال العالمية', value: '15' },
+			{ name: 'دبي', value: '16' },
+			{ name: 'إدارة التنمية الإسلامية الماليزية (جاكيم)', value: '17' },
+			{ name: 'تونس', value: '18' },
+			{ name: 'الجزائر', value: '19' },
+			{ name: 'وزارة الشؤون الدينية بجمهورية إندونيسيا (كيمناج)', value: '20' },
+			{ name: 'المغرب', value: '21' },
+			{ name: 'الجماعة الإسلامية في لشبونة', value: '22' },
+			{ name: 'وزارة الأوقاف والشؤون والمقدسات الإسلامية، الأردن', value: '23' },
+		], handlerFor('method'));
+		this.addOptions('timing', 'الشفق', [
+			{ name: 'عام', value: 'general' },
+			{ name: 'أحمر', value: 'ahmar' },
+			{ name: 'أبيض', value: 'abyad' }
+		], handlerFor('safaq'));
+		this.addOptions('timing', 'وضع منتصف الليل', [
+			{ name: 'قياسي (من منتصف الغروب إلى الشروق)', value: '0' },
+			{ name: 'جعفري (من منتصف الغروب إلى الفجر)', value: '1' }
+		], handlerFor('midnightMode'));
+		this.addOptions('timing', 'طريقة ضبط خط العرض', [
+			{ name: 'منتصف الليل', value: '1' },
+			{ name: 'سبع الليل', value: '2' },
+			{ name: 'بناءً على الزاوية', value: '3' }
+		], handlerFor('latitudeAdjust'));
+
+		function handlerFor <T> (prop: keyof Settings['timings']) { return {
+		  getter: () => settings.timings[prop] as T,
+		  setter (value: T) {
+			settings.timings[prop] = value as never;
+			settings.overwritten.timings[prop] = value as any;
+		  },
+		  reset () {
+			settings.timings[prop] = defaultSettings.timings[prop] as never;
+			delete settings.overwritten.timings[prop];
+			saveSettings();
+		   }
+		} }
+	}
+
 	addHeader (section: Section, name: string) {
 		this.refs[`section-${section}`][0].append(
 		  create('div', '.header', name)
 		)
 	}
+	addInput (section: Section, name: string, attrs: AttrsMap['input'], fns: { 
+		getter: () => string, setter: (value: string) => void, reset: () => void 
+	  }) {
+		  const input = create('input', '.unit-input', { 
+			attrs: attrs as any, value: String(fns.getter()),
+			events: {
+			  input () { fns.setter(input.value) },
+			  change: () => saveSettings()
+			}
+		  });
+  
+		  const el = create('div', '.unit', 
+			create('span', '.unit-name', name),
+			input,
+			create('button', '.unit-reset', 'اعادة التعيين', { events: {
+			  click: () => { fns.reset(); input.value = fns.getter(); saveSettings() }
+			} })
+		  );
+  
+		  this.refs[`section-${section}`][0].append(el)
+	  }
 	addSlider (section: Section, name: string, attrs: AttrsMap['input'], fns: { 
 	  getter: () => number, setter: (value: number) => void, reset: () => void 
 	}) {

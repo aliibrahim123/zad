@@ -3,7 +3,7 @@
 import { Component, registry } from "./libs.ts";
 import type { BaseMap, CompOptions } from "./libs.ts";
 import template from './templates/root.neo.html';
-import { loadSvgs, currentSearches, installedPacks, getPacks } from "./base.ts";
+import { loadSvgs, currentSearches, installedPacks, getPacks, toHijriString, adjustedToday } from "./base.ts";
 
 type Section = 
   'main' | 'quran' | 'amal' | 'ahdath' | 'ahkam' |
@@ -12,6 +12,7 @@ interface TypeMap extends BaseMap {
 	childmap: {},
 	props: {
 		lastSection: HTMLElement,
+		today: string
 	},
 	refs: {
 		'new-pack-avalable': HTMLElement
@@ -28,6 +29,8 @@ class Root extends Component<TypeMap> {
 		}
 	};
 	override init() {
+		this.store.add('today', { value: toHijriString(adjustedToday()) });
+
 		this.initDom();
 
 		//open current section

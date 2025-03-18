@@ -1,1 +1,1 @@
-export * from '../../../src/sections/mobeen.ts'
+import{collectProtos as l}from'../base.js';let $=1;const d={$ind:0};for(let e=0;e<6;e++){const r={$ind:$++};for(let t=0;t<10;t++){const o={$ind:$++};for(let n=0;n<10;n++)o[`صفحة (${e}${t}${n})`]=e*100+t*10+n;e===0&&t==0&&delete o["صفحة (000)"],r[`صفحات (${e}${t}${e+t===0?1:0}) إلى (${e}${t}9)`]=o}d[`صفحات (${e}0${e===0?1:0}) إلى (${e}99)`]=r}d["صفحات (600) إلى (604)"]={$ind:$++,"صفحة (600)":600,"صفحة (601)":601,"صفحة (602)":602,"صفحة (603)":603,"صفحة (604)":604};const f=l(d,"تفسير المبين");export{f as default};

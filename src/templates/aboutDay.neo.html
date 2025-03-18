@@ -1,0 +1,16 @@
+<neo:template id="aboutDay">
+	<div id="title" :text>عن يوم (${dateString})</div>
+	<div id="toolbar">
+		<div class="button" @on(click)="comp.updateLocation()">تحديث الموقع</div>
+		<div class="sep">|</div>
+		<div class="button" @on(click)="comp.goToWeekWork()">أعمال اليوم من الاسبوع</div>
+		<div class="sep">|</div>
+		<div class="button" @on(click)="comp.goToMonthWork()">أعمال اليوم من الشهر</div>
+	</div>
+	<div class="header">مواقيت:</div>
+	<div id="timings" @ref="timings"></div>
+	<div :class:hide="{!comp.get('showMonasabat')}">
+		<div class="header">مناسبات:</div>
+		<div id="monasabat" :text>@{monasabat}</div>
+	</div>
+</neo:template>

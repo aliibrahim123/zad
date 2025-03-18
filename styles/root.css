@@ -98,6 +98,27 @@
 	border: solid calc(0.1em * var(--border-size)) black;
 }
 
+#about-day-but {
+	height: 2em;
+	margin-block: 0.2em;
+	margin-inline: 1em;
+
+	user-select: none;
+	font-size: 1.2em;
+	text-align: center;
+	align-content: center;
+	
+	--back-color-1: rgba(0, 0, 0, calc(0.3 * var(--black-mod)));
+	--back-color-2: rgba(0, 0, 0, calc(0.15 * var(--black-mod)));
+	background: radial-gradient(var(--back-color-1), var(--back-color-2));
+	transition: --back-color-1 0.2s, --back-color-2 0.2s;
+
+	box-shadow: 0 0 2vmax 0.2vmax rgba(0, 0, 0, calc(0.2 * var(--black-mod)));
+
+	border-radius: 0.6em;
+	border: solid calc(0.1em * var(--border-size)) black;
+}
+
 /* mini title */
 .mini-title {
 	--base-size: calc(2 * var(--title-size));

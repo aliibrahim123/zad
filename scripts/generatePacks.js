@@ -5,7 +5,7 @@ const UTF8Encoder = new TextEncoder();
 const packs = {
   base: {
     type: "unpacked",
-    version: "1.0.1",
+    version: "1.0.2",
     arabicName: "\u0623\u0633\u0627\u0633",
     files: {
       ".": /([.]html)|(manifest[.]json)/,
@@ -18,7 +18,7 @@ const packs = {
   },
   monasabat: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0645\u0646\u0627\u0633\u0628\u0627\u062A \u062F\u064A\u0646\u064A\u0629",
     files: {
       "./internal/entries/sections": ["monasabat.js"],
@@ -28,7 +28,7 @@ const packs = {
   backPage: {
     type: "unpacked",
     arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u0648\u0631\u0642\u064A\u0629",
-    version: "1.0.0",
+    version: "1.0.1",
     files: {
       "./assets/background": pages
     }
@@ -36,14 +36,14 @@ const packs = {
   backLow: {
     type: "unpacked",
     arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0645\u0646\u062E\u0641\u0636\u0629",
-    version: "1.0.0",
+    version: "1.0.1",
     files: {
       "./assets/background": lowRes
     }
   },
   backMed: {
     type: "unpacked",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0645\u062A\u0648\u0633\u0637\u0629",
     files: {
       "./assets/background": meduimRes
@@ -51,7 +51,7 @@ const packs = {
   },
   backHigh: {
     type: "unpacked",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u062E\u0644\u0641\u064A\u0627\u062A \u062C\u0648\u062F\u0629 \u0639\u0627\u0644\u064A\u0629",
     files: {
       "./assets/background": highRes
@@ -59,7 +59,7 @@ const packs = {
   },
   quran: {
     type: "packed",
-    version: "1.0.1",
+    version: "1.0.2",
     arabicName: "\u0642\u0631\u0622\u0646",
     files: {
       "./internal/entries/sections": ["quran.js"],
@@ -68,7 +68,7 @@ const packs = {
   },
   tafseer: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u062A\u0641\u0633\u064A\u0631",
     files: {
       "./internal/entries/sections": ["mobeen.js"],
@@ -77,7 +77,7 @@ const packs = {
   },
   quranTopics: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0645\u0648\u0636\u0648\u0639\u0627\u062A \u0627\u0644\u0642\u0631\u0627\u0646 \u0627\u0644\u0643\u0631\u064A\u0645",
     files: {
       "./internal/entries/sections": ["quranTopics.js"],
@@ -86,7 +86,7 @@ const packs = {
   },
   quranInfo: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0645\u0642\u062A\u0637\u0641\u0627\u062A \u0642\u0631\u0622\u0646\u064A\u0629",
     files: {
       "./internal/entries/sections": ["quranInfo.js"],
@@ -95,7 +95,7 @@ const packs = {
   },
   amal: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0642\u0633\u0645 \u0627\u0644\u0623\u0639\u0645\u0627\u0644",
     files: {
       "./internal/entries/sections": ["saaat.js", "osboa.js", "months.js"],
@@ -106,7 +106,7 @@ const packs = {
   },
   doaa: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0642\u0633\u0645 \u0627\u0644\u062F\u0639\u0627\u0621",
     files: {
       "./internal/entries/sections": ["doaa.js", "sala.js"],
@@ -116,7 +116,7 @@ const packs = {
   },
   ziara: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0642\u0633\u0645 \u0627\u0644\u0632\u064A\u0627\u0631\u0627\u062A",
     files: {
       "./internal/entries/sections": ["ziara.js"],
@@ -125,7 +125,7 @@ const packs = {
   },
   sera: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0633\u064A\u0631\u0629 \u0623\u0647\u0644 \u0627\u0644\u0628\u064A\u062A",
     files: {
       "./internal/entries/sections": ["sera.js"],
@@ -134,7 +134,7 @@ const packs = {
   },
   aqwal: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u062D\u0643\u0645 \u0648\u062F\u064A\u0648\u0627\u0646",
     files: {
       "./internal/entries/sections": ["aliWord.js", "shorts.js", "dewan.js"],
@@ -145,7 +145,7 @@ const packs = {
   },
   ibooks: {
     type: "packed",
-    version: "1.0.0",
+    version: "1.0.1",
     arabicName: "\u0643\u062A\u0628 \u0627\u0647\u0644 \u0627\u0644\u0628\u064A\u062A",
     files: {
       "./internal/entries/sections": ["ibooks.js", "nahij.js"],

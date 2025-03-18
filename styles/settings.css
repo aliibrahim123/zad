@@ -101,6 +101,10 @@
 .unit-slider {
 	flex-grow: 1;
 }
+.unit-input {
+	flex-grow: 1;
+	margin-inline: 0.5em;
+}
 .unit-select {
 	color: inherit;
 	font-size: 0.95em;

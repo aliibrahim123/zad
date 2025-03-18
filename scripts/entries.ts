@@ -9,6 +9,7 @@ const entryMap: EntryMap = {
 	sw: '',
 	settingsPage: '',
 	download: '',
+	aboutDay: '',
 	masbaha: '',
 	sections: {
 		quran: '',

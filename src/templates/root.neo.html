@@ -1,7 +1,7 @@
 <neo:template id="root">
 	<div id='main-section' class="section" @ref="section-main">
 		<div id="title">زاد العباد ليوم المعاد</div>
-		<div id="about-day-but"></div>
+		<div id="about-day-but" @on(click)="router.go('./aboutDay.html')" :text>عن اليوم (${today})</div>
 		<div id="sections-grid">
 		  <div id="quran-but" @on(click)="router.go('#quran')">
 			<svg _src="./assets/icons/quran.svg#svg"></svg>
@@ -15,7 +15,7 @@
 			<svg _src="./assets/icons/events.svg"></svg>
 			<span>أحداث</span> 
 		  </div>
-		  <div id="ahkam-but" @on(click)="router.go('#ahkam')">
+		  <div id="ahkam-but" class=hide @on(click)="router.go('#ahkam')">
 			<svg _src="./assets/icons/ahkam.svg"></svg>
 			<span>أحكام وفقه</span>
 		  </div> 
@@ -23,7 +23,7 @@
 			<svg _src="./assets/icons/books.svg"></svg>
 			<span>تراث الأئمة</span>
 		  </div>
-		  <div id="aalem-turath-but" @on(click)="router.go('#aalem-turath')">
+		  <div id="aalem-turath-but" class=hide @on(click)="router.go('#aalem-turath')">
 			<svg _src="./assets/icons/books.svg"></svg>
 			<span>تراث العلماء</span>
 		  </div>
@@ -157,10 +157,11 @@
 	</div>
 	<div id="tools-section" class="section" @ref="section-tools">
 		<div class="mini-title">أدوات</div>
-		<div class="group">
+		<div class="group"> 
 			<div class="group-title">أدوات</div>
 			<ul>
 			  <li><a href="./masbaha.html">مسبحة</a></li>
+			  <li><a href="./aboutDay.html">عن اليوم</a></li>
 			</ul>
 		</div>
 	</div>
@@ -172,6 +173,7 @@
 			  <li><a href="./settings.html">الصفحة الرئيسية</a></li>
 			  <li><a href="./settings.html#style">المظهر</a></li>
 			  <li><a href="./settings.html#storage">التخزين</a></li>
+			  <li><a href="./settings.html#timing">التوقيت</a></li>
 			</ul>
 		</div>
 		<div class="group">

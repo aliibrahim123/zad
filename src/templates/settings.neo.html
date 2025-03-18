@@ -4,6 +4,7 @@
 		<div id="sections-grid">
 		  <div id="style-button" @on(click)="router.go('#style')">مظهر</div>
 		  <div id="storage-button" @on(click)="router.go('#storage')">تخزين</div>
+		  <div id="timing-button" @on(click)="router.go('#timing')">توقيت</div>
 		</div>
 	</div>
 	<div id="style-section" class="section" @ref="section-style">
@@ -18,5 +19,8 @@
 	</div>
 	<div id="storage-section" class="section" @ref="section-storage">
 		<div class="mini-title">تخزين</div>
+	</div>
+	<div id="timing-section" class="section" @ref="section-timing">
+		<div class="mini-title">توقيت</div>
 	</div>
 </neo:template>
