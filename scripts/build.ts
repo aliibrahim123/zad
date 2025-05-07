@@ -23,8 +23,6 @@ await exec('node scripts/generatePacks.js');
 
 console.log('copying base files');
 const excludedInRoot = [
-	'./package.json',
-	'./package-lock.json',
 	'./README.md',
 	'./tsconfig.json',
 	'./vite.config.ts'
