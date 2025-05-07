@@ -1,5 +1,5 @@
 import { exec as execCallback } from 'node:child_process';
-import { rm, cp, readFile, writeFile, copyFile, mkdir } from 'node:fs/promises';
+import { rm, cp, readFile, writeFile, copyFile, mkdir, readdir } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { glob } from 'glob'
 
@@ -20,7 +20,7 @@ await exec('node scripts/generateJSSource.js');
 await exec('vite build');
 
 await exec('node scripts/generatePacks.js');
-
+console.log(await readdir('./'))
 console.log('copying base files');
 const excludedInRoot = [
 	'./README.md',
