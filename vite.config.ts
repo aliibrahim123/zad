@@ -5,7 +5,7 @@ import { neoTempPlugin } from './node_modules/@neocomp/full/src/build/plugin';
 import { entries, entriesFull, entriesFullSet } from './scripts/entries.ts';
 import { resolve } from 'node:path'
 import { rename } from 'node:fs/promises';
-
+console.log('a')
 //config
 export default defineConfig({
 	server: {
