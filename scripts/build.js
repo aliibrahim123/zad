@@ -14,7 +14,7 @@ const exec = (command) => {
 await exec("node scripts/generateJSSource.js");
 await exec("node scripts/redirectEntryToSrc.js");
 console.log(await readdir("./"));
-await exec("vite build");
+await exec("vite build -d");
 console.log(await readdir("./"));
 console.log(await readdir("./internal/entries"));
 console.log("copying base files");

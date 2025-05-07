@@ -4,14 +4,13 @@ import directoryPlugin from 'vite-plugin-directory-index';
 import { neoTempPlugin } from './node_modules/@neocomp/full/src/build/plugin';
 import { entries, entriesFull, entriesFullSet } from './scripts/entries.ts';
 import { resolve } from 'node:path'
-import { rename } from 'node:fs/promises';
-console.log('a')
+import { readFile, rename } from 'node:fs/promises';
+
 //config
 export default defineConfig({
 	server: {
 		port: 8080,
 		open: true,
-		
 	},
 	publicDir: false,
 	base: '/zad/',
