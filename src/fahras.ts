@@ -202,7 +202,7 @@ class Fahras extends Component<TypeMap> {
 		router.go(`./download.html#${options.contentPack}`)
 	}
 	addToFavorite () {
-		addToFavorites(`.${location.pathname}${location.hash}`)
+		addToFavorites(location.toString())
 	}
 	async search () {
 		const bab = this.bab.value;

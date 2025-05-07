@@ -177,7 +177,7 @@ for (const name in packs) {
     )).reduce((a, b) => a + b);
     info[name] = { version: pack.version, size, arabicName: pack.arabicName };
   } else {
-    console.log("packing ", name);
+    console.log(`packing ${name}`);
     const content = await Promise.all(
       files.map(async (file) => [file, await readFile(file)])
     );

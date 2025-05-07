@@ -266,7 +266,7 @@ export class Viewer extends Component<TypeMap> {
 		router.go(`./download.html#${options.contentPack}`)
 	}
 	addToFavorites () {
-		addToFavorites(`.${location.pathname}${location.hash}`)
+		addToFavorites(location.toString())
 	}
 	copyText () {
 		const data = this.refs['content'][0].innerText;

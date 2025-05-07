@@ -101,6 +101,7 @@ sections.favorite.fahrasBattons = [{
 }];
 
 export function allFavorites () {
+	
 	const names: string[] = [], path: string[] = [];
 	function handle (bab: ProtoBab) {
 	  for (const item in bab) if (!item.startsWith('$')) {

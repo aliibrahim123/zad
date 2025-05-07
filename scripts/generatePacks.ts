@@ -217,7 +217,7 @@ for (const name in packs) {
 	
 	//packed
 	else {
-		console.log('packing ', name);
+		console.log(`packing ${name}`);
 		//load files
 		const content: [string, Uint8Array][] = await Promise.all(
 			files.map(async file => [file, await readFile(file)])

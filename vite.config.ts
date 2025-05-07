@@ -14,6 +14,7 @@ export default defineConfig({
 		
 	},
 	publicDir: false,
+	base: '/recomputed/',
 	build: {
 		target: 'esnext',
 		outDir: './internal/entries/',
@@ -21,7 +22,7 @@ export default defineConfig({
 		rollupOptions: {
 			input: Object.fromEntries(entries.map((entry, ind) => [entry, entriesFull[ind]])),
 			preserveEntrySignatures: 'allow-extension',
-			output: {
+			output: { 
 				entryFileNames: '[name].js',
 				chunkFileNames: 'chunks/[name]-[hash].js'
 			},
