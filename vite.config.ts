@@ -14,7 +14,7 @@ export default defineConfig({
 		
 	},
 	publicDir: false,
-	base: '/recomputed/',
+	base: '/zad/',
 	build: {
 		target: 'esnext',
 		outDir: './internal/entries/',

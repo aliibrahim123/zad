@@ -17,11 +17,11 @@ const exec = (command: string) => {
 
 await exec('node scripts/generateJSSource.js');
 await exec('node scripts/redirectEntryToSrc.js');
-
+console.log(await readdir('./'));
 await exec('vite build');
+console.log(await readdir('./'));
+console.log(await readdir('./internal/entries'));
 
-await exec('node scripts/generatePacks.js');
-console.log(await readFile('./vite.config.ts', 'utf-8'));
 console.log('copying base files');
 const excludedInRoot = [
 	'./README.md',
