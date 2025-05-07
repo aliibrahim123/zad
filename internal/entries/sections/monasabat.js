@@ -1,1 +1,0 @@
-export * from '../../../src/sections/monasabat.ts'
