@@ -21,7 +21,7 @@ await exec('node scripts/redirectEntryToSrc.js');
 await exec('vite build');
 
 await exec('node scripts/generatePacks.js');
-console.log(await readFile('vite.config.ts', 'utf-8'));
+console.log(await readFile('./vite.config.ts', 'utf-8'));
 console.log('copying base files');
 const excludedInRoot = [
 	'./README.md',
