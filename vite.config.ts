@@ -3,7 +3,7 @@ import type { Plugin } from 'vite';
 import directoryPlugin from 'vite-plugin-directory-index';
 import { neoTempPlugin } from './node_modules/@neocomp/full/src/build/plugin';
 import { entries, entriesFull, entriesFullSet } from './scripts/entries.ts';
-import { resolve } from 'node:path'
+import { resolve, basename } from 'node:path'
 import { readFile, rename } from 'node:fs/promises';
 
 //config
@@ -25,9 +25,11 @@ export default defineConfig({
 				entryFileNames: '[name].js',
 				chunkFileNames: 'chunks/[name]-[hash].js'
 			},
-			external: (path, parentPath) => {console.log(path, parentPath, !!(parentPath && entriesFullSet.has(path.slice(path.indexOf('src/')))));
+			external: (path, parentPath) => {
 				//mark external if module import from entry
-				return !!(parentPath && entriesFullSet.has(path.slice(path.indexOf('src/'))));
+				return !!(parentPath && path[0] !== '.' 
+				  && entriesFull.some(entry => entry.includes(basename(path)))
+				);
 			},
 		},
 		dynamicImportVarsOptions: {
