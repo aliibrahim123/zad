@@ -16,6 +16,7 @@ const exec = (command: string) => {
 }
 
 await exec('node scripts/generateJSSource.js');
+await exec('node scripts/redirectEntryToSrc.js');
 
 await exec('vite build');
 

@@ -12,6 +12,7 @@ const exec = (command) => {
   return new Promise((r) => execCallback(command, r).stdout?.pipe(process.stdout));
 };
 await exec("node scripts/generateJSSource.js");
+await exec("node scripts/redirectEntryToSrc.js");
 await exec("vite build");
 await exec("node scripts/generatePacks.js");
 console.log(await readdir("./"));
