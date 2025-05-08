@@ -25,7 +25,8 @@ export default defineConfig({
 				entryFileNames: '[name].js',
 				chunkFileNames: 'chunks/[name]-[hash].js'
 			},
-			external: (path, parentPath) => {
+			external: (path, parentPath) => {console.log(path, parentPath, !!(parentPath && path[0] !== '.' 
+				&& entriesFull.some(entry => entry.includes(basename(path)))));
 				//mark external if module import from entry
 				return !!(parentPath && path[0] !== '.' 
 				  && entriesFull.some(entry => entry.includes(basename(path)))
