@@ -12,7 +12,11 @@ async function copy (path: string) {
 
 const exec = (command: string) => {
 	console.log(`executing: ${command}`);
-	return new Promise(r => execCallback(command, r).stdout?.pipe(process.stdout));
+	return new Promise(r => {
+		const child = execCallback(command, r)
+		child.stdout?.pipe(process.stdout);
+		child.stderr?.pipe(process.stdout);
+	});
 }
 
 await exec('node scripts/generateJSSource.js');
