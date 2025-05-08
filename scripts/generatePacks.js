@@ -11,7 +11,6 @@ const packs = {
       ".": /([.]html)|(manifest[.]json)/,
       "./styles": "all",
       "./internal/entries": "all",
-      "./internal/entries/chunks": "all",
       "./assets/fonts": "all",
       "./assets/icons": "all"
     }

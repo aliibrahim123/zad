@@ -22,7 +22,9 @@ const exec = (command: string) => {
 await exec('node scripts/generateJSSource.js');
 await exec('node scripts/redirectEntryToSrc.js');
 
-await exec('vite build -d');
+await exec('vite build');
+
+await exec('node scripts/generatePacks.js')
 
 console.log('copying base files');
 const excludedInRoot = [
@@ -38,5 +40,3 @@ await cp('./styles', './dist/styles', { recursive: true });
 
 console.log('copying data');
 await cp('./data', './dist/data', { recursive: true });
-
-await exec('node scripts/redirectEntryToSrc.js');

@@ -34,7 +34,13 @@ router.onRoute.on((_, url) => {
 	//dispatch on route event on root comp
 	if (url.pathname === router.lastURL.pathname) (registry.root as any)?.onRoute?.(url);
 })
-update();
+declare global {
+	var __hasInited: boolean
+}
+if (!globalThis.__hasInited) {
+	globalThis.__hasInited = true
+	update();
+}
 
 declare global {
 	var test: any

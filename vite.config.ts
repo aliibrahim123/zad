@@ -23,15 +23,15 @@ export default defineConfig({
 			preserveEntrySignatures: 'allow-extension',
 			output: { 
 				entryFileNames: '[name].js',
-				chunkFileNames: 'chunks/[name]-[hash].js'
+				chunkFileNames: 'chunk-[name]-[hash].js'
 			},
-			external: (path, parentPath) => {console.log(path, parentPath, !!(parentPath && path[0] !== '.' 
+			/*external: (path, parentPath) => {console.log(path, parentPath, !!(parentPath && path[0] !== '.' 
 				&& entriesFull.some(entry => entry.includes(basename(path)))));
 				//mark external if module import from entry
 				return !!(parentPath && path[0] !== '.' 
 				  && entriesFull.some(entry => entry.includes(basename(path)))
 				);
-			},
+			},*/
 		},
 		dynamicImportVarsOptions: {
 			include: ['']
